@@ -1,0 +1,1253 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import hero from "../../assets/images/home_hero.jpg";
+import whyImg from "../../assets/images/why-engineers.png";
+import partnersBg from "../../assets/images/partners-bg.jpg";
+import heroLogo from "../../assets/brand/logo-icon.png";
+import iClipboard from "lucide-static/icons/clipboard-check.svg?raw";
+import iCompass from "lucide-static/icons/drafting-compass.svg?raw";
+import iPackage from "lucide-static/icons/package-check.svg?raw";
+import iBadge from "lucide-static/icons/badge-check.svg?raw";
+import iPill from "lucide-static/icons/pill.svg?raw";
+import iShield from "lucide-static/icons/shield-check.svg?raw";
+import iUsers from "lucide-static/icons/users.svg?raw";
+import iRoute from "lucide-static/icons/route.svg?raw";
+import iLayers from "lucide-static/icons/layers.svg?raw";
+import iBridge from "lucide-static/icons/arrow-left-right.svg?raw";
+import iArrow from "lucide-static/icons/arrow-up-right.svg?raw";
+import iChevronDown from "lucide-static/icons/chevron-down.svg?raw";
+import iImage from "lucide-static/icons/image.svg?raw";
+import partners from "../../data/partners.json";
+
+const engagementAreas = [
+  {
+    title: "Turnkey Factory Setup",
+    description:
+      "For start-ups, foreign investors, and facility developers looking to build or expand compliant manufacturing facilities in Georgia.",
+  },
+  {
+    title: "GMP & Engineering Localization",
+    description:
+      "For international pharma brands and global engineering firms needing an on-the-ground partner to execute local projects.",
+  },
+  {
+    title: "Line Upgrades & Modernization",
+    description:
+      "For existing local manufacturers optimizing infrastructure to meet international regulatory standards.",
+  },
+];
+
+const services = [
+  {
+    parts: [{ t: "GMP/GDP", em: true }, { t: " Consulting" }],
+    desc: "GMP readiness assessments, gap assessments and internal audits",
+    icon: iClipboard,
+  },
+  {
+    parts: [{ t: "Facility & Engineering " }, { t: "Design", em: true }],
+    desc: "Pharmaceutical facility concept development and layout planning",
+    icon: iCompass,
+  },
+  {
+    parts: [{ t: "Equipment & " }, { t: "Procurement", em: true }],
+    desc: "Vendor assessment, technical bid comparison and procurement support",
+    icon: iPackage,
+  },
+  {
+    parts: [{ t: "Qualification & " }, { t: "Validation", em: true }],
+    desc: "Qualification and validation planning and execution support, including DQ, IQ, OQ and PQ",
+    icon: iBadge,
+  },
+];
+const why = [
+  {
+    title: "Pharmaceutical-sector specialization, not general construction",
+    icon: iPill,
+  },
+  {
+    title:
+      "GMP/GDP and validation built into engineering decisions from day one",
+    icon: iShield,
+  },
+  {
+    title: "One team connecting Quality, Production, Engineering and vendors",
+    icon: iUsers,
+  },
+  {
+    title: "Flexible engagement — full lifecycle or a targeted stage",
+    icon: iRoute,
+  },
+];
+---
+
+<BaseLayout
+  title="AID Group | Pharmaceutical Engineering & GMP Consulting"
+  description="Pharmaceutical consulting & engineering across the Caucasus region — GMP/GDP compliance, facility design, equipment selection, qualification & validation."
+>
+  <section class="hero">
+    <Image
+      class="hero-deco"
+      src={heroLogo}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="900px"
+      loading="eager"
+    />
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="kicker">For a Healthier Tomorrow</p>
+        <h1>
+          Engineering Pharmaceutical Facilities for Compliance, Performance and
+          Long-Term Reliability
+        </h1>
+        <p class="subline">
+          AID Group combines pharmaceutical GMP expertise, engineering knowledge
+          and project execution experience to support manufacturing facilities
+          from concept and design through implementation, commissioning and
+          qualification.
+        </p>
+        <a class="btn btn-primary" href="/en/contact/">Discuss Your Project →</a
+        >
+      </div>
+      <Image
+        class="hero-img"
+        src={hero}
+        alt="Meeting room with a wall-mounted monitor showing facility design drawings"
+        widths={[480, 720, 1200]}
+        sizes="(max-width: 899px) 100vw, 560px"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section merge">
+    <div class="merge-bg-wrap" aria-hidden="true">
+      <Image
+        src={partnersBg}
+        alt=""
+        widths={[800, 1400, 2000]}
+        sizes="100vw"
+        loading="lazy"
+      />
+      <span class="merge-overlay"></span>
+    </div>
+    <div class="container merge-grid">
+      <div class="merge-col challenges-col">
+        <h2>Areas of Engagement</h2>
+        <ul class="engagement-list">
+          {
+            engagementAreas.map((area) => (
+              <li class="engagement-card">
+                <h3>{area.title}</h3>
+                <p>{area.description}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <span class="divider" aria-hidden="true"></span>
+      <div class="merge-col">
+        <h2>Partners</h2>
+        <p class="lead">
+          We work alongside manufacturers, equipment vendors and engineering
+          partners across the region.
+        </p>
+        <ul class="partners-grid">
+          {
+            partners.map((p) => (
+              <li>
+                {p.logo ? (
+                  <div class="p-tile has-logo" aria-label={p.name}>
+                    <img
+                      class="p-logo"
+                      src={p.logo}
+                      alt={`${p.name} logo`}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    class="p-tile is-placeholder"
+                    aria-label={`${p.name} — logo coming soon`}
+                  >
+                    <span class="ph" set:html={iImage} aria-hidden="true" />
+                    <span class="p-name">{p.name}</span>
+                  </div>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section expertise">
+    <div class="container">
+      <h2>AID Group Expertise</h2>
+      <ul class="bento">
+        {
+          services.map((x, i) => (
+            <li class={`b b${i + 1}`}>
+              <a class="exp-card" href="/en/services/">
+                <span class="exp-icon" set:html={x.icon} aria-hidden="true" />
+                <h3>
+                  {x.parts.map((p) =>
+                    p.em ? <span class="em">{p.t}</span> : p.t,
+                  )}
+                </h3>
+                <p>{x.desc}</p>
+                <span class="go" set:html={iArrow} aria-hidden="true" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section why">
+    <span class="ring ring-a" aria-hidden="true"></span>
+    <span class="ring ring-b" aria-hidden="true"></span>
+    <div class="container why-grid">
+      <div class="why-left">
+        <h2>Why AID Group</h2>
+        <div class="why-img">
+          <Image
+            src={whyImg}
+            alt="Two pharmaceutical engineers in cleanroom garments reviewing a tablet beside a stainless-steel filling machine"
+            widths={[480, 720, 1024]}
+            sizes="(max-width: 1023px) 100vw, 460px"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <ul class="why-cards">
+        {
+          why.map((x, i) => (
+            <li class="why-card">
+              <span class="wm" set:html={x.icon} aria-hidden="true" />
+              <span class="num" aria-hidden="true">{`0${i + 1}`}</span>
+              <span class="icon" set:html={x.icon} aria-hidden="true" />
+              <h3>{x.title}</h3>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section glance">
+    <span class="glow glow-a" aria-hidden="true"></span>
+    <span class="glow glow-b" aria-hidden="true"></span>
+    <div class="container glance-grid">
+      <article class="g-card">
+        <span class="wm" set:html={iLayers} aria-hidden="true" />
+        <div class="g-head">
+          <span class="icon" set:html={iLayers} aria-hidden="true" />
+          <h2>At a Glance</h2>
+        </div>
+        <p>
+          AID Group provides <mark
+            >integrated consulting, engineering and qualification services</mark
+          > for pharmaceutical manufacturing facilities. We help clients turn operational
+          needs and regulatory requirements into <mark
+            >practical, compliant and efficient facilities</mark
+          > — from early concept and user requirements, through design and equipment/utility
+          selection, to implementation support, commissioning, qualification and validation.
+        </p>
+      </article>
+      <article class="g-card">
+        <span class="wm" set:html={iBridge} aria-hidden="true" />
+        <div class="g-head">
+          <span class="icon" set:html={iBridge} aria-hidden="true" />
+          <h2>Our Positioning</h2>
+        </div>
+        <p>
+          AID Group <mark
+            >bridges the gap between pharmaceutical quality requirements and
+            engineering execution</mark
+          >. Our goal is to ensure that every technical decision supports not
+          only project delivery, but also <mark
+            >GMP compliance, operational efficiency, maintainability and
+            successful qualification</mark
+          >.
+        </p>
+      </article>
+    </div>
+    <div class="guide-connector" aria-hidden="true">
+      <span class="guide-line"></span>
+      <span class="guide-arrow" set:html={iChevronDown} />
+    </div>
+    <div class="container cta-band">
+      <p class="cta-text">
+        Planning a new facility or upgrading an existing one? Let's talk.
+      </p>
+      <a class="btn btn-primary" href="/en/contact/">Contact Us</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".exp-card").forEach((c) => {
+    c.addEventListener("pointermove", (e) => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      c.style.setProperty("--my", `${e.clientY - r.top}px`);
+    });
+  });
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    z-index: 6;
+    overflow: hidden;
+    padding-block: var(--space-xl);
+    box-shadow: var(--shadow-bar);
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 30%, var(--bg) 100%);
+  }
+  .hero-deco {
+    position: absolute;
+    z-index: 0;
+    left: -7%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(70vw, 820px);
+    height: auto;
+    opacity: 0.2;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+  .kicker {
+    margin: 0 0 var(--space-sm);
+    color: var(--teal-dark);
+    font: 600 var(--small-size)/var(--small-lh) var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .hero-text h1 {
+    margin-bottom: var(--space-md);
+  }
+  .subline {
+    max-width: 60ch;
+    margin-bottom: var(--space-md);
+  }
+  .hero-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+  }
+  /* At a Glance / Positioning — light-to-blue gradient band with outlined cards */
+  .glance {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    box-shadow: var(--shadow-bar-strong);
+    background: linear-gradient(
+      180deg,
+      var(--bg) 0%,
+      var(--blue) 80%,
+      var(--blue) 100%
+    );
+  }
+  .glow {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+  .glow-a {
+    width: 620px;
+    height: 620px;
+    left: -220px;
+    top: -260px;
+    background: radial-gradient(
+      circle,
+      rgb(79 166 141 / 0.28) 0%,
+      transparent 70%
+    );
+  }
+  .glow-b {
+    width: 720px;
+    height: 720px;
+    right: -260px;
+    bottom: -300px;
+    background: radial-gradient(
+      circle,
+      rgb(17 102 159 / 0.55) 0%,
+      transparent 70%
+    );
+  }
+  .glance-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  .g-card {
+    position: relative;
+    overflow: hidden;
+    padding: 26px 28px;
+    background: linear-gradient(
+      155deg,
+      var(--bg) 0%,
+      var(--bg) 55%,
+      rgb(79 166 141 / 0.12) 100%
+    );
+    border: 1px solid var(--border);
+    border-bottom: 4px solid var(--teal-light);
+    border-radius: var(--radius-card);
+    box-shadow: 0 10px 28px rgb(12 56 93 / 0.14);
+    transition: box-shadow 0.8s ease;
+  }
+  .g-card::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: -70px;
+    left: -70px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      rgb(79 166 141 / 0.35) 0%,
+      transparent 70%
+    );
+  }
+  .glance-grid .g-card:last-child {
+    background: linear-gradient(
+      155deg,
+      var(--bg) 0%,
+      var(--bg) 55%,
+      rgb(17 102 159 / 0.14) 100%
+    );
+  }
+  .glance-grid .g-card:last-child::after {
+    background: radial-gradient(
+      circle,
+      rgb(17 102 159 / 0.38) 0%,
+      transparent 70%
+    );
+  }
+  /* Hovering the section enlarges both cards together, minimally, over 0.8s (no delay) */
+  .glance-grid {
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .glance:hover .glance-grid {
+    transform: scale(1.015);
+  }
+  .glance:hover .g-card {
+    box-shadow: 0 16px 36px rgb(12 56 93 / 0.22);
+  }
+  @media (hover: none), (prefers-reduced-motion: reduce) {
+    .glance:hover .glance-grid {
+      transform: none;
+    }
+  }
+
+  /* Closing CTA — same section as At a Glance / Positioning, banner underneath, sits in the blue part of the gradient */
+  .guide-connector {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 48px;
+    margin-top: var(--space-md);
+  }
+  .guide-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0),
+      rgb(255 255 255 / 0.6)
+    );
+  }
+  .guide-arrow {
+    display: inline-flex;
+    color: rgb(255 255 255 / 0.75);
+    animation: guide-bob 2.2s ease-in-out infinite;
+  }
+  .guide-arrow :global(svg) {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2;
+  }
+  @keyframes guide-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(5px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .guide-arrow {
+      animation: none;
+    }
+  }
+
+  .cta-band {
+    position: relative;
+    z-index: 1;
+    padding-top: var(--space-md);
+    padding-bottom: 0;
+    text-align: center;
+  }
+  .glance::before {
+    content: "";
+    position: absolute;
+    top: 32%;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 55% 130% at 50% 100%,
+      #000 45%,
+      transparent 88%
+    );
+    mask-image: radial-gradient(
+      ellipse 55% 130% at 50% 100%,
+      #000 45%,
+      transparent 88%
+    );
+  }
+  .cta-text {
+    margin: 0 0 var(--space-md);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.3;
+    text-shadow:
+      0 2px 10px rgb(0 0 0 / 0.35),
+      0 1px 2px rgb(0 0 0 / 0.25);
+  }
+  @media (max-width: 599px) {
+    .cta-band {
+      margin-top: var(--space-lg);
+    }
+    .cta-text {
+      font-size: 22px;
+    }
+  }
+  .g-card > :not(.wm) {
+    position: relative;
+    z-index: 1;
+  }
+  .g-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+  .g-head .icon {
+    margin: 0;
+    flex: none;
+    color: var(--teal-dark);
+  }
+  .g-head h2 {
+    margin: 0;
+    font-size: 30px;
+  }
+  .g-head h2::after {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 3px;
+    margin-top: 8px;
+    background: var(--teal-light);
+    border-radius: 2px;
+  }
+  .g-card p {
+    margin: 0;
+    max-width: 62ch;
+  }
+  .g-card mark {
+    color: var(--navy);
+    font-weight: 600;
+    background: linear-gradient(transparent 55%, rgb(79 166 141 / 0.38) 55%);
+    padding: 0 2px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .wm {
+    position: absolute;
+    z-index: 0;
+    right: -28px;
+    bottom: -32px;
+    display: block;
+    width: 190px;
+    height: 190px;
+    color: var(--teal-dark);
+    opacity: 0.16;
+    pointer-events: none;
+  }
+  .wm :global(svg) {
+    width: 100%;
+    height: 100%;
+    stroke-width: 1;
+  }
+  /* Why AID Group — green gradient band, title + image left, 2x2 square cards right */
+  .why {
+    position: relative;
+    z-index: 3;
+    box-shadow: var(--shadow-bar-strong);
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(
+      115deg,
+      var(--teal-dark) 0%,
+      var(--teal-dark) 32%,
+      var(--teal-light) 100%
+    );
+  }
+  .why::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(
+      rgb(255 255 255 / 0.18) 1.5px,
+      transparent 1.6px
+    );
+    background-size: 26px 26px;
+    -webkit-mask-image: linear-gradient(115deg, transparent 25%, #000 100%);
+    mask-image: linear-gradient(115deg, transparent 25%, #000 100%);
+  }
+  .ring {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 0.22);
+  }
+  .ring-a {
+    width: 560px;
+    height: 560px;
+    right: -180px;
+    top: -220px;
+    box-shadow: inset 0 0 0 44px rgb(255 255 255 / 0.04);
+  }
+  .ring-b {
+    width: 420px;
+    height: 420px;
+    left: -140px;
+    bottom: -220px;
+  }
+  .why-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-lg);
+    align-items: stretch;
+  }
+  .why-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .why h2 {
+    color: #fff;
+    margin: 0;
+  }
+  .why h2::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin-top: var(--space-sm);
+    background: #fff;
+    border-radius: 2px;
+  }
+  .why-img {
+    position: relative;
+    flex: 1;
+    min-height: 260px;
+    width: 100%;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgb(0 0 0 / 0.22);
+  }
+  .why-img :global(img) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 48%;
+  }
+  .why-cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: var(--space-md);
+  }
+  .why-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-sm);
+    padding: 28px;
+    background: linear-gradient(
+      155deg,
+      var(--surface) 50%,
+      rgb(79 166 141 / 0.2) 100%
+    );
+    border-bottom: 4px solid var(--teal-light);
+    border-radius: var(--radius-card);
+    box-shadow: 0 14px 30px rgb(0 0 0 / 0.18);
+    overflow: hidden;
+    transition:
+      transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.8s ease;
+  }
+  .why-card .icon {
+    margin: 0;
+    color: var(--teal-dark);
+  }
+  .why-card .num {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    font: 700 48px/1 var(--font-heading);
+    color: var(--teal-light);
+    opacity: 0.28;
+  }
+  .why-card h3 {
+    margin: 0;
+    font-size: clamp(17px, 1.7vw, 22px);
+    line-height: 1.3;
+  }
+  .why-card .icon,
+  .why-card h3 {
+    position: relative;
+  }
+  .why-card .wm {
+    width: 150px;
+    height: 150px;
+    right: -22px;
+    bottom: -26px;
+    opacity: 0.1;
+  }
+  /* Hovering the card group spreads the four cards apart (gap grows by 20px) */
+  .why-cards:hover .why-card {
+    box-shadow: 0 20px 40px rgb(0 0 0 / 0.26);
+  }
+  .why-cards:hover .why-card:nth-child(1) {
+    transform: translate(-10px, -10px);
+  }
+  .why-cards:hover .why-card:nth-child(2) {
+    transform: translate(10px, -10px);
+  }
+  .why-cards:hover .why-card:nth-child(3) {
+    transform: translate(-10px, 10px);
+  }
+  .why-cards:hover .why-card:nth-child(4) {
+    transform: translate(10px, 10px);
+  }
+  @media (hover: none), (prefers-reduced-motion: reduce) {
+    .why-cards:hover .why-card {
+      transform: none !important;
+    }
+  }
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--space-sm);
+    border-radius: var(--radius-card);
+    background: rgb(79 166 141 / 0.2);
+    color: var(--navy);
+  }
+  .icon :global(svg) {
+    width: 26px;
+    height: 26px;
+    stroke-width: 1.75;
+  }
+  /* AID Group Expertise — dark blueprint section with uneven bento grid */
+  .expertise {
+    position: relative;
+    z-index: 4;
+    box-shadow: var(--shadow-bar-strong);
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(
+        60% 80% at 12% 0%,
+        rgb(79 166 141 / 0.3),
+        transparent 60%
+      ),
+      radial-gradient(
+        55% 75% at 92% 100%,
+        rgb(17 102 159 / 0.6),
+        transparent 60%
+      ),
+      var(--navy);
+  }
+  .expertise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      #000 25%,
+      transparent 75%
+    );
+    mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+  }
+  .expertise .container {
+    position: relative;
+  }
+  .expertise h2 {
+    color: #fff;
+    text-align: center;
+    margin: 0;
+  }
+  .expertise h2::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin: var(--space-sm) auto 0;
+    background: var(--teal-tint);
+    border-radius: 2px;
+  }
+  .bento {
+    list-style: none;
+    margin: var(--space-lg) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-md);
+  }
+  .b {
+    display: flex;
+  }
+  .b1,
+  .b4 {
+    grid-column: span 7;
+  }
+  .b2,
+  .b3 {
+    grid-column: span 5;
+  }
+  .exp-card {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 280px;
+    padding: 40px 32px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: var(--radius-card);
+    background: linear-gradient(
+      145deg,
+      rgb(255 255 255 / 0.12),
+      rgb(255 255 255 / 0.03)
+    );
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.3s,
+      border-color 0.3s;
+  }
+  .exp-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(
+      340px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(79 166 141 / 0.32),
+      transparent 65%
+    );
+  }
+  .exp-card:hover,
+  .exp-card:focus-visible {
+    transform: translateY(-6px) scale(1.03);
+    border-color: var(--teal-light);
+    box-shadow:
+      0 24px 48px rgb(0 0 0 / 0.35),
+      0 0 0 1px rgb(79 166 141 / 0.5);
+    z-index: 2;
+  }
+  .exp-card:hover::before,
+  .exp-card:focus-visible::before {
+    opacity: 1;
+  }
+  .exp-card:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+  .exp-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+    color: var(--teal-tint);
+    background: rgb(79 166 141 / 0.2);
+    border: 1px solid rgb(155 213 194 / 0.5);
+    transition:
+      transform 0.3s,
+      background-color 0.3s,
+      color 0.3s;
+  }
+  .exp-icon :global(svg) {
+    width: 30px;
+    height: 30px;
+    stroke-width: 1.6;
+  }
+  .exp-card:hover .exp-icon {
+    transform: scale(1.12) rotate(-6deg);
+    background: var(--teal-dark);
+    color: #fff;
+  }
+  .exp-card h3 {
+    position: relative;
+    margin: 0;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .em {
+    color: var(--teal-tint);
+  }
+  .exp-card p {
+    position: relative;
+    margin: 0;
+    max-width: 40ch;
+    font-size: 16px;
+    line-height: 1.55;
+    color: rgb(255 255 255 / 0.86);
+  }
+  .go {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    color: var(--teal-tint);
+    opacity: 0.55;
+    transition:
+      transform 0.3s,
+      opacity 0.3s;
+  }
+  .go :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .exp-card:hover .go {
+    opacity: 1;
+    transform: translate(3px, -3px);
+  }
+  @media (max-width: 899px) {
+    .bento {
+      grid-template-columns: 1fr;
+    }
+    .b1,
+    .b2,
+    .b3,
+    .b4 {
+      grid-column: auto;
+    }
+    .exp-card {
+      min-height: 0;
+      padding: 32px 24px;
+    }
+    .exp-card h3 {
+      font-size: 22px;
+    }
+  }
+  @media (hover: none) {
+    .exp-card:hover {
+      transform: none;
+    }
+  }
+  @media (max-width: 1023px) {
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
+    .why-img {
+      flex: none;
+      aspect-ratio: 16 / 10;
+      min-height: 0;
+    }
+    .why-img :global(img) {
+      object-position: 50% 30%;
+    }
+  }
+  @media (max-width: 599px) {
+    .why-cards {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+    }
+    .why-card {
+      padding: 24px;
+    }
+    .why-cards:hover .why-card {
+      transform: none !important;
+    }
+    .why-card h3 {
+      font-size: 18px;
+    }
+  }
+  @media (max-width: 899px) {
+    .hero {
+      padding-block: var(--space-lg);
+    }
+    .hero-grid,
+    .glance-grid {
+      grid-template-columns: 1fr;
+    }
+    .g-card {
+      padding: 22px 20px;
+    }
+    .g-head h2 {
+      font-size: 26px;
+    }
+  }
+
+  /* We Are Ready for Challenges + Partners — one merged section, two columns, vertical divider */
+  .merge {
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    box-shadow: var(--shadow-bar-strong);
+    background: var(--bg);
+  }
+  .merge-bg-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .merge-bg-wrap :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .merge-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgb(238 239 237 / 0) 0%,
+      rgb(238 239 237 / 0.15) 14%,
+      rgb(238 239 237 / 0.55) 28%,
+      rgb(238 239 237 / 0.92) 40%,
+      var(--bg) 50%,
+      rgb(238 239 237 / 0.92) 60%,
+      rgb(238 239 237 / 0.55) 72%,
+      rgb(238 239 237 / 0.15) 86%,
+      rgb(238 239 237 / 0) 100%
+    );
+  }
+  .merge-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-md);
+    align-items: start;
+  }
+  .merge-col h2 {
+    margin-bottom: var(--space-md);
+  }
+  .divider {
+    align-self: stretch;
+    width: 3px;
+    border-radius: 2px;
+    background: rgb(12 56 93 / 0.35);
+  }
+
+  .challenges-col {
+    text-align: right;
+  }
+  .engagement-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .engagement-card {
+    width: 90%;
+    margin-left: auto;
+    text-align: right;
+    padding: 20px 24px;
+    background: linear-gradient(
+      90deg,
+      rgb(255 255 255 / 0) 0%,
+      rgb(255 255 255 / 0.55) 40%,
+      var(--surface) 65%
+    );
+    border-right: 4px solid var(--teal-light);
+    border-radius: var(--radius-card);
+    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+    transition:
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+  }
+  .engagement-card:hover {
+    box-shadow: 0 10px 24px rgb(12 56 93 / 0.16);
+    transform: translateY(-2px);
+  }
+  .engagement-card h3 {
+    margin: 0 0 6px;
+    color: var(--navy);
+    font-size: 19px;
+  }
+  .engagement-card p {
+    margin: 0;
+    color: var(--text-body);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .lead {
+    margin: 0 0 var(--space-lg);
+    color: var(--text-body);
+  }
+  .partners-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .p-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 160px;
+    height: 110px;
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    color: var(--navy);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .p-tile:hover,
+  .p-tile:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgb(12 56 93 / 0.16);
+    border-color: var(--teal-light);
+  }
+  .p-tile.is-placeholder {
+    border-style: dashed;
+    color: #6b747c;
+    cursor: default;
+  }
+  .p-tile.is-placeholder:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--teal-light);
+  }
+  .p-tile.has-logo {
+    padding: 16px 20px;
+    cursor: default;
+  }
+  .p-tile.has-logo:hover {
+    transform: none;
+    box-shadow: 0 10px 24px rgb(12 56 93 / 0.1);
+    border-color: var(--border);
+  }
+  .p-logo {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .ph {
+    display: inline-flex;
+    color: inherit;
+    opacity: 0.6;
+  }
+  .ph :global(svg) {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.5;
+  }
+  .p-name {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+    padding-inline: 6px;
+  }
+
+  @media (max-width: 899px) {
+    .merge-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .divider {
+      width: 100%;
+      height: 3px;
+    }
+    .challenges-col {
+      text-align: left;
+    }
+  }
+</style>

@@ -1,0 +1,55 @@
+/* Design tokens — Phase 2 (2.1 colour, 2.2 type scale, 2.3 spacing/radius) */
+:root {
+  /* Colour */
+  --navy: #0c385d;          /* headings, footer */
+  --blue: #11669f;          /* links, nav hover/active */
+  --teal-dark: #1f6362;     /* CTA buttons, active states */
+  --navy-deep: #071f33;     /* text on --teal-light (5.7:1); navy alone is only 4.1:1 */
+  --teal-tint: #9bd5c2;      /* accent text/icons on navy surfaces (8:1 on --navy) */
+  --teal-light: #4fa68d;    /* icon backgrounds, glows — never a text background */
+  --bg: #eeefed;
+  --surface: #ffffff;
+  --text-heading: var(--navy);
+  --text-body: #37414a;
+  --border: #dbddd9;
+  --status-completed: var(--teal-dark);
+  --status-ongoing: var(--blue);
+
+  /* Spacing — 8px base grid */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 48px;
+  --space-xl: 96px;
+  --space-2xl: 128px;
+
+  /* Elevation — shared by header and hero */
+  --shadow-bar: 0 4px 14px rgb(12 56 93 / .12);
+  --shadow-bar-strong: 0 6px 18px rgb(0 0 0 / .35);
+
+  /* Shape */
+  --radius-card: 8px;
+  --radius-button: 6px;
+  --radius-badge: 4px;
+  --container: 1200px;
+  --gutter: var(--space-md);
+
+  /* Type — English (Georgian overrides come with the /ka/ step) */
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+
+  --h1-size: 40px; --h1-lh: 1.15;
+  --h2-size: 34px; --h2-lh: 1.2;
+  --h3-size: 22px; --h3-lh: 1.3;
+  --body-size: 17px; --body-lh: 1.6;
+  --small-size: 14px; --small-lh: 1.4;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --h1-size: 32px; --h1-lh: 1.2;
+    --h2-size: 26px; --h2-lh: 1.25;
+    --h3-size: 19px;
+    --body-size: 16px;
+  }
+}
