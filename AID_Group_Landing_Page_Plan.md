@@ -20,7 +20,9 @@
 | **About Us** | ⏳ Not started. Company Overview, Why AID Group Was Created, Key Advantages & Differentiation, Founders & Team, Standards & Regulatory Frameworks — content unchanged, see Appendix A.                                                                                                                                                          |
 | **Services** | ⏳ Not started. Service clusters (grouped from full service list), End-to-End Process/Lifecycle, Facility Types supported, Who We Serve (detailed, tied to relevant services) — content unchanged, see Appendix A.                                                                                                                              |
 | **Projects** | ⏳ Not started. Split into Completed / Ongoing, rendered from a data array (JSON) for easy future additions. Layout: full-width (100%) cards, stacked vertically one after another — not a multi-column grid.                                                                                                                                   |
-| **Contact**  | ⏳ Not started. Email, phone, address only — no form, no backend.                                                                                                                                                                                                                                                                                |
+| **Contact**  | ✅ **Built.** Header intro + three cards (Email / Phone / Address, with `mailto:`/`tel:` links) → WhatsApp/Facebook buttons → lazy-loaded Google Maps embed of the office address. Buttons use the `.btn-secondary` style, centered. See "Contact — As Built" below. **Note:** the page intro was written ad hoc during build, before this Appendix A copy was supplied — see that section for the discrepancy and the approved fix.                                                    |
+
+**SEO infrastructure — ✅ built:** `site` URL and `@astrojs/sitemap` integration configured in `astro.config.mjs` (sitemap excludes the bare `/` redirect); `public/robots.txt` referencing the sitemap; canonical URLs and Open Graph/Twitter meta tags added to `BaseLayout.astro` (default share image: `public/og-image.jpg`, the supplied AID Group logo card). **Postponed:** `ProfessionalService` JSON-LD (needs final company details confirmed), hreflang alternates (needs `/ka/` pages to exist first), and submitting the sitemap to Google Search Console (deferred until About/Services/Projects have real content, to avoid inviting indexing of stub pages).
 
 **Navigation:** `Home · About · Services · Projects · Contact` (shared header/footer across all pages) — ✅ built as planned, styling updated (see Phase 2).
 
@@ -280,13 +282,32 @@ Not yet started as a formal pass. Informally, each Home section was visually che
 
 ---
 
+## Contact — As Built
+
+```
+HEADER (shared)
+├ Contact head — kicker "CONTACT" + H1 "Contact Us" + intro line (see copy note below)
+├ Three cards: Email (mailto: link) · Phone (tel: link) · Address (two-line, static)
+├ WhatsApp + Facebook buttons, centered, .btn-secondary style
+├ "Find Us" — Google Maps iframe, injected via IntersectionObserver on scroll
+│  (keeps the page fast; nothing loads from Google until the visitor scrolls near it)
+└ "Open in Google Maps" button, centered, links out to Maps directly
+FOOTER (shared)
+```
+
+**Copy note:** the page intro currently reads *"Planning a facility, a GMP upgrade, or a qualification and validation project? Get in touch and we will get back to you."* — written during build, before the client supplied the Appendix A copy below. The approved Appendix A intro is **"Let's discuss your project."** Per client instruction, the built page is being left as-is for now; swapping in the approved line is a small pending fix, not yet scheduled.
+
+**Design decision:** buttons use `.btn-secondary` (navy outline, blue fill on hover), not `.btn-primary` (the solid teal used on Home's CTAs) — confirmed with the client after an initial pass used primary buttons.
+
+---
+
 ## Appendix A — Final English Website Copy
 
-Original copy for About, Services, Projects, and Contact is **unchanged** from the previous version of this document — not reproduced again here in full to avoid duplication; refer to those sections as they stood, since none of that content has been built or altered yet.
+Single source of truth for all page content, restored in full below (previously trimmed to avoid duplication once About/Services/Projects/Contact were expected to be built soon; since those pages are still pending, the full copy is kept here again so nothing has to be re-requested from the client).
 
-**Home page copy has changed** in two places, detailed below. Everything else in the original Home copy (Hero, At a Glance, Our Positioning, Service Highlights labels, Why AID Group labels, Partners intro line, Closing CTA) was built exactly as originally drafted and is still current.
+**Home page copy has changed** in the ways documented under "Home — As Built" and the updated-sections note further below — the Home copy in this appendix is the **original, pre-build draft** and is kept for history only. Do not use the Home copy below as a build reference; use "Home — As Built" instead. **Contact page copy below is current and not yet fully implemented** — see "Contact — As Built" above for the one outstanding discrepancy (page intro).
 
-### Shared Header — unchanged
+### Shared Header
 
 Logo · Home · About · Services · Projects · Contact · language switch **"EN | GE"**
 
@@ -325,6 +346,149 @@ Live partners, in order: **Tofflon · TRUKING · IMA · Syntegon** (all real log
 
 ---
 
+### ABOUT US
+
+**Page intro** _(new)_
+
+> Who we are, why AID Group exists, and the standards that guide every project we take on.
+
+**Company Overview** _(polished — minor word repetition fixed)_
+
+> AID Group is a consulting and engineering company focused on the pharmaceutical and regulated life-science industries. The company supports clients in planning, designing, upgrading, qualifying and bringing pharmaceutical facilities and critical utility systems into compliant operation.
+>
+> Our approach combines pharmaceutical quality and regulatory knowledge with practical engineering and project execution experience. This allows AID Group to support clients not only with technical design, but also with the GMP logic behind that design, documentation, equipment selection, commissioning and qualification.
+
+**Why AID Group Was Created**
+
+> AID Group was created to address a common challenge in pharmaceutical projects: engineering, construction, equipment, quality assurance and validation are often handled separately, which can create design gaps, compliance risks, delays and costly rework.
+>
+> The company's main objective is to bring these disciplines together and provide clients with technically practical, GMP-oriented solutions from the earliest project stage. The focus is not simply on constructing a facility, but on helping create a facility that can operate reliably, efficiently and in compliance with applicable pharmaceutical requirements.
+
+**Key Advantages and Differentiation** _(all 8, verbatim)_
+
+> AID Group is not positioned as a conventional construction contractor. Its value comes from integrating pharmaceutical know-how with engineering and project implementation experience.
+
+- Pharmaceutical-sector specialization rather than general construction
+- GMP/GDP and validation considerations built into engineering decisions from the beginning
+- Practical understanding of manufacturing processes, equipment and utility systems
+- Ability to connect Quality, Production, Engineering and vendors within one project framework
+- Support from concept and URS through design review, procurement, commissioning and qualification
+- Independent technical evaluation of equipment and contractor proposals
+- Focus on lifecycle cost, operability, maintainability and compliance — not only initial construction cost
+- Flexible engagement: full lifecycle support or targeted consulting for a specific project stage
+
+**Founders and Team Experience**
+
+> The founders of AID Group bring complementary experience in pharmaceutical manufacturing projects, engineering, quality systems, GMP compliance, equipment and utility selection, procurement, project coordination, qualification and validation.
+>
+> Their background includes hands-on involvement in pharmaceutical facility upgrades, production and packaging equipment projects, HVAC and utility systems, purified water systems, cleanroom-related projects, vendor coordination, FAT/SAT activities and qualification/validation programs.
+>
+> This owner-led model allows AID Group to provide clients with direct access to experienced specialists throughout the project rather than relying only on general project-management resources.
+>
+> _(Flagged earlier: no individual founder names/titles in source — currently fully generic; adding real names/credentials would strengthen this section if available.)_
+
+**Standards and Regulatory Frameworks** _(all 9, verbatim)_
+
+> Projects are developed according to the applicable regulatory requirements and recognized industry standards relevant to each client, market and facility type. These may include:
+
+- EU GMP principles and applicable Annexes
+- PIC/S GMP guidance
+- GDP requirements for pharmaceutical storage and distribution
+- ICH quality risk-management principles
+- ISO standards relevant to cleanrooms, HVAC, quality and engineering systems
+- Good Engineering Practice (GEP)
+- Risk-based qualification and validation principles
+- Applicable pharmacopeial requirements for pharmaceutical water and utilities
+- Local building, fire-safety, occupational-safety and engineering regulations
+
+> The exact regulatory basis is defined at project start according to the intended markets, product type and client quality system.
+
+---
+
+### SERVICES
+
+**Page intro** _(new)_
+
+> A closer look at how we support pharmaceutical facilities — from early concept and design through qualification and long-term compliance.
+
+**Services and Scope** _(intro)_
+
+> AID Group can support either the complete project lifecycle or selected individual stages, depending on the client's needs.
+
+**7 Service Clusters** _(all 18 original service items, grouped)_
+
+- **GMP/GDP Consulting & Compliance** — GMP/GDP consulting and compliance support · GMP readiness assessments, gap assessments and internal audits · SOP, protocol and technical/quality documentation development · Training for engineering, production and quality personnel
+- **Facility & Engineering Design** — Pharmaceutical facility concept development and layout planning · Production, warehouse, laboratory and technical-area planning · User Requirement Specifications (URS) and technical requirement development · Engineering design coordination and design review
+- **Utilities & Critical Systems** — HVAC and cleanroom concept review, zoning, pressure cascades and environmental requirements · Pharmaceutical water systems and other critical utility systems · Compressed air, clean gases and supporting utility systems
+- **Equipment & Procurement** — Production and packaging equipment selection and technical evaluation · Vendor assessment, technical bid comparison and procurement support
+- **Implementation & Commissioning** — FAT and SAT planning or supervision · Installation, commissioning and start-up support
+- **Qualification & Validation** — Qualification and validation planning and execution support, including DQ, IQ, OQ and PQ · Risk assessments, traceability matrices and validation documentation
+- **Facility Modernization** — Existing facility modernization, capacity expansion and compliance upgrades
+
+**Facility Types We Support** _(all 8, verbatim)_
+
+> AID Group is primarily oriented toward facilities where GMP compliance, controlled environments, specialized utilities and validated processes are required.
+
+- Solid dosage manufacturing facilities — tablets, capsules and related processes
+- Primary and secondary pharmaceutical packaging facilities
+- Pharmaceutical warehouses and GDP-controlled storage areas
+- Quality-control and support laboratories
+- Cleanrooms and controlled manufacturing areas
+- Pilot-scale and development areas
+- Existing pharmaceutical plants requiring modernization or capacity expansion
+- Greenfield pharmaceutical projects requiring concept-to-qualification support
+
+> Sterile, high-containment or other highly specialized facilities can be supported where the project team includes the appropriate verified specialist expertise for the specific technology and regulatory risk level.
+
+**Our End-to-End Process** _(all 10 steps)_
+
+> AID Group can provide end-to-end support from the earliest project definition through commissioning and qualification. Clients may also engage the company for only selected phases.
+
+1. Project concept and feasibility
+2. User requirements and scope definition
+3. Facility and engineering concept
+4. Design coordination and GMP design review
+5. Equipment and contractor technical evaluation
+6. Procurement support
+7. Construction/installation coordination
+8. FAT/SAT and commissioning support
+9. Qualification and validation
+10. GMP readiness and handover to routine operation
+
+**Who We Serve** _(detailed, all 6 items)_
+
+- Existing local pharmaceutical manufacturers planning upgrades, expansions or new lines
+- New pharmaceutical manufacturers and start-up production projects
+- Foreign investors planning pharmaceutical manufacturing or packaging operations in Georgia or the region
+- International pharmaceutical companies looking for a local engineering/GMP partner
+- Investors developing pharmaceutical, laboratory, warehouse or regulated manufacturing facilities
+- Equipment manufacturers and international engineering companies that need an experienced local project partner
+
+---
+
+### PROJECTS
+
+**Page intro**
+
+> A record of facilities we've helped design, build and qualify.
+
+Toggle: `[Completed] [Ongoing]` — cards rendered from a data array, displayed as **full-width (100%) cards stacked vertically, one per row** (not a grid); no real project data supplied yet — one sample/placeholder entry included at build stage to avoid an empty page.
+
+---
+
+### CONTACT
+
+**Page intro**
+
+> Let's discuss your project.
+
+**Details:** Email aidgcec@gmail.com · Phone +995 571 13 03 35 (also WhatsApp) · Address: Otar Chiladze St. #166, Tbilisi, Georgia, 0160
+**Map:** live Google Maps embed of the above address
+
+> **Build status vs. this copy:** implemented, except the page intro — see "Contact — As Built" above.
+
+---
+
 **Georgian version:** unchanged status — not yet drafted, deferred until English is fully built.
 
 ---
@@ -333,4 +497,4 @@ Live partners, in order: **Tofflon · TRUKING · IMA · Syntegon** (all real log
 
 Each numbered sub-step is completed and presented for approval before moving to the next. On the Home page specifically, this happened at a finer grain than originally scoped — most sections went through several rounds of small, individually-approved visual refinements (spacing, color, decoration, imagery) rather than one approval per section.
 
-**Phase 1–2 substantially complete for Home; Phase 3–4 decisions made and (for domain) now unblocked; Phase 5 (Build) is in progress — Home done, About/Services/Projects/Contact not started; Phase 7 (Deploy) is underway — GitHub push and Vercel deploy done, custom domain connection next.** Next step: connect gxp.ge to the Vercel project, then continue Phase 5 with one of the remaining four pages, or complete the Phase 4.3 SEO infrastructure items now that the domain is confirmed.
+**Phase 1–2 complete for Home and Contact; Phase 5 (Build) is in progress — Home and Contact done, About/Services/Projects not started; Phase 4.3 SEO infrastructure done for what's built so far (sitemap, robots.txt, canonical/OG/Twitter tags), with JSON-LD, hreflang and Search Console submission postponed until more pages exist; Phase 7 (Deploy) is live — gxp.ge connected on Vercel, `/` → `/en/` redirect confirmed working.** Next step: build the About page per the restored Appendix A copy above, one section at a time (Page intro + Company Overview → Why Created + Key Advantages → Founders & Team → Standards & Regulatory Frameworks), then Services, then Projects. The Contact page intro discrepancy (see "Contact — As Built") remains an open, unscheduled item.

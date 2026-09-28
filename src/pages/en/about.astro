@@ -1,6 +1,76 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import teamPhoto from '../../assets/images/about_us_teamoffice.jpg';
+import { Image } from 'astro:assets';
 ---
-<BaseLayout title="About Us | AID Group Pharmaceutical Engineering" description="Owner-led pharmaceutical engineering consultancy bridging GMP compliance and technical execution — from design through qualification and validation.">
-  <section class="section"><div class="container"><h1>About Us</h1><p>Page content is added in the next steps.</p></div></section>
+<BaseLayout
+  title="About Us | AID Group Pharmaceutical Engineering"
+  description="Owner-led pharmaceutical engineering consultancy bridging GMP compliance and technical execution — from design through qualification and validation."
+>
+  <section class="about-head">
+    <div class="container">
+      <p class="kicker">About</p>
+      <h1>About Us</h1>
+      <p class="intro">Who we are, why AID Group exists, and the standards that guide every project we take on.</p>
+    </div>
+  </section>
+
+  <section class="section overview">
+    <div class="container split">
+      <div class="copy">
+        <h2>Company Overview</h2>
+        <p>AID Group is a consulting and engineering company focused on the pharmaceutical and regulated life-science industries. The company supports clients in planning, designing, upgrading, qualifying and bringing pharmaceutical facilities and critical utility systems into compliant operation.</p>
+        <p>Our approach combines pharmaceutical quality and regulatory knowledge with practical engineering and project execution experience. This allows AID Group to support clients not only with technical design, but also with the GMP logic behind that design, documentation, equipment selection, commissioning and qualification.</p>
+      </div>
+      <div class="figure">
+        <Image src={teamPhoto} alt="AID Group team at the office" width={1200} height={800} />
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .about-head {
+    background: var(--surface);
+    padding-block: var(--space-lg);
+    box-shadow: var(--shadow-bar);
+    position: relative;
+  }
+  .kicker {
+    margin: 0 0 var(--space-sm);
+    color: var(--teal-dark);
+    font: 600 var(--small-size)/var(--small-lh) var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .about-head h1 { margin-bottom: var(--space-sm); }
+  .intro { max-width: 60ch; margin: 0; }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+  .copy h2 { margin-bottom: var(--space-sm); }
+  .copy p { margin: 0 0 var(--space-sm); }
+  .copy p:last-child { margin-bottom: 0; }
+
+  .figure {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+    border-bottom: 4px solid var(--teal-light);
+  }
+  .figure :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 899px) {
+    .split { grid-template-columns: 1fr; }
+    .figure { order: -1; }
+  }
+</style>
