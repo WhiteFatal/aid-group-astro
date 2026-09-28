@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gxp.ge/sitemap-index.xml
