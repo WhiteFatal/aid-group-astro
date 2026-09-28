@@ -1,7 +1,14 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
-// `site` and the sitemap integration are added in Phase 7, once the domain is known.
 export default defineConfig({
+  site: 'https://gxp.ge',
+  integrations: [
+    sitemap({
+      // `/` is only a redirect to `/en/`, so keep it out of the sitemap.
+      filter: (page) => page !== 'https://gxp.ge/',
+    }),
+  ],
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ka'],
