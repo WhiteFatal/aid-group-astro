@@ -1,6 +1,362 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import labPhoto from '../../assets/images/services_laboratory_environment.jpg';
+import { Image } from 'astro:assets';
+import iCheck from 'lucide-static/icons/check.svg?raw';
+
+const clusters = [
+  {
+    title: 'GMP/GDP Consulting & Compliance',
+    items: [
+      'GMP/GDP consulting and compliance support',
+      'GMP readiness assessments, gap assessments and internal audits',
+      'SOP, protocol and technical/quality documentation development',
+      'Training for engineering, production and quality personnel',
+    ],
+  },
+  {
+    title: 'Facility & Engineering Design',
+    items: [
+      'Pharmaceutical facility concept development and layout planning',
+      'Production, warehouse, laboratory and technical-area planning',
+      'User Requirement Specifications (URS) and technical requirement development',
+      'Engineering design coordination and design review',
+    ],
+  },
+  {
+    title: 'Utilities & Critical Systems',
+    items: [
+      'HVAC and cleanroom concept review, zoning, pressure cascades and environmental requirements',
+      'Pharmaceutical water systems and other critical utility systems',
+      'Compressed air, clean gases and supporting utility systems',
+    ],
+  },
+  {
+    title: 'Equipment & Procurement',
+    items: [
+      'Production and packaging equipment selection and technical evaluation',
+      'Vendor assessment, technical bid comparison and procurement support',
+    ],
+  },
+  {
+    title: 'Implementation & Commissioning',
+    items: [
+      'FAT and SAT planning or supervision',
+      'Installation, commissioning and start-up support',
+    ],
+  },
+  {
+    title: 'Qualification & Validation',
+    items: [
+      'Qualification and validation planning and execution support, including DQ, IQ, OQ and PQ',
+      'Risk assessments, traceability matrices and validation documentation',
+    ],
+  },
+  {
+    title: 'Facility Modernization',
+    items: [
+      'Existing facility modernization, capacity expansion and compliance upgrades',
+    ],
+  },
+];
+
+const facilityTypes = [
+  'Solid dosage manufacturing facilities — tablets, capsules and related processes',
+  'Primary and secondary pharmaceutical packaging facilities',
+  'Pharmaceutical warehouses and GDP-controlled storage areas',
+  'Quality-control and support laboratories',
+  'Cleanrooms and controlled manufacturing areas',
+  'Pilot-scale and development areas',
+  'Existing pharmaceutical plants requiring modernization or capacity expansion',
+  'Greenfield pharmaceutical projects requiring concept-to-qualification support',
+];
+
+const processSteps = [
+  'Project concept and feasibility',
+  'User requirements and scope definition',
+  'Facility and engineering concept',
+  'Design coordination and GMP design review',
+  'Equipment and contractor technical evaluation',
+  'Procurement support',
+  'Construction/installation coordination',
+  'FAT/SAT and commissioning support',
+  'Qualification and validation',
+  'GMP readiness and handover to routine operation',
+];
 ---
-<BaseLayout title="Services | Pharmaceutical Facility Engineering & Validation" description="GMP consulting, facility & utility engineering, equipment selection, and qualification/validation (DQ/IQ/OQ/PQ) for pharmaceutical manufacturers.">
-  <section class="section"><div class="container"><h1>Services</h1><p>Page content is added in the next steps.</p></div></section>
+<BaseLayout
+  title="Services | Pharmaceutical Facility Engineering & Validation"
+  description="GMP consulting, facility & utility engineering, equipment selection, and qualification/validation (DQ/IQ/OQ/PQ) for pharmaceutical manufacturers."
+>
+  <section class="services-head">
+    <div class="container">
+      <p class="kicker">Services</p>
+      <h1>Services</h1>
+      <p class="intro">A closer look at how we support pharmaceutical facilities — from early concept and design through qualification and long-term compliance.</p>
+    </div>
+  </section>
+
+  <section class="section scope">
+    <div class="container split">
+      <div class="copy">
+        <h2>Services and Scope</h2>
+        <p>AID Group can support either the complete project lifecycle or selected individual stages, depending on the client's needs.</p>
+      </div>
+      <div class="figure">
+        <Image src={labPhoto} alt="Pharmaceutical laboratory environment" width={1200} height={800} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section clusters">
+    <div class="container">
+      <ul class="cluster-grid">
+        {clusters.map((c) => (
+          <li class="cluster-card">
+            <h3>{c.title}</h3>
+            <ul>
+              {c.items.map((item) => (<li>{item}</li>))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section facility-types">
+    <div class="container">
+      <h2>Facility Types We Support</h2>
+      <p class="lede">AID Group is primarily oriented toward facilities where GMP compliance, controlled environments, specialized utilities and validated processes are required.</p>
+      <ul class="std-grid">
+        {facilityTypes.map((f) => (
+          <li class="std-item">
+            <span class="check" set:html={iCheck} aria-hidden="true" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="std-note">Sterile, high-containment or other highly specialized facilities can be supported where the project team includes the appropriate verified specialist expertise for the specific technology and regulatory risk level.</p>
+    </div>
+  </section>
+
+  <section class="section process">
+    <div class="container">
+      <h2>Our End-to-End Process</h2>
+      <p class="lede">AID Group can provide end-to-end support from the earliest project definition through commissioning and qualification. Clients may also engage the company for only selected phases.</p>
+      <p class="scroll-hint">Scroll to see all 10 steps →</p>
+      <div class="track" tabindex="0" role="group" aria-label="Scroll to see all 10 process steps">
+        <ol class="track-inner">
+          {processSteps.map((step, i) => (
+            <li class="step">
+              <span class="circle">{i + 1}</span>
+              <p>{step}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .services-head {
+    background: var(--surface);
+    padding-block: var(--space-lg);
+    box-shadow: var(--shadow-bar);
+    position: relative;
+  }
+  .kicker {
+    margin: 0 0 var(--space-sm);
+    color: var(--teal-dark);
+    font: 600 var(--small-size)/var(--small-lh) var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .services-head h1 { margin-bottom: var(--space-sm); }
+  .intro { max-width: 60ch; margin: 0; }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+  .copy h2 { margin-bottom: var(--space-sm); }
+  .copy p { margin: 0; }
+
+  .figure {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+    border-bottom: 4px solid var(--teal-light);
+  }
+  .figure :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 899px) {
+    .split { grid-template-columns: 1fr; }
+    .figure { order: -1; }
+  }
+
+  .clusters { background: var(--bg); }
+  .cluster-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  .cluster-card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    border-bottom: 4px solid var(--teal-light);
+    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+    padding: var(--space-md);
+  }
+  .cluster-card h3 { margin: 0 0 var(--space-sm); }
+  .cluster-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cluster-card li {
+    position: relative;
+    padding-left: var(--space-sm);
+    margin-bottom: var(--space-xs);
+    font-size: var(--body-size);
+    line-height: var(--body-lh);
+  }
+  .cluster-card li:last-child { margin-bottom: 0; }
+  .cluster-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal-light);
+  }
+
+  @media (max-width: 899px) {
+    .cluster-grid { grid-template-columns: 1fr; }
+  }
+
+  .facility-types { background: var(--surface); }
+  .facility-types h2 { margin-bottom: var(--space-sm); }
+  .facility-types .lede { max-width: 72ch; margin: 0 0 var(--space-md); }
+
+  .std-grid {
+    list-style: none;
+    margin: 0 0 var(--space-md);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-lg);
+    row-gap: var(--space-sm);
+  }
+  .std-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+  .check {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    color: var(--navy-deep);
+  }
+  .check :global(svg) { width: 14px; height: 14px; stroke-width: 3; }
+
+  .std-note {
+    margin: 0;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+    color: var(--text-body);
+    font-size: var(--small-size);
+    max-width: 72ch;
+  }
+
+  @media (max-width: 767px) {
+    .std-grid { grid-template-columns: 1fr; }
+  }
+
+  .process h2 { margin-bottom: var(--space-sm); }
+  .process .lede { max-width: 72ch; margin: 0 0 var(--space-lg); }
+
+  .track {
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+    scrollbar-width: thin;
+    scrollbar-color: var(--teal-light) transparent;
+    -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+  }
+  .track::-webkit-scrollbar { height: 6px; }
+  .track::-webkit-scrollbar-thumb { background: var(--teal-light); border-radius: 3px; }
+  .track::-webkit-scrollbar-track { background: transparent; }
+  .scroll-hint {
+    margin: 0 0 var(--space-sm);
+    font-size: var(--small-size);
+    color: var(--text-body);
+    font-style: italic;
+  }
+  .track-inner {
+    position: relative;
+    display: inline-flex;
+    list-style: none;
+    margin: 0;
+    padding: var(--space-md) var(--space-xs) 0;
+    gap: var(--space-md);
+  }
+  .track-inner::before {
+    content: '';
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    top: calc(var(--space-md) + 20px);
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .step {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    width: 150px;
+    text-align: center;
+  }
+  .circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto var(--space-sm);
+    border-radius: 50%;
+    background: var(--teal-dark);
+    color: #fff;
+    font: 700 16px/1 var(--font-heading);
+  }
+  .step p {
+    margin: 0;
+    font-size: var(--small-size);
+    line-height: var(--small-lh);
+    color: var(--text-body);
+  }
+
+  @media (max-width: 899px) {
+    .step { width: 130px; }
+  }
+</style>

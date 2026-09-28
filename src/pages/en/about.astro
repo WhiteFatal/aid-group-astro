@@ -2,6 +2,38 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import teamPhoto from '../../assets/images/about_us_teamoffice.jpg';
 import { Image } from 'astro:assets';
+import iFlask from 'lucide-static/icons/flask-conical.svg?raw';
+import iShield from 'lucide-static/icons/shield-check.svg?raw';
+import iLayers from 'lucide-static/icons/layers.svg?raw';
+import iUsers from 'lucide-static/icons/users.svg?raw';
+import iWorkflow from 'lucide-static/icons/workflow.svg?raw';
+import iSearchCheck from 'lucide-static/icons/search-check.svg?raw';
+import iScale from 'lucide-static/icons/scale.svg?raw';
+import iSliders from 'lucide-static/icons/sliders-horizontal.svg?raw';
+import iCheck from 'lucide-static/icons/check.svg?raw';
+
+const advantages = [
+  { icon: iFlask, text: 'Pharmaceutical-sector specialization rather than general construction' },
+  { icon: iShield, text: 'GMP/GDP and validation considerations built into engineering decisions from the beginning' },
+  { icon: iLayers, text: 'Practical understanding of manufacturing processes, equipment and utility systems' },
+  { icon: iUsers, text: 'Ability to connect Quality, Production, Engineering and vendors within one project framework' },
+  { icon: iWorkflow, text: 'Support from concept and URS through design review, procurement, commissioning and qualification' },
+  { icon: iSearchCheck, text: 'Independent technical evaluation of equipment and contractor proposals' },
+  { icon: iScale, text: 'Focus on lifecycle cost, operability, maintainability and compliance — not only initial construction cost' },
+  { icon: iSliders, text: 'Flexible engagement: full lifecycle support or targeted consulting for a specific project stage' },
+];
+
+const standards = [
+  'EU GMP principles and applicable Annexes',
+  'PIC/S GMP guidance',
+  'GDP requirements for pharmaceutical storage and distribution',
+  'ICH quality risk-management principles',
+  'ISO standards relevant to cleanrooms, HVAC, quality and engineering systems',
+  'Good Engineering Practice (GEP)',
+  'Risk-based qualification and validation principles',
+  'Applicable pharmacopeial requirements for pharmaceutical water and utilities',
+  'Local building, fire-safety, occupational-safety and engineering regulations',
+];
 ---
 <BaseLayout
   title="About Us | AID Group Pharmaceutical Engineering"
@@ -25,6 +57,45 @@ import { Image } from 'astro:assets';
       <div class="figure">
         <Image src={teamPhoto} alt="AID Group team at the office" width={1200} height={800} />
       </div>
+    </div>
+  </section>
+
+  <section class="section why">
+    <div class="container">
+      <h2>Why AID Group Was Created</h2>
+      <p class="lede">AID Group was created to address a common challenge in pharmaceutical projects: engineering, construction, equipment, quality assurance and validation are often handled separately, which can create design gaps, compliance risks, delays and costly rework.</p>
+      <p class="lede">The company's main objective is to bring these disciplines together and provide clients with technically practical, GMP-oriented solutions from the earliest project stage. The focus is not simply on constructing a facility, but on helping create a facility that can operate reliably, efficiently and in compliance with applicable pharmaceutical requirements.</p>
+    </div>
+  </section>
+
+  <section class="section advantages">
+    <div class="container">
+      <h2>Key Advantages and Differentiation</h2>
+      <p class="lede">AID Group is not positioned as a conventional construction contractor. Its value comes from integrating pharmaceutical know-how with engineering and project implementation experience.</p>
+      <ul class="adv-grid">
+        {advantages.map((a) => (
+          <li class="adv-item">
+            <span class="icon" set:html={a.icon} aria-hidden="true" />
+            <p>{a.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section standards">
+    <div class="container">
+      <h2>Standards and Regulatory Frameworks</h2>
+      <p class="lede">Projects are developed according to the applicable regulatory requirements and recognized industry standards relevant to each client, market and facility type. These may include:</p>
+      <ul class="std-grid">
+        {standards.map((s) => (
+          <li class="std-item">
+            <span class="check" set:html={iCheck} aria-hidden="true" />
+            <span>{s}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="std-note">The exact regulatory basis is defined at project start according to the intended markets, product type and client quality system.</p>
     </div>
   </section>
 </BaseLayout>
@@ -72,5 +143,91 @@ import { Image } from 'astro:assets';
   @media (max-width: 899px) {
     .split { grid-template-columns: 1fr; }
     .figure { order: -1; }
+  }
+
+  .why h2, .advantages h2 { margin-bottom: var(--space-sm); }
+  .lede { max-width: 72ch; margin: 0 0 var(--space-sm); }
+  .lede:last-of-type { margin-bottom: 0; }
+  .advantages .lede { margin-bottom: var(--space-md); }
+
+  .adv-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  .adv-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    border-bottom: 4px solid var(--teal-light);
+    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+    padding: var(--space-sm) var(--space-md);
+  }
+  .adv-item .icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-card);
+    background: var(--teal-light);
+    color: var(--navy-deep);
+  }
+  .adv-item .icon :global(svg) { width: 20px; height: 20px; }
+  .adv-item p { margin: 0; padding-top: 4px; }
+
+  @media (max-width: 767px) {
+    .adv-grid { grid-template-columns: 1fr; }
+  }
+
+  .standards { background: var(--surface); }
+  .standards h2 { margin-bottom: var(--space-sm); }
+  .standards .lede { margin-bottom: var(--space-md); }
+
+  .std-grid {
+    list-style: none;
+    margin: 0 0 var(--space-md);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-lg);
+    row-gap: var(--space-sm);
+  }
+  .std-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+  .check {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    color: var(--navy-deep);
+  }
+  .check :global(svg) { width: 14px; height: 14px; stroke-width: 3; }
+
+  .std-note {
+    margin: 0;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+    color: var(--text-body);
+    font-size: var(--small-size);
+    max-width: 72ch;
+  }
+
+  @media (max-width: 767px) {
+    .std-grid { grid-template-columns: 1fr; }
   }
 </style>
