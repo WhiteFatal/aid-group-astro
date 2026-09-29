@@ -83,6 +83,15 @@ const processSteps = [
   'Qualification and validation',
   'GMP readiness and handover to routine operation',
 ];
+
+const audiences = [
+  'Existing local pharmaceutical manufacturers planning upgrades, expansions or new lines',
+  'New pharmaceutical manufacturers and start-up production projects',
+  'Foreign investors planning pharmaceutical manufacturing or packaging operations in Georgia or the region',
+  'International pharmaceutical companies looking for a local engineering/GMP partner',
+  'Investors developing pharmaceutical, laboratory, warehouse or regulated manufacturing facilities',
+  'Equipment manufacturers and international engineering companies that need an experienced local project partner',
+];
 ---
 <BaseLayout
   title="Services | Pharmaceutical Facility Engineering & Validation"
@@ -154,6 +163,17 @@ const processSteps = [
           ))}
         </ol>
       </div>
+    </div>
+  </section>
+
+  <section class="section audiences-section">
+    <div class="container">
+      <h2>Areas of Engagement</h2>
+      <ul class="audience-grid">
+        {audiences.map((a) => (
+          <li class="audience-card">{a}</li>
+        ))}
+      </ul>
     </div>
   </section>
 </BaseLayout>
@@ -358,5 +378,30 @@ const processSteps = [
 
   @media (max-width: 899px) {
     .step { width: 130px; }
+  }
+
+  .audiences-section { background: var(--surface); }
+  .audiences-section h2 { margin-bottom: var(--space-md); }
+
+  .audience-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  .audience-card {
+    background: var(--bg);
+    border-radius: var(--radius-card);
+    border-bottom: 4px solid var(--teal-light);
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--body-size);
+    line-height: var(--body-lh);
+    color: var(--text-body);
+  }
+
+  @media (max-width: 899px) {
+    .audience-grid { grid-template-columns: 1fr; }
   }
 </style>
