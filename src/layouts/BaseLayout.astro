@@ -15,6 +15,32 @@ const t = en; // /ka/ layout will pass ka strings in a later step
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const imageUrl = new URL(image, Astro.site).href;
+
+// ProfessionalService JSON-LD — same on every page, identifies AID Group as an entity
+// (as opposed to `canonicalUrl` above, which is this specific page's own address).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'AID Group',
+  legalName: 'LLC "Engineering and Consulting Company AID Group"',
+  taxID: '405843084',
+  url: new URL('/en/', Astro.site).href,
+  logo: new URL('/og-image.jpg', Astro.site).href,
+  image: new URL('/og-image.jpg', Astro.site).href,
+  description:
+    'AID Group is a pharmaceutical consulting and engineering company providing GMP/GDP consulting, facility and utility engineering support, equipment selection, project coordination, qualification and validation services.',
+  telephone: '+995571130335',
+  email: 'aidgcec@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '166 Otar Chiladze Str.',
+    addressLocality: 'Tbilisi',
+    postalCode: '0160',
+    addressCountry: 'GE',
+  },
+  areaServed: 'GE',
+  sameAs: ['https://www.facebook.com/profile.php?id=61593867286368'],
+};
 ---
 <!doctype html>
 <html lang={t.lang}>
@@ -39,6 +65,8 @@ const imageUrl = new URL(image, Astro.site).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
