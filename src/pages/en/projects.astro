@@ -1,6 +1,217 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import projects from '../../data/projects.json';
+
+// Each project's `image` field in projects.json is a key into this map, not a path.
+// This is what lets project data live in plain JSON while the actual image files
+// still live in src/assets and get Astro's automatic optimization (resize + WebP).
+// To add a project photo: drop the file in src/assets/images/, import it below,
+// add it to projectImages, then reference that key from projects.json.
+import kutaisiZones from '../../assets/images/project/project-kutaisi-zones.png';
+const projectImages: Record<string, ImageMetadata> = {
+  'kutaisi-zones': kutaisiZones,
+};
 ---
-<BaseLayout title="Projects | AID Group Pharmaceutical Engineering" description="Completed and ongoing pharmaceutical facility engineering, qualification and validation projects delivered by AID Group.">
-  <section class="section"><div class="container"><h1>Projects</h1><p>Page content is added in the next steps.</p></div></section>
+<BaseLayout
+  title="Projects | AID Group Pharmaceutical Engineering"
+  description="Completed and ongoing pharmaceutical facility engineering, qualification and validation projects delivered by AID Group."
+>
+  <section class="projects-head">
+    <div class="container">
+      <p class="kicker">Projects</p>
+      <h1>Projects</h1>
+      <p class="intro">A record of facilities we've helped design, build and qualify.</p>
+    </div>
+  </section>
+
+  <section class="section projects-list">
+    <div class="container">
+      <div class="toggle" role="group" aria-label="Filter projects by status">
+        <button type="button" class="toggle-btn is-active" data-filter="all">All Projects</button>
+        <button type="button" class="toggle-btn" data-filter="completed">Completed</button>
+        <button type="button" class="toggle-btn" data-filter="ongoing">Ongoing</button>
+      </div>
+
+      <ul class="cards" id="project-cards">
+        {projects.map((p) => (
+          <li class="card" data-status={p.status}>
+            <div class="card-media">
+              <Image src={projectImages[p.image]} alt={p.imageAlt} width={1288} height={910} />
+            </div>
+            <div class="card-body">
+              <span class="badge">{p.status === 'completed' ? 'Completed' : 'Ongoing'}</span>
+              <h2>{p.title}</h2>
+              <p class="location">{p.location}</p>
+              <ul class="scope">
+                {p.scope.map((item) => (<li>{item}</li>))}
+              </ul>
+              <p class="year">Year: {p.year}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="empty-state" id="empty-state" hidden>No ongoing projects to show right now — check back soon.</p>
+    </div>
+  </section>
 </BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.toggle-btn');
+  const cards = document.querySelectorAll<HTMLElement>('#project-cards .card');
+  const emptyState = document.getElementById('empty-state');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const filter = btn.dataset.filter;
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const match = filter === 'all' || card.dataset.status === filter;
+        card.hidden = !match;
+        if (match) visibleCount++;
+      });
+      if (emptyState) emptyState.hidden = visibleCount > 0;
+    });
+  });
+</script>
+
+<style>
+  .projects-head {
+    background: var(--surface);
+    padding-block: var(--space-lg);
+    box-shadow: var(--shadow-bar);
+    position: relative;
+  }
+  .kicker {
+    margin: 0 0 var(--space-sm);
+    color: var(--teal-dark);
+    font: 600 var(--small-size)/var(--small-lh) var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .projects-head h1 { margin-bottom: var(--space-sm); }
+  .intro { max-width: 60ch; margin: 0; }
+
+  .toggle {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: var(--space-lg);
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+  }
+  .toggle-btn {
+    border: 0;
+    background: transparent;
+    padding: 10px 22px;
+    border-radius: calc(var(--radius-card) - 4px);
+    font: 600 var(--small-size)/1 var(--font-heading);
+    letter-spacing: 0.04em;
+    color: var(--text-body);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .toggle-btn.is-active {
+    background: var(--teal-dark);
+    color: #fff;
+  }
+
+  .cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .card {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    border-bottom: 4px solid var(--teal-light);
+    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+    padding: var(--space-md);
+  }
+  .card[hidden] { display: none; }
+  .card-media {
+    border-radius: calc(var(--radius-card) - 4px);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .card-media :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .badge {
+    display: inline-block;
+    margin-bottom: var(--space-sm);
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--teal-light);
+    color: var(--navy-deep);
+    font: 700 12px/1 var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .card-body h2 { margin: 0 0 var(--space-xs); font-size: 22px; }
+  .location {
+    margin: 0 0 var(--space-sm);
+    color: var(--teal-dark);
+    font-weight: 600;
+  }
+  .scope {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px var(--space-sm);
+  }
+  .scope li {
+    position: relative;
+    padding-left: var(--space-sm);
+    font-size: var(--small-size);
+    color: var(--text-body);
+  }
+  .scope li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--teal-light);
+  }
+
+  .year {
+    margin: var(--space-sm) 0 0;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+    font-size: var(--small-size);
+    font-weight: 600;
+    color: var(--teal-dark);
+  }
+
+  .empty-state {
+    margin: 0;
+    padding: var(--space-lg);
+    text-align: center;
+    color: var(--text-body);
+    background: var(--surface);
+    border-radius: var(--radius-card);
+  }
+
+  @media (max-width: 899px) {
+    .card { grid-template-columns: 1fr; }
+    .scope { grid-template-columns: 1fr; }
+  }
+</style>

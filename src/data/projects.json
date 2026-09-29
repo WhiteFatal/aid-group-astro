@@ -1,0 +1,53 @@
+[
+  {
+    "status": "completed",
+    "title": "Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse",
+    "location": "Kutaisi, Georgia",
+    "year": 2026,
+    "scope": [
+      "Zoning",
+      "Floor movement plan",
+      "Movement flows",
+      "Interlock system",
+      "Lighting and supply/exhaust",
+      "Cleaning plan",
+      "Room and ceiling configuration"
+    ],
+    "image": "kutaisi-zones",
+    "imageAlt": "Zoning and layout drawing for the Kutaisi pharmaceutical facility, showing warehouse, factory, office, technical and laboratory zones"
+  },
+  {
+    "status": "completed",
+    "title": "Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse",
+    "location": "Kutaisi, Georgia",
+    "year": 2026,
+    "scope": [
+      "Zoning",
+      "Floor movement plan",
+      "Movement flows",
+      "Interlock system",
+      "Lighting and supply/exhaust",
+      "Cleaning plan",
+      "Room and ceiling configuration"
+    ],
+    "image": "kutaisi-zones",
+    "imageAlt": "Zoning and layout drawing for the Kutaisi pharmaceutical facility, showing warehouse, factory, office, technical and laboratory zones"
+  },
+  {
+    "status": "ongoing",
+    "title": "Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse",
+    "location": "Kutaisi, Georgia",
+    "year": 2026,
+    "scope": [
+      "Zoning",
+      "Floor movement plan",
+      "Movement flows",
+      "Interlock system",
+      "Lighting and supply/exhaust",
+      "Cleaning plan",
+      "Room and ceiling configuration"
+    ],
+    "image": "kutaisi-zones",
+    "imageAlt": "Zoning and layout drawing for the Kutaisi pharmaceutical facility, showing warehouse, factory, office, technical and laboratory zones"
+  }
+]
