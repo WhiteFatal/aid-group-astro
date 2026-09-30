@@ -17,12 +17,12 @@
 | Page         | Content                                                                                                                                                                                                                                                                                                                                          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Home**     | ✅ **Built.** Hero → **Areas of Engagement + Partners** (merged, side-by-side) → **AID Group Expertise** (service highlights, redesigned) → Why AID Group → **At a Glance / Our Positioning + Closing CTA** (merged). Featured Projects section dropped entirely. See "Home — As Built" below for the full detail.                             |
-| **About Us** | ⏳ Not started. Company Overview, Why AID Group Was Created, Key Advantages & Differentiation, Founders & Team, Standards & Regulatory Frameworks — content unchanged, see Appendix A.                                                                                                                                                          |
-| **Services** | ⏳ Not started. Service clusters (grouped from full service list), End-to-End Process/Lifecycle, Facility Types supported, Who We Serve (detailed, tied to relevant services) — content unchanged, see Appendix A.                                                                                                                              |
-| **Projects** | ⏳ Not started. Split into Completed / Ongoing, rendered from a data array (JSON) for easy future additions. Layout: full-width (100%) cards, stacked vertically one after another — not a multi-column grid.                                                                                                                                   |
+| **About Us** | ✅ **Built, except Founders & Team (postponed).** Page intro + Company Overview (with team photo) → Why AID Group Was Created → Key Advantages & Differentiation (8-item icon grid) → Standards & Regulatory Frameworks (9-item checklist). Founders & Team copy is ready in Appendix A but not yet on the page — postponed on client instruction, no founder names/titles available yet. See "About — As Built" below.                                                                                          |
+| **Services** | ✅ **Built.** Header + intro → Services and Scope (with laboratory photo) → 7 Service Clusters (18 items grouped, card grid) → Facility Types We Support (8-item checklist) → Our End-to-End Process (10-step horizontal scrolling track) → **Areas of Engagement** (renamed from "Who We Serve," matching the Home rename; same 6 detailed audience items from Appendix A). See "Services — As Built" below.                                                                            |
+| **Projects** | ✅ **Built.** Header + intro → `[All Projects] [Completed] [Ongoing]` filter (JS, no framework; "All Projects" is the default view on load) → full-width stacked cards from `src/data/projects.json`. One real project live: the Kutaisi GMP secondary packaging facility (completed, 2026). See "Projects — As Built" below.                                                                                                                                                              |
 | **Contact**  | ✅ **Built.** Header intro + three cards (Email / Phone / Address, with `mailto:`/`tel:` links) → WhatsApp/Facebook buttons → lazy-loaded Google Maps embed of the office address. Buttons use the `.btn-secondary` style, centered. See "Contact — As Built" below. **Note:** the page intro was written ad hoc during build, before this Appendix A copy was supplied — see that section for the discrepancy and the approved fix.                                                    |
 
-**SEO infrastructure — ✅ built:** `site` URL and `@astrojs/sitemap` integration configured in `astro.config.mjs` (sitemap excludes the bare `/` redirect); `public/robots.txt` referencing the sitemap; canonical URLs and Open Graph/Twitter meta tags added to `BaseLayout.astro` (default share image: `public/og-image.jpg`, the supplied AID Group logo card). **Postponed:** `ProfessionalService` JSON-LD (needs final company details confirmed), hreflang alternates (needs `/ka/` pages to exist first), and submitting the sitemap to Google Search Console (deferred until About/Services/Projects have real content, to avoid inviting indexing of stub pages).
+**All five pages are now built** (About minus one postponed section). **SEO infrastructure — ✅ fully built and live:** `site` URL and `@astrojs/sitemap` integration configured in `astro.config.mjs` (sitemap excludes the bare `/` redirect); `public/robots.txt` referencing the sitemap; canonical URLs and Open Graph/Twitter meta tags added to `BaseLayout.astro` (default share image: `public/og-image.jpg`); `ProfessionalService` JSON-LD added to `BaseLayout.astro` (see below); sitemap submitted to and accepted by Google Search Console. **Still postponed:** hreflang alternates only — needs `/ka/` pages to exist first, deliberately left until the Georgian translation work begins.
 
 **Navigation:** `Home · About · Services · Projects · Contact` (shared header/footer across all pages) — ✅ built as planned, styling updated (see Phase 2).
 
@@ -301,6 +301,91 @@ FOOTER (shared)
 
 ---
 
+## About — As Built
+
+```
+HEADER (shared)
+├ About head — kicker "ABOUT" + H1 "About Us" + page intro
+├ Company Overview — text + team/office photo, side by side (photo moves above text on mobile)
+├ Why AID Group Was Created — plain text block, both paragraphs verbatim
+├ Key Advantages and Differentiation — intro line + 8-item icon card grid (2 cols desktop, 1 col mobile)
+│  (one lucide icon per advantage, chosen by meaning — flask for sector specialization,
+│  shield for GMP/validation, connected people for the Quality/Production/Engineering link, etc.)
+├ [Founders and Team Experience — NOT BUILT, postponed on client instruction; copy ready below]
+└ Standards and Regulatory Frameworks — intro + 9-item checklist (2 cols desktop, 1 col mobile) + closing note
+FOOTER (shared)
+```
+
+**Design decision:** Key Advantages and Standards both use the teal icon-box / checkmark-circle style first established on the Contact page's three cards, for visual consistency across pages.
+
+---
+
+## Services — As Built
+
+```
+HEADER (shared)
+├ Services head — kicker "SERVICES" + H1 "Services" + page intro
+├ Services and Scope — text + laboratory photo, side by side (same pattern as About's Company Overview)
+├ 7 Service Clusters — card grid (2 cols desktop, 1 col mobile), each card a heading + bullet list
+│  of that cluster's items (all 18 original service line items preserved, grouped as in Appendix A)
+├ Facility Types We Support — intro + 8-item checklist (2 cols desktop, 1 col mobile) + closing note
+│  (same checklist style as About's Standards section)
+├ Our End-to-End Process — all 10 steps as a horizontally scrolling "step track": numbered circles
+│  on a connecting line, inside its own scroll container (doesn't affect page width). Right edge
+│  fades out and a "Scroll to see all 10 steps →" hint signals there's more — added after an early
+│  version cut steps 8–10 off abruptly with no visual cue.
+└ Areas of Engagement — renamed from "Who We Serve" to match Home's rename; same 6 detailed
+   audience items from Appendix A, as plain (non-checklist) cards, 2 cols desktop / 1 col mobile
+FOOTER (shared)
+```
+
+**Design decision:** "Our End-to-End Process" was built as a horizontal step track (client's preferred option, over a plain numbered list) since a 10-step sequence reads better as a track than a checklist-style layout.
+
+---
+
+## Projects — As Built
+
+```
+HEADER (shared)
+├ Projects head — kicker "PROJECTS" + H1 "Projects" + page intro
+├ Filter — [All Projects] [Completed] [Ongoing] buttons, plain JS (no framework)
+│  "All Projects" is the default active view on page load, showing every entry regardless of status
+├ Project cards — full-width, stacked one per row (not a grid, per plan); each card:
+│  image (left) + status badge, title, location, scope-item checklist, and Year as the last
+│  item, set off with a thin divider line
+└ Empty state — "No [status] projects to show right now — check back soon." when a filter
+   matches zero cards
+FOOTER (shared)
+```
+
+**Data structure:** project content lives in `src/data/projects.json` (plain JSON — status, title, location, scope array, year, an image *key*, and alt text), matching the pattern already used for `partners.json`. The image itself lives in `src/assets/images/project/`, one level deeper than other page images, and is imported directly in `projects.astro` with a small lookup table mapping each JSON `image` key to the actual imported file. This split — plain JSON for data, real imports for images — exists so project data can be added by editing only the JSON file, while images still get Astro's automatic build-time optimization (resize + WebP conversion), which a plain string path into `public/` would not get. To add a new project: drop the photo in `src/assets/images/project/`, add one `import` line and one map entry in `projects.astro`, then reference that key from `projects.json`.
+
+**Real project live:** Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse — Kutaisi, Georgia — Completed, 2026. Scope: zoning, floor movement plan, movement flows, interlock system, lighting and supply/exhaust, cleaning plan, room and ceiling configuration. Image is the facility's zoning/layout drawing; the title block's "Project Owner" field was blanked out by the client before upload, staff names (preparer/checker/approver) remain visible per client's confirmation.
+
+---
+
+## JSON-LD, Domain Fix and Search Console — As Built
+
+**`ProfessionalService` JSON-LD** — added to `BaseLayout.astro`, so it renders identically on all five pages (`<script type="application/ld+json">` in the `<head>`). Fields used:
+- `name`: AID Group
+- `legalName`: `LLC "Engineering and Consulting Company AID Group"` (client-supplied legal name, formatted as the standard English rendering of a Georgian LLC filing — flagged to client as an assumption, not corrected)
+- `taxID`: 405843084 (client-supplied legal ID)
+- `address`, `telephone`, `email`: same as the footer (166 Otar Chiladze Str., Tbilisi 0160, Georgia · +995 571 13 03 35 · aidgcec@gmail.com)
+- `sameAs`: the Facebook page
+- `url`/`logo`/`image`: point to `gxp.ge/en/` and the existing `og-image.jpg`
+
+Validated with Google's Rich Results Test — passes with "2 valid items" (Organization + Local business; `ProfessionalService` is a subtype of both, so this is expected, not a duplication issue). One non-critical note from Google on optional fields (e.g. hours, price range) not being set — left as-is, not required for validity.
+
+**Domain/www conflict found and fixed.** Discovered while testing the JSON-LD: `gxp.ge` was redirecting to `www.gxp.ge` (the reverse of what the sitemap, canonical tags and JSON-LD all assumed). Fixed in Vercel's domain settings — `gxp.ge` is now the Production domain, and `www.gxp.ge` 301-redirects to it. Confirmed via Rich Results Test re-run that `gxp.ge` now resolves directly with no `www` hop.
+
+**Search Console setup:**
+- Property type: **Domain** (covers `gxp.ge`, `www.gxp.ge`, and both http/https under one property — appropriate since Vercel manages DNS for the domain).
+- Verified via DNS TXT record (`google-site-verification=...`), added directly in Vercel's DNS Records panel for `gxp.ge`.
+- Ownership was initially added under the wrong Google account; corrected by adding the intended account as an Owner in Search Console's Users & Permissions, rather than re-verifying from scratch.
+- **Sitemap submitted successfully** using the full absolute URL (`https://gxp.ge/sitemap-index.xml`) — the relative path (`sitemap-index.xml`) that Search Console's own placeholder suggests returned an "Invalid sitemap address" error on this Domain-property setup; switching to the full URL resolved it immediately. Worth remembering if a sitemap ever needs re-submitting.
+
+---
+
 ## Appendix A — Final English Website Copy
 
 Single source of truth for all page content, restored in full below (previously trimmed to avoid duplication once About/Services/Projects/Contact were expected to be built soon; since those pages are still pending, the full copy is kept here again so nothing has to be re-requested from the client).
@@ -497,6 +582,16 @@ Toggle: `[Completed] [Ongoing]` — cards rendered from a data array, displayed 
 
 Each numbered sub-step is completed and presented for approval before moving to the next. On the Home page specifically, this happened at a finer grain than originally scoped — most sections went through several rounds of small, individually-approved visual refinements (spacing, color, decoration, imagery) rather than one approval per section.
 
-**Phase 1–2 complete for Home and Contact; Phase 5 (Build) is in progress — Home and Contact done, About in progress, Services/Projects not started; Phase 4.3 SEO infrastructure done for what's built so far (sitemap, robots.txt, canonical/OG/Twitter tags), with JSON-LD, hreflang and Search Console submission postponed until more pages exist; Phase 7 (Deploy) is live — gxp.ge connected on Vercel, `/` → `/en/` redirect confirmed working.** Next step: finish the About page per the restored Appendix A copy above (Standards & Regulatory Frameworks remaining), then Services, then Projects. The Contact page intro discrepancy (see "Contact — As Built") remains an open, unscheduled item.
+**Phase 5 (Build) is essentially complete: all five pages are live — Home, About (minus Founders & Team), Services, Projects and Contact. Phase 4.3 SEO infrastructure (sitemap, robots.txt, canonical/OG/Twitter tags) is done and now covers real content on every page. Phase 7 (Deploy) is live — gxp.ge connected on Vercel, `/` → `/en/` redirect confirmed working.**
 
-**About page build status:** Page intro + Company Overview ✅ built · Why AID Group Was Created ✅ built · Key Advantages & Differentiation (8-item icon grid) ✅ built · **Founders and Team Experience — postponed on client instruction**, not yet on the page; copy is ready in Appendix A whenever it's scheduled, and the founder-names gap noted there still applies · Standards & Regulatory Frameworks — next up.
+**Everything on the client's list is now closed out, except two items intentionally left for last:**
+1. ~~Founders and Team Experience~~ — **postponed indefinitely** on client instruction (not "to be scheduled later" — a deliberate, open-ended hold). Copy remains ready in Appendix A if this is ever revisited.
+2. ~~`ProfessionalService` JSON-LD~~ — ✅ done. See "JSON-LD, Domain Fix and Search Console — As Built" above.
+3. ~~Contact page intro discrepancy~~ — **resolved, no change needed.** Client reviewed and confirmed the as-built intro is acceptable; the Appendix A line ("Let's discuss your project.") is no longer the target. Appendix A's Contact copy is now historical/reference only for this one line.
+4. ~~Submit the sitemap to Google Search Console~~ — ✅ done. Along the way, also found and fixed a `www.gxp.ge` vs `gxp.ge` domain redirect conflict, verified domain ownership via DNS TXT record, and corrected the property to the right Google account. See "JSON-LD, Domain Fix and Search Console — As Built" above for the full detail, including a note on the exact sitemap URL format that worked.
+
+**Remaining, by client's explicit choice — saved for last:**
+5. **hreflang alternates** — blocked on `/ka/` pages not existing; will be done as part of the Georgian rollout, not before.
+6. **Georgian (`/ka/`) translation** — not started. This is now the only major remaining body of work. English is fully built and live, all SEO infrastructure is in place and submitted, so this is a clean point to begin translation whenever the client is ready.
+
+**About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅.
