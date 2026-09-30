@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import teamPhoto from '../../assets/images/about_us_teamoffice.jpg';
+import headWatermark from '../../assets/brand/logo-watermark.png';
 import { Image } from 'astro:assets';
 import iFlask from 'lucide-static/icons/flask-conical.svg?raw';
 import iShield from 'lucide-static/icons/shield-check.svg?raw';
@@ -40,7 +41,16 @@ const standards = [
   description="Owner-led pharmaceutical engineering consultancy bridging GMP compliance and technical execution — from design through qualification and validation."
 >
   <section class="about-head">
-    <div class="container">
+    <Image
+      class="head-deco"
+      src={headWatermark}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="800px"
+      loading="eager"
+    />
+    <div class="container head-inner">
       <p class="kicker">About</p>
       <h1>About Us</h1>
       <p class="intro">Who we are, why AID Group exists, and the standards that guide every project we take on.</p>
@@ -102,10 +112,30 @@ const standards = [
 
 <style>
   .about-head {
-    background: var(--surface);
-    padding-block: var(--space-lg);
-    box-shadow: var(--shadow-bar);
     position: relative;
+    z-index: 6;
+    overflow: hidden;
+    padding-block: 72px;
+    box-shadow: var(--shadow-bar);
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 30%, var(--bg) 100%);
+  }
+  .head-deco {
+    position: absolute;
+    z-index: 0;
+    right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
+    top: 50%;
+    transform: translateY(-50%);
+    height: 88%;
+    width: auto;
+    max-width: none;
+    opacity: 0.2;
+    pointer-events: none;
+    user-select: none;
+  }
+  .head-inner { position: relative; z-index: 1; }
+  @media (max-width: 767px) {
+    .about-head { padding-block: var(--space-lg); }
+    .head-deco { right: -25%; height: 70%; opacity: 0.14; }
   }
   .kicker {
     margin: 0 0 var(--space-sm);
