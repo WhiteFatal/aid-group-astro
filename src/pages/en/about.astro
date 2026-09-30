@@ -1,41 +1,74 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import teamPhoto from '../../assets/images/about_us_teamoffice.jpg';
-import headWatermark from '../../assets/brand/logo-watermark.png';
-import { Image } from 'astro:assets';
-import iFlask from 'lucide-static/icons/flask-conical.svg?raw';
-import iShield from 'lucide-static/icons/shield-check.svg?raw';
-import iLayers from 'lucide-static/icons/layers.svg?raw';
-import iUsers from 'lucide-static/icons/users.svg?raw';
-import iWorkflow from 'lucide-static/icons/workflow.svg?raw';
-import iSearchCheck from 'lucide-static/icons/search-check.svg?raw';
-import iScale from 'lucide-static/icons/scale.svg?raw';
-import iSliders from 'lucide-static/icons/sliders-horizontal.svg?raw';
-import iCheck from 'lucide-static/icons/check.svg?raw';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import teamPhoto from "../../assets/images/about_us_teamoffice.jpg";
+import headWatermark from "../../assets/brand/logo-watermark.png";
+import { Image } from "astro:assets";
+
+// Optional background photo for "Why AID Group Was Created".
+// Drop a file named about-why-bg.jpg (or .png/.webp) into src/assets/images/ and it appears automatically.
+const whyBgFiles = import.meta.glob(
+  "../../assets/images/about-why-bg.{jpg,jpeg,png,webp}",
+  { eager: true, import: "default" },
+);
+const whyBg = Object.values(whyBgFiles)[0] as ImageMetadata | undefined;
+import iFlask from "lucide-static/icons/flask-conical.svg?raw";
+import iShield from "lucide-static/icons/shield-check.svg?raw";
+import iLayers from "lucide-static/icons/layers.svg?raw";
+import iUsers from "lucide-static/icons/users.svg?raw";
+import iWorkflow from "lucide-static/icons/workflow.svg?raw";
+import iSearchCheck from "lucide-static/icons/search-check.svg?raw";
+import iScale from "lucide-static/icons/scale.svg?raw";
+import iSliders from "lucide-static/icons/sliders-horizontal.svg?raw";
+import iCheck from "lucide-static/icons/check.svg?raw";
 
 const advantages = [
-  { icon: iFlask, text: 'Pharmaceutical-sector specialization rather than general construction' },
-  { icon: iShield, text: 'GMP/GDP and validation considerations built into engineering decisions from the beginning' },
-  { icon: iLayers, text: 'Practical understanding of manufacturing processes, equipment and utility systems' },
-  { icon: iUsers, text: 'Ability to connect Quality, Production, Engineering and vendors within one project framework' },
-  { icon: iWorkflow, text: 'Support from concept and URS through design review, procurement, commissioning and qualification' },
-  { icon: iSearchCheck, text: 'Independent technical evaluation of equipment and contractor proposals' },
-  { icon: iScale, text: 'Focus on lifecycle cost, operability, maintainability and compliance — not only initial construction cost' },
-  { icon: iSliders, text: 'Flexible engagement: full lifecycle support or targeted consulting for a specific project stage' },
+  {
+    icon: iFlask,
+    text: "Pharmaceutical-sector specialization rather than general construction",
+  },
+  {
+    icon: iShield,
+    text: "GMP/GDP and validation considerations built into engineering decisions from the beginning",
+  },
+  {
+    icon: iLayers,
+    text: "Practical understanding of manufacturing processes, equipment and utility systems",
+  },
+  {
+    icon: iUsers,
+    text: "Ability to connect Quality, Production, Engineering and vendors within one project framework",
+  },
+  {
+    icon: iWorkflow,
+    text: "Support from concept and URS through design review, procurement, commissioning and qualification",
+  },
+  {
+    icon: iSearchCheck,
+    text: "Independent technical evaluation of equipment and contractor proposals",
+  },
+  {
+    icon: iScale,
+    text: "Focus on lifecycle cost, operability, maintainability and compliance — not only initial construction cost",
+  },
+  {
+    icon: iSliders,
+    text: "Flexible engagement: full lifecycle support or targeted consulting for a specific project stage",
+  },
 ];
 
 const standards = [
-  'EU GMP principles and applicable Annexes',
-  'PIC/S GMP guidance',
-  'GDP requirements for pharmaceutical storage and distribution',
-  'ICH quality risk-management principles',
-  'ISO standards relevant to cleanrooms, HVAC, quality and engineering systems',
-  'Good Engineering Practice (GEP)',
-  'Risk-based qualification and validation principles',
-  'Applicable pharmacopeial requirements for pharmaceutical water and utilities',
-  'Local building, fire-safety, occupational-safety and engineering regulations',
+  "EU GMP principles and applicable Annexes",
+  "PIC/S GMP guidance",
+  "GDP requirements for pharmaceutical storage and distribution",
+  "ICH quality risk-management principles",
+  "ISO standards relevant to cleanrooms, HVAC, quality and engineering systems",
+  "Good Engineering Practice (GEP)",
+  "Risk-based qualification and validation principles",
+  "Applicable pharmacopeial requirements for pharmaceutical water and utilities",
+  "Local building, fire-safety, occupational-safety and engineering regulations",
 ];
 ---
+
 <BaseLayout
   title="About Us | AID Group Pharmaceutical Engineering"
   description="Owner-led pharmaceutical engineering consultancy bridging GMP compliance and technical execution — from design through qualification and validation."
@@ -53,65 +86,123 @@ const standards = [
     <div class="container head-inner">
       <p class="kicker">About</p>
       <h1>About Us</h1>
-      <p class="intro">Who we are, why AID Group exists, and the standards that guide every project we take on.</p>
+      <p class="intro">
+        Who we are, why AID Group exists, and the standards that guide every
+        project we take on.
+      </p>
     </div>
   </section>
 
-  <section class="section overview">
+  <section class="section overview section-shadow">
     <div class="glow glow-a" aria-hidden="true"></div>
     <div class="glow glow-b" aria-hidden="true"></div>
     <div class="container split">
       <div class="copy">
         <h2 class="h-underline">Company Overview</h2>
         <div class="ov-cards">
-          <p class="ov-card">AID Group is a consulting and engineering company focused on the pharmaceutical and regulated life-science industries. The company supports clients in planning, designing, upgrading, qualifying and bringing pharmaceutical facilities and critical utility systems into compliant operation.</p>
-          <p class="ov-card">Our approach combines pharmaceutical quality and regulatory knowledge with practical engineering and project execution experience. This allows AID Group to support clients not only with technical design, but also with the GMP logic behind that design, documentation, equipment selection, commissioning and qualification.</p>
+          <p class="ov-card">
+            AID Group is a consulting and engineering company focused on the
+            pharmaceutical and regulated life-science industries. The company
+            supports clients in planning, designing, upgrading, qualifying and
+            bringing pharmaceutical facilities and critical utility systems into
+            compliant operation.
+          </p>
+          <p class="ov-card">
+            Our approach combines pharmaceutical quality and regulatory
+            knowledge with practical engineering and project execution
+            experience. This allows AID Group to support clients not only with
+            technical design, but also with the GMP logic behind that design,
+            documentation, equipment selection, commissioning and qualification.
+          </p>
         </div>
       </div>
       <div class="figure">
         <div class="figure-frame">
-          <Image src={teamPhoto} alt="AID Group team at the office" width={1200} height={800} />
+          <Image
+            src={teamPhoto}
+            alt="AID Group team at the office"
+            width={1200}
+            height={800}
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section why">
-    <div class="container">
-      <h2>Why AID Group Was Created</h2>
-      <p class="lede">AID Group was created to address a common challenge in pharmaceutical projects: engineering, construction, equipment, quality assurance and validation are often handled separately, which can create design gaps, compliance risks, delays and costly rework.</p>
-      <p class="lede">The company's main objective is to bring these disciplines together and provide clients with technically practical, GMP-oriented solutions from the earliest project stage. The focus is not simply on constructing a facility, but on helping create a facility that can operate reliably, efficiently and in compliance with applicable pharmaceutical requirements.</p>
+  <section class="section why section-shadow">
+    {
+      whyBg && (
+        <div class="why-bg" aria-hidden="true">
+          <Image src={whyBg} alt="" widths={[700, 1100, 1400]} sizes="100vw" />
+        </div>
+      )
+    }
+    <div class="container why-inner">
+      <div class="why-panel">
+        <h2 class="h-underline">Why AID Group Was Created</h2>
+        <p class="why-quote">
+          AID Group was created to address a common challenge in pharmaceutical
+          projects: engineering, construction, equipment, quality assurance and
+          validation are often handled separately, which can create design gaps,
+          compliance risks, delays and costly rework.
+        </p>
+        <p class="why-text">
+          The company's main objective is to <strong
+            >bring these disciplines together</strong
+          > and provide clients with <strong
+            >technically practical, GMP-oriented solutions</strong
+          > from the earliest project stage. The focus is not simply on constructing
+          a facility, but on helping create a facility that can <strong
+            >operate reliably, efficiently and in compliance</strong
+          > with applicable pharmaceutical requirements.
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="section advantages">
+  <section class="section advantages section-shadow">
     <div class="container">
-      <h2>Key Advantages and Differentiation</h2>
-      <p class="lede">AID Group is not positioned as a conventional construction contractor. Its value comes from integrating pharmaceutical know-how with engineering and project implementation experience.</p>
+      <h2 class="h-underline">Key Advantages and Differentiation</h2>
+      <p class="lede">
+        AID Group is not positioned as a conventional construction contractor.
+        Its value comes from integrating pharmaceutical know-how with
+        engineering and project implementation experience.
+      </p>
       <ul class="adv-grid">
-        {advantages.map((a) => (
-          <li class="adv-item">
-            <span class="icon" set:html={a.icon} aria-hidden="true" />
-            <p>{a.text}</p>
-          </li>
-        ))}
+        {
+          advantages.map((a) => (
+            <li class="adv-item">
+              <span class="icon" set:html={a.icon} aria-hidden="true" />
+              <p>{a.text}</p>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </section>
 
-  <section class="section standards">
+  <section class="section standards section-shadow">
     <div class="container">
-      <h2>Standards and Regulatory Frameworks</h2>
-      <p class="lede">Projects are developed according to the applicable regulatory requirements and recognized industry standards relevant to each client, market and facility type. These may include:</p>
+      <h2 class="h-underline">Standards and Regulatory Frameworks</h2>
+      <p class="lede">
+        Projects are developed according to the applicable regulatory
+        requirements and recognized industry standards relevant to each client,
+        market and facility type. These may include:
+      </p>
       <ul class="std-grid">
-        {standards.map((s) => (
-          <li class="std-item">
-            <span class="check" set:html={iCheck} aria-hidden="true" />
-            <span>{s}</span>
-          </li>
-        ))}
+        {
+          standards.map((s) => (
+            <li class="std-item">
+              <span class="check" set:html={iCheck} aria-hidden="true" />
+              <span>{s}</span>
+            </li>
+          ))
+        }
       </ul>
-      <p class="std-note">The exact regulatory basis is defined at project start according to the intended markets, product type and client quality system.</p>
+      <p class="std-note">
+        The exact regulatory basis is defined at project start according to the
+        intended markets, product type and client quality system.
+      </p>
     </div>
   </section>
 </BaseLayout>
@@ -128,7 +219,10 @@ const standards = [
   .head-deco {
     position: absolute;
     z-index: 0;
-    right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
+    right: max(
+      var(--gutter),
+      calc((100% - var(--container)) / 2 + var(--gutter))
+    );
     top: 50%;
     transform: translateY(-50%);
     height: 88%;
@@ -138,10 +232,19 @@ const standards = [
     pointer-events: none;
     user-select: none;
   }
-  .head-inner { position: relative; z-index: 1; }
+  .head-inner {
+    position: relative;
+    z-index: 1;
+  }
   @media (max-width: 767px) {
-    .about-head { padding-block: var(--space-lg); }
-    .head-deco { right: -25%; height: 70%; opacity: 0.14; }
+    .about-head {
+      padding-block: var(--space-lg);
+    }
+    .head-deco {
+      right: -25%;
+      height: 70%;
+      opacity: 0.14;
+    }
   }
   .kicker {
     margin: 0 0 var(--space-sm);
@@ -150,15 +253,18 @@ const standards = [
     text-transform: uppercase;
     letter-spacing: 0.12em;
   }
-  .about-head h1 { margin-bottom: var(--space-sm); }
-  .intro { max-width: 60ch; margin: 0; }
+  .about-head h1 {
+    margin-bottom: var(--space-sm);
+  }
+  .intro {
+    max-width: 60ch;
+    margin: 0;
+  }
 
   /* Company Overview — light-blue band with shadow, glow blobs, faint cards */
   .overview {
-    position: relative;
-    z-index: 5;
+    --section-z: 5;
     overflow: hidden;
-    box-shadow: var(--shadow-bar);
     background: linear-gradient(180deg, #e9f2f8 0%, #d8e7f2 100%);
   }
   .glow {
@@ -172,14 +278,22 @@ const standards = [
     height: 560px;
     left: -200px;
     top: -240px;
-    background: radial-gradient(circle, rgb(79 166 141 / 0.22) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgb(79 166 141 / 0.22) 0%,
+      transparent 70%
+    );
   }
   .glow-b {
     width: 640px;
     height: 640px;
     right: -240px;
     bottom: -280px;
-    background: radial-gradient(circle, rgb(17 102 159 / 0.22) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgb(17 102 159 / 0.22) 0%,
+      transparent 70%
+    );
   }
   .split {
     position: relative;
@@ -190,18 +304,9 @@ const standards = [
     align-items: center;
   }
 
-  /* Heading with animated underline on hover */
   .h-underline {
-    display: inline-block;
     margin-bottom: var(--space-md);
-    padding-bottom: 6px;
-    background-image: linear-gradient(var(--teal-light), var(--teal-light));
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    background-size: 0% 3px;
-    transition: background-size 0.35s ease;
   }
-  .h-underline:hover { background-size: 100% 3px; }
 
   .ov-cards {
     display: flex;
@@ -216,12 +321,15 @@ const standards = [
     background: rgb(255 255 255 / 0.55);
     border: 1px solid rgb(17 102 159 / 0.16);
     border-radius: var(--radius-card);
-    transition: background-color 0.25s ease, border-color 0.25s ease,
-      box-shadow 0.25s ease, transform 0.25s ease;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
   }
   /* teal edge bar that grows from the centre on hover */
   .ov-card::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
@@ -237,12 +345,16 @@ const standards = [
     box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
     transform: translateY(-2px);
   }
-  .ov-card:hover::before { transform: scaleY(1); }
+  .ov-card:hover::before {
+    transform: scaleY(1);
+  }
 
   /* Photo with offset teal backing shape and hover zoom */
-  .figure { position: relative; }
+  .figure {
+    position: relative;
+  }
   .figure::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     transform: translate(14px, 14px);
@@ -265,17 +377,113 @@ const standards = [
     object-fit: cover;
     transition: transform 0.5s ease;
   }
-  .figure:hover .figure-frame :global(img) { transform: scale(1.05); }
-
-  @media (max-width: 899px) {
-    .split { grid-template-columns: 1fr; }
-    .figure { order: -1; }
+  .figure:hover .figure-frame :global(img) {
+    transform: scale(1.05);
   }
 
-  .why h2, .advantages h2 { margin-bottom: var(--space-sm); }
-  .lede { max-width: 72ch; margin: 0 0 var(--space-sm); }
-  .lede:last-of-type { margin-bottom: 0; }
-  .advantages .lede { margin-bottom: var(--space-md); }
+  @media (max-width: 899px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+    .figure {
+      order: -1;
+    }
+  }
+
+  /* Why AID Group Was Created — photo background, frosted panel, pull-quote */
+  .why {
+    --section-z: 4;
+    overflow: hidden;
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+  }
+  .why-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .why-bg :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .why-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .why-panel {
+    position: relative;
+    max-width: 880px;
+    margin-inline: auto;
+    padding: var(--space-lg);
+    overflow: hidden;
+    background: rgb(
+      255 255 255 / 0.62
+    ); /* white fog on the card only — photo stays fully clear */
+    border: 0;
+    border-radius: var(--radius-card);
+    transition: transform 0.3s ease;
+  }
+  /* top line draws in from the left on hover */
+  .why-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--teal-light);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s ease;
+  }
+  .why-panel:hover {
+    transform: scale(1.015);
+  }
+  .why-panel:hover::before {
+    transform: scaleX(1);
+  }
+  .why-quote {
+    margin: 0 0 var(--space-md);
+    padding-left: var(--space-md);
+    border-left: 4px solid var(--teal-light);
+    color: var(--navy);
+    font: 500 21px/1.5 var(--font-heading);
+  }
+  .why-text {
+    margin: 0;
+    max-width: 72ch;
+  }
+  .why-text strong {
+    color: var(--teal-dark);
+    font-weight: 700;
+    background: linear-gradient(transparent 60%, rgb(79 166 141 / 0.3) 60%);
+    padding-inline: 2px;
+  }
+  @media (max-width: 767px) {
+    .why-panel {
+      padding: var(--space-md);
+    }
+    .why-quote {
+      font-size: 18px;
+      padding-left: var(--space-sm);
+    }
+  }
+
+  .lede {
+    max-width: 72ch;
+    margin: 0 0 var(--space-sm);
+  }
+  .lede:last-of-type {
+    margin-bottom: 0;
+  }
+  .advantages {
+    --section-z: 3;
+  }
+  .advantages .lede {
+    margin-bottom: var(--space-md);
+  }
 
   .adv-grid {
     list-style: none;
@@ -306,16 +514,28 @@ const standards = [
     background: var(--teal-light);
     color: var(--navy-deep);
   }
-  .adv-item .icon :global(svg) { width: 20px; height: 20px; }
-  .adv-item p { margin: 0; padding-top: 4px; }
-
-  @media (max-width: 767px) {
-    .adv-grid { grid-template-columns: 1fr; }
+  .adv-item .icon :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+  .adv-item p {
+    margin: 0;
+    padding-top: 4px;
   }
 
-  .standards { background: var(--surface); }
-  .standards h2 { margin-bottom: var(--space-sm); }
-  .standards .lede { margin-bottom: var(--space-md); }
+  @media (max-width: 767px) {
+    .adv-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .standards {
+    --section-z: 2;
+    background: var(--surface);
+  }
+  .standards .lede {
+    margin-bottom: var(--space-md);
+  }
 
   .std-grid {
     list-style: none;
@@ -343,7 +563,11 @@ const standards = [
     background: var(--teal-light);
     color: var(--navy-deep);
   }
-  .check :global(svg) { width: 14px; height: 14px; stroke-width: 3; }
+  .check :global(svg) {
+    width: 14px;
+    height: 14px;
+    stroke-width: 3;
+  }
 
   .std-note {
     margin: 0;
@@ -355,6 +579,8 @@ const standards = [
   }
 
   @media (max-width: 767px) {
-    .std-grid { grid-template-columns: 1fr; }
+    .std-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

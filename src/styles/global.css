@@ -25,6 +25,21 @@ img, svg { max-width: 100%; }
 .skip-link { position: absolute; left: -9999px; top: 0; background: var(--navy); color: #fff; padding: var(--space-xs) var(--space-sm); z-index: 100; }
 .skip-link:focus { left: var(--space-sm); top: var(--space-sm); }
 
+/* Shared: shadow cast under a section (set --section-z per section, highest first) */
+.section-shadow { position: relative; z-index: var(--section-z, 1); box-shadow: var(--shadow-bar); }
+
+/* Shared: heading with underline that draws in on hover */
+.h-underline {
+  display: inline-block;
+  padding-bottom: 6px;
+  background-image: linear-gradient(var(--underline-color), var(--underline-color));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% var(--underline-height);
+  transition: background-size var(--underline-speed) ease;
+}
+.h-underline:hover { background-size: 100% var(--underline-height); }
+
 /* Buttons (2.3) */
 .btn { display: inline-block; padding: 12px 24px; border-radius: var(--radius-button); font: 600 16px/1.2 var(--font-body); text-decoration: none; border: 2px solid transparent; transition: background-color .15s, color .15s, border-color .15s; }
 .btn-primary { background: var(--teal-dark); color: #fff; }

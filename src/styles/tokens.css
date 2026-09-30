@@ -27,6 +27,11 @@
   --shadow-bar: 0 4px 14px rgb(12 56 93 / .12);
   --shadow-bar-strong: 0 6px 18px rgb(0 0 0 / .35);
 
+  /* Heading underline animation — shared by .h-underline */
+  --underline-color: var(--teal-light);
+  --underline-height: 3px;
+  --underline-speed: 0.35s;
+
   /* Shape */
   --radius-card: 8px;
   --radius-button: 6px;
