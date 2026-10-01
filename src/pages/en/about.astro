@@ -63,7 +63,7 @@ const standards = [
     </div>
   </section>
 
-  <section class="section overview section-shadow">
+  <section class="section overview section-shadow section-shadow--strong">
     <div class="glow glow-a" aria-hidden="true"></div>
     <div class="glow glow-b" aria-hidden="true"></div>
     <div class="container split">
@@ -97,7 +97,7 @@ const standards = [
     </div>
   </section>
 
-  <section class="section advantages section-shadow">
+  <section class="section advantages section-shadow section-shadow--strong">
     <div class="glow glow-a" aria-hidden="true"></div>
     <div class="glow glow-b" aria-hidden="true"></div>
     <div class="dots dots-a" aria-hidden="true"></div>
@@ -118,7 +118,7 @@ const standards = [
     </div>
   </section>
 
-  <section class="section standards section-shadow">
+  <section class="section standards section-shadow section-shadow--strong">
     <div class="std-bg">
       <Image
         src={standardsBg}
@@ -487,28 +487,23 @@ const standards = [
   .std-card {
     position: relative;
     overflow: hidden;
-    max-width: 920px;
-    margin: 0; /* left-aligned inside the container */
+    max-width: 1000px;
+    margin: 0 0 0 auto; /* pushed to the right end of the container */
     padding: var(--space-lg);
-    padding-left: calc(var(--space-lg) + 4px);
-    /* same gradient as Company Overview, at 75% opacity */
-    background: linear-gradient(180deg, rgb(233 242 248 / 0.75) 0%, rgb(216 231 242 / 0.75) 100%);
+    /* same gradient as Company Overview, at 85% opacity */
+    background: linear-gradient(180deg, rgb(233 242 248 / 0.85) 0%, rgb(216 231 242 / 0.85) 100%);
     border-radius: var(--radius-card);
     box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
   }
-  /* left edge: light-teal bar at rest, dark-teal fill sweeps down on hover */
-  .std-card::before,
+  /* green edge on the right side: appears only on hover, sweeping down */
   .std-card::after {
     content: '';
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
     bottom: 0;
     width: 4px;
-  }
-  .std-card::before { background: var(--teal-light); }
-  .std-card::after {
-    background: var(--teal-dark);
+    background: var(--teal-light);
     transform: scaleY(0);
     transform-origin: top;
     transition: transform 0.6s ease;
@@ -564,13 +559,14 @@ const standards = [
   .std-note {
     margin: 0;
     color: var(--text-body);
-    opacity: 0.8;
+    opacity: 0.9;
     font-size: var(--small-size);
     font-style: italic;
+    font-weight: 700;
   }
 
   @media (max-width: 767px) {
-    .std-card { padding: var(--space-md); padding-left: calc(var(--space-md) + 4px); }
+    .std-card { padding: var(--space-md); }
     .std-grid { grid-template-columns: 1fr; }
   }
 </style>

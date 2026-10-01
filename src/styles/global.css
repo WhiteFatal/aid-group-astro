@@ -27,6 +27,8 @@ img, svg { max-width: 100%; }
 
 /* Shared: shadow cast under a section (set --section-z per section, highest first) */
 .section-shadow { position: relative; z-index: var(--section-z, 1); box-shadow: var(--shadow-bar); }
+/* use when the NEXT section is dark or a photo */
+.section-shadow--strong { box-shadow: var(--shadow-bar-strong); }
 
 /* Shared: heading with underline that draws in on hover */
 .h-underline {
