@@ -2,8 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import labPhoto from '../../assets/images/services_laboratory_environment.jpg';
 import headWatermark from '../../assets/brand/logo-watermark.png';
+import areasBg from '../../assets/images/areas-aerial-bg.jpg';
 import { Image } from 'astro:assets';
 import iCheck from 'lucide-static/icons/check.svg?raw';
+import iFactory from 'lucide-static/icons/factory.svg?raw';
+import iRocket from 'lucide-static/icons/rocket.svg?raw';
+import iGlobe from 'lucide-static/icons/globe.svg?raw';
+import iHandshake from 'lucide-static/icons/handshake.svg?raw';
+import iLandmark from 'lucide-static/icons/landmark.svg?raw';
+import iWrench from 'lucide-static/icons/wrench.svg?raw';
 
 const clusters = [
   {
@@ -85,6 +92,7 @@ const processSteps = [
   'GMP readiness and handover to routine operation',
 ];
 
+const audienceIcons = [iFactory, iRocket, iGlobe, iHandshake, iLandmark, iWrench];
 const audiences = [
   'Existing local pharmaceutical manufacturers planning upgrades, expansions or new lines',
   'New pharmaceutical manufacturers and start-up production projects',
@@ -112,6 +120,23 @@ const audiences = [
       <p class="kicker">Services</p>
       <h1>Services</h1>
       <p class="intro">A closer look at how we support pharmaceutical facilities — from early concept and design through qualification and long-term compliance.</p>
+    </div>
+  </section>
+
+  <section class="section process section-shadow">
+    <div class="container">
+      <h2 class="h-underline">Our End-to-End Process</h2>
+      <p class="lede">AID Group can provide end-to-end support from the earliest project definition through commissioning and qualification. Clients may also engage the company for only selected phases.</p>
+      <ol class="steps">
+        {processSteps.map((step, i) => (
+          <li class="step">
+            <div class="step-card" data-n={i + 1}>
+              <span class="circle">{i + 1}</span>
+              <p>{step}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
@@ -154,46 +179,41 @@ const audiences = [
     </div>
   </section>
 
-  <section class="section facility-types">
-    <div class="container">
-      <h2>Facility Types We Support</h2>
-      <p class="lede">AID Group is primarily oriented toward facilities where GMP compliance, controlled environments, specialized utilities and validated processes are required.</p>
-      <ul class="std-grid">
-        {facilityTypes.map((f) => (
-          <li class="std-item">
-            <span class="check" set:html={iCheck} aria-hidden="true" />
-            <span>{f}</span>
-          </li>
-        ))}
-      </ul>
-      <p class="std-note">Sterile, high-containment or other highly specialized facilities can be supported where the project team includes the appropriate verified specialist expertise for the specific technology and regulatory risk level.</p>
-    </div>
-  </section>
-
-  <section class="section process">
-    <div class="container">
-      <h2>Our End-to-End Process</h2>
-      <p class="lede">AID Group can provide end-to-end support from the earliest project definition through commissioning and qualification. Clients may also engage the company for only selected phases.</p>
-      <p class="scroll-hint">Scroll to see all 10 steps →</p>
-      <div class="track" tabindex="0" role="group" aria-label="Scroll to see all 10 process steps">
-        <ol class="track-inner">
-          {processSteps.map((step, i) => (
-            <li class="step">
-              <span class="circle">{i + 1}</span>
-              <p>{step}</p>
+  <section class="section facility-types section-shadow">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="container fac-inner">
+      <div class="fac-card">
+        <h2 class="h-underline">Facility Types We Support</h2>
+        <p class="lede">AID Group is primarily oriented toward facilities where GMP compliance, controlled environments, specialized utilities and validated processes are required.</p>
+        <ul class="std-grid">
+          {facilityTypes.map((f) => (
+            <li class="std-item">
+              <span class="check" set:html={iCheck} aria-hidden="true" />
+              <span>{f}</span>
             </li>
           ))}
-        </ol>
+        </ul>
+        <div class="std-divider" aria-hidden="true"></div>
+        <p class="std-note">Sterile, high-containment or other highly specialized facilities can be supported where the project team includes the appropriate verified specialist expertise for the specific technology and regulatory risk level.</p>
       </div>
     </div>
   </section>
 
-  <section class="section audiences-section">
-    <div class="container">
-      <h2>Areas of Engagement</h2>
+  <section class="section audiences-section section-shadow section-shadow--strong">
+    <div class="aud-bg" aria-hidden="true">
+      <Image src={areasBg} alt="" widths={[700, 1100, 1400]} sizes="100vw" />
+    </div>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="container aud-inner">
+      <h2 class="h-underline">Areas of Engagement</h2>
       <ul class="audience-grid">
-        {audiences.map((a) => (
-          <li class="audience-card">{a}</li>
+        {audiences.map((a, i) => (
+          <li class="audience-card">
+            <span class="mark" set:html={audienceIcons[i]} aria-hidden="true" />
+            <span class="aud-text">{a}</span>
+          </li>
         ))}
       </ul>
     </div>
@@ -206,7 +226,7 @@ const audiences = [
     z-index: 6;
     overflow: hidden;
     padding-block: 72px;
-    box-shadow: var(--shadow-bar);
+    box-shadow: var(--shadow-bar-strong);
     background: linear-gradient(180deg, #fff 0%, var(--bg) 30%, var(--bg) 100%);
   }
   .head-deco {
@@ -239,7 +259,7 @@ const audiences = [
 
   /* Services and Scope + Service Clusters (merged) — light-blue band, glow blobs */
   .scope {
-    --section-z: 5;
+    --section-z: 4;
     overflow: hidden;
     background: linear-gradient(180deg, #e9f2f8 0%, #d8e7f2 100%);
   }
@@ -461,97 +481,241 @@ const audiences = [
     .cluster-grid { grid-template-columns: 1fr; }
   }
 
-  .facility-types { background: var(--surface); }
-  .facility-types h2 { margin-bottom: var(--space-sm); }
+  /* Facility Types — light-green band, glow blobs, one card with a checklist */
+  .facility-types {
+    --section-z: 3;
+    overflow: hidden;
+    background: linear-gradient(180deg, #e9f5ee 0%, #d7ebdf 100%);
+  }
+  .facility-types .glow-a {
+    left: auto;
+    right: -200px;
+    top: -240px;
+    background: radial-gradient(circle, rgb(79 166 141 / 0.26) 0%, transparent 70%);
+  }
+  .facility-types .glow-b {
+    right: auto;
+    left: -240px;
+    bottom: -280px;
+    background: radial-gradient(circle, rgb(17 102 159 / 0.14) 0%, transparent 70%);
+  }
+  .fac-inner { position: relative; z-index: 1; }
+
+  .fac-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: var(--space-lg);
+    background: rgb(255 255 255 / 0.72);
+    border: 1px solid rgb(31 99 98 / 0.14);
+    border-radius: var(--radius-card);
+    box-shadow: 0 6px 18px rgb(12 56 93 / 0.1);
+  }
+  /* dotted decoration, fading out from the top-right corner, behind the text */
+  .fac-card::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    right: -8px;
+    top: -8px;
+    width: 340px;
+    height: 220px;
+    pointer-events: none;
+    background-image: radial-gradient(rgb(17 102 159 / 0.34) 1.5px, transparent 1.7px);
+    background-size: 11.5px 11.5px;
+    -webkit-mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+  }
+  /* teal edge on the right side: appears only on hover, sweeping down */
+  .fac-card::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--teal-light);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.6s ease;
+  }
+  @media (hover: hover) {
+    .fac-card:hover::after { transform: scaleY(1); }
+  }
+  .fac-card .h-underline { margin-bottom: var(--space-sm); }
   .facility-types .lede { max-width: 72ch; margin: 0 0 var(--space-md); }
 
   .std-grid {
     list-style: none;
-    margin: 0 0 var(--space-md);
+    margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: var(--space-lg);
-    row-gap: var(--space-sm);
+    gap: var(--space-sm) var(--space-lg);
   }
   .std-item {
     display: flex;
     align-items: flex-start;
-    gap: var(--space-xs);
+    gap: var(--space-sm);
   }
+  /* empty, square checkbox with a check mark that redraws on hover */
   .check {
     flex: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     margin-top: 2px;
-    border-radius: 50%;
-    background: var(--teal-light);
-    color: var(--navy-deep);
+    border: 2px solid var(--teal-dark);
+    border-radius: 0;
+    background: transparent;
+    color: var(--teal-dark);
   }
-  .check :global(svg) { width: 14px; height: 14px; stroke-width: 3; }
+  .check :global(svg) { width: 14px; height: 14px; stroke-width: 3.2; }
+  .check :global(svg path) { stroke-dasharray: 24; stroke-dashoffset: 0; }
+  @media (hover: hover) {
+    .std-item:hover .check :global(svg path) { animation: tick 0.45s ease forwards; }
+  }
+  @keyframes tick {
+    from { stroke-dashoffset: 24; }
+    to { stroke-dashoffset: 0; }
+  }
 
+  /* closing note: separated by a divider, smaller and quieter than the list */
+  .std-divider {
+    height: 1px;
+    margin: var(--space-md) 0 var(--space-sm);
+    background: linear-gradient(90deg, var(--teal-light) 0, var(--teal-light) 64px, rgb(12 56 93 / 0.14) 64px);
+  }
   .std-note {
     margin: 0;
-    padding-top: var(--space-sm);
-    border-top: 1px solid var(--border);
-    color: var(--text-body);
-    font-size: var(--small-size);
     max-width: 72ch;
+    color: var(--text-body);
+    opacity: 0.9;
+    font-size: var(--small-size);
+    font-style: italic;
+    font-weight: 700;
   }
 
   @media (max-width: 767px) {
+    .fac-card { padding: var(--space-md); }
     .std-grid { grid-template-columns: 1fr; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .std-item:hover .check :global(svg path) { animation: none; }
+    .fac-card::after { transition: none; }
+  }
 
-  .process h2 { margin-bottom: var(--space-sm); }
-  .process .lede { max-width: 72ch; margin: 0 0 var(--space-lg); }
-
-  .track {
-    overflow-x: auto;
-    padding-bottom: var(--space-sm);
-    scrollbar-width: thin;
-    scrollbar-color: var(--teal-light) transparent;
-    -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
-    mask-image: linear-gradient(90deg, #000 92%, transparent 100%);
+  /* End-to-End Process — dark navy blueprint band (same recipe as Home > Expertise) */
+  .process {
+    --section-z: 5;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(60% 80% at 12% 0%, rgb(79 166 141 / 0.3), transparent 60%),
+      radial-gradient(55% 75% at 92% 100%, rgb(17 102 159 / 0.6), transparent 60%),
+      var(--navy);
   }
-  .track::-webkit-scrollbar { height: 6px; }
-  .track::-webkit-scrollbar-thumb { background: var(--teal-light); border-radius: 3px; }
-  .track::-webkit-scrollbar-track { background: transparent; }
-  .scroll-hint {
-    margin: 0 0 var(--space-sm);
-    font-size: var(--small-size);
-    color: var(--text-body);
-    font-style: italic;
-  }
-  .track-inner {
-    position: relative;
-    display: inline-flex;
-    list-style: none;
-    margin: 0;
-    padding: var(--space-md) var(--space-xs) 0;
-    gap: var(--space-md);
-  }
-  .track-inner::before {
+  .process::before {
     content: '';
     position: absolute;
-    left: 40px;
-    right: 40px;
-    top: calc(var(--space-md) + 20px);
-    height: 2px;
-    background: var(--border);
-    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+  }
+  .process .container { position: relative; z-index: 1; }
+  .process h2 { margin-bottom: var(--space-sm); color: #fff; }
+  .process .lede { max-width: 72ch; margin: 0 0 var(--space-lg); color: rgb(255 255 255 / 0.82); }
+
+  /* Desktop: all 10 steps visible, two rows of five, connector line threaded behind the cards */
+  .steps {
+    --gap: 16px;
+    --pad-top: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-md) var(--gap);
   }
   .step {
     position: relative;
-    z-index: 1;
-    flex: none;
-    width: 150px;
     text-align: center;
   }
+  /* line from this circle's centre to the next circle's centre (hidden on the last step of a row) */
+  .step::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: calc(var(--pad-top) + 19px);
+    left: 50%;
+    width: calc(100% + var(--gap));
+    height: 2px;
+    background: rgb(155 213 194 / 0.45);
+  }
+  .step:nth-child(5n)::before,
+  .step:last-child::before { display: none; }
+
+  /* step card: translucent glass, faded numeral behind the text, teal edge on hover */
+  .step-card {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    overflow: hidden;
+    height: 100%;
+    padding: var(--pad-top) 12px 20px;
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: var(--radius-card);
+    transition: background-color 0.25s ease, border-color 0.25s ease,
+      box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .step-card::after {
+    content: attr(data-n);
+    position: absolute;
+    z-index: -1;
+    right: 8px;
+    bottom: -10px;
+    font: 700 72px/1 var(--font-heading);
+    color: rgb(255 255 255 / 0.07);
+    pointer-events: none;
+    transition: color 0.25s ease;
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--teal-light);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+  @media (hover: hover) {
+    .step-card:hover {
+      background: rgb(255 255 255 / 0.11);
+      border-color: rgb(155 213 194 / 0.55);
+      box-shadow: 0 8px 22px rgb(0 0 0 / 0.28);
+      transform: translateY(-3px);
+    }
+    .step-card:hover::before { transform: scaleY(1); }
+    .step-card:hover::after { color: rgb(155 213 194 / 0.16); }
+    .step-card:hover .circle {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 5px rgb(79 166 141 / 0.3), 0 0 26px rgb(79 166 141 / 0.8);
+    }
+  }
+
+  /* glowing numbered circle */
   .circle {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -559,23 +723,95 @@ const audiences = [
     height: 40px;
     margin: 0 auto var(--space-sm);
     border-radius: 50%;
-    background: var(--teal-dark);
-    color: #fff;
+    background: var(--teal-light);
+    color: var(--navy-deep);
     font: 700 16px/1 var(--font-heading);
+    box-shadow: 0 0 0 4px rgb(79 166 141 / 0.22), 0 0 18px rgb(79 166 141 / 0.55);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .step p {
     margin: 0;
-    font-size: var(--small-size);
-    line-height: var(--small-lh);
-    color: var(--text-body);
+    font-size: calc(var(--small-size) + 1px);
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    color: rgb(255 255 255 / 0.92);
   }
 
-  @media (max-width: 899px) {
-    .step { width: 130px; }
+  /* Below 1100px: vertical timeline, line on the left, text beside each circle */
+  @media (max-width: 1099px) {
+    .steps {
+      --pad-top: 16px;
+      grid-template-columns: 1fr;
+      max-width: 640px;
+    }
+    .step { text-align: left; }
+    .step-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--pad-top) var(--space-sm);
+    }
+    .step-card::after { font-size: 56px; bottom: -6px; }
+    .step::before {
+      top: calc(var(--pad-top) + 40px);
+      left: calc(var(--space-sm) + 19px);
+      width: 2px;
+      height: calc(100% - 40px + var(--gap));
+    }
+    .step:nth-child(5n)::before { display: block; }
+    .step:last-child::before { display: none; }
+    .circle { flex: none; margin: 0; }
+    .step p { padding-top: 9px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step-card:hover,
+    .step-card:hover .circle { transform: none; }
+    .step-card::before { transition: none; }
   }
 
-  .audiences-section { background: var(--surface); }
-  .audiences-section h2 { margin-bottom: var(--space-md); }
+  /* Areas of Engagement — light band, glow blobs, cards with a faded icon watermark */
+  .audiences-section {
+    --section-z: 2;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f4f8fb 0%, #e3edf5 100%);
+  }
+  .audiences-section .glow-a {
+    left: auto;
+    right: -200px;
+    top: -240px;
+    background: radial-gradient(circle, rgb(79 166 141 / 0.2) 0%, transparent 70%);
+  }
+  .audiences-section .glow-b {
+    right: auto;
+    left: -240px;
+    bottom: -280px;
+    background: radial-gradient(circle, rgb(17 102 159 / 0.16) 0%, transparent 70%);
+  }
+  /* aerial photo behind the section, shown clear (no veil); cards use frosted glass for readability */
+  .aud-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .aud-bg :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 45%;
+    filter: contrast(1.12) saturate(1.12);
+  }
+  .aud-inner { position: relative; z-index: 1; }
+  /* heading sits on the same frosted-glass plate as the cards so it stays legible over the photo */
+  .audiences-section h2 {
+    margin-bottom: var(--space-md);
+    padding: 10px 22px 12px;
+    background-color: rgb(255 255 255 / 0.78);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgb(17 102 159 / 0.16);
+    border-radius: var(--radius-card);
+  }
 
   .audience-grid {
     list-style: none;
@@ -583,19 +819,76 @@ const audiences = [
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-md);
+    gap: 18px;
   }
   .audience-card {
-    background: var(--bg);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: var(--space-md) 96px var(--space-md) var(--space-md);
+    background: rgb(255 255 255 / 0.78);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgb(17 102 159 / 0.16);
     border-radius: var(--radius-card);
-    border-bottom: 4px solid var(--teal-light);
-    padding: var(--space-sm) var(--space-md);
     font-size: var(--body-size);
     line-height: var(--body-lh);
     color: var(--text-body);
+    transition: background-color 0.25s ease, border-color 0.25s ease,
+      box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  /* faded icon watermark, bottom-right corner */
+  .mark {
+    position: absolute;
+    z-index: -1;
+    right: 14px;
+    bottom: 10px;
+    width: 76px;
+    height: 76px;
+    color: var(--blue);
+    opacity: 0.12;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.35s ease;
+  }
+  .mark :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    stroke-width: 1.4;
+  }
+  /* teal edge bar on the left that grows from the centre on hover */
+  .audience-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--teal-light);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+  @media (hover: hover) {
+    .audience-card:hover {
+      background: rgb(255 255 255 / 0.95);
+      border-color: var(--teal-light);
+      box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
+      transform: translateY(-2px);
+    }
+    .audience-card:hover::before { transform: scaleY(1); }
+    .audience-card:hover .mark { opacity: 0.22; transform: scale(1.08) rotate(-4deg); }
   }
 
   @media (max-width: 899px) {
     .audience-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 479px) {
+    .audience-card { padding-right: 80px; }
+    .mark { width: 60px; height: 60px; right: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .audience-card:hover { transform: none; }
+    .audience-card:hover .mark { transform: none; }
+    .audience-card::before { transition: none; }
   }
 </style>
