@@ -179,7 +179,7 @@ const audiences = [
     </div>
   </section>
 
-  <section class="section facility-types section-shadow">
+  <section class="section facility-types section-shadow section-shadow--strong">
     <div class="glow glow-a" aria-hidden="true"></div>
     <div class="glow glow-b" aria-hidden="true"></div>
     <div class="container fac-inner">
@@ -804,12 +804,14 @@ const audiences = [
   .aud-inner { position: relative; z-index: 1; }
   /* heading sits on the same frosted-glass plate as the cards so it stays legible over the photo */
   .audiences-section h2 {
-    margin-bottom: var(--space-md);
+    display: block;
+    width: fit-content;
+    margin: 0 0 var(--space-md) auto;
     padding: 10px 22px 12px;
-    background-color: rgb(255 255 255 / 0.78);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgb(17 102 159 / 0.16);
+    background-color: rgb(255 255 255 / 0.55);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgb(255 255 255 / 0.55);
     border-radius: var(--radius-card);
   }
 
@@ -826,14 +828,15 @@ const audiences = [
     isolation: isolate;
     overflow: hidden;
     padding: var(--space-md) 96px var(--space-md) var(--space-md);
-    background: rgb(255 255 255 / 0.78);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgb(17 102 159 / 0.16);
+    background: rgb(255 255 255 / 0.75);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgb(255 255 255 / 0.55);
     border-radius: var(--radius-card);
     font-size: var(--body-size);
     line-height: var(--body-lh);
     color: var(--text-body);
+    text-shadow: 0 0 8px rgb(255 255 255 / 0.9), 0 0 2px rgb(255 255 255 / 0.8);
     transition: background-color 0.25s ease, border-color 0.25s ease,
       box-shadow 0.25s ease, transform 0.25s ease;
   }
@@ -870,7 +873,7 @@ const audiences = [
   }
   @media (hover: hover) {
     .audience-card:hover {
-      background: rgb(255 255 255 / 0.95);
+      background: rgb(255 255 255 / 0.9);
       border-color: var(--teal-light);
       box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
       transform: translateY(-2px);
@@ -881,6 +884,11 @@ const audiences = [
 
   @media (max-width: 899px) {
     .audience-grid { grid-template-columns: 1fr; }
+  }
+  /* phones crop the photo tighter, so the glass gets a little firmer for legibility */
+  @media (max-width: 767px) {
+    .audience-card { background: rgb(255 255 255 / 0.82); }
+    .audiences-section h2 { background-color: rgb(255 255 255 / 0.68); }
   }
   @media (max-width: 479px) {
     .audience-card { padding-right: 80px; }
