@@ -49,4 +49,4 @@ img, svg { max-width: 100%; }
 .btn-secondary { background: transparent; color: var(--navy); border-color: var(--navy); }
 .btn-secondary:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

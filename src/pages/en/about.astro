@@ -248,13 +248,15 @@ const standards = [
     transform: scaleY(0);
     transition: transform 0.3s ease;
   }
-  .ov-card:hover {
-    background: rgb(255 255 255 / 0.9);
-    border-color: var(--teal-light);
-    box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .ov-card:hover {
+      background: rgb(255 255 255 / 0.9);
+      border-color: var(--teal-light);
+      box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
+      transform: translateY(-2px);
+    }
+    .ov-card:hover::before { transform: scaleY(1); }
   }
-  .ov-card:hover::before { transform: scaleY(1); }
 
   /* Photo with offset teal backing shape and hover zoom */
   .figure { position: relative; }
@@ -282,7 +284,9 @@ const standards = [
     object-fit: cover;
     transition: transform 0.5s ease;
   }
-  .figure:hover .figure-frame :global(img) { transform: scale(1.05); }
+  @media (hover: hover) {
+    .figure:hover .figure-frame :global(img) { transform: scale(1.05); }
+  }
 
   @media (max-width: 899px) {
     .split { grid-template-columns: 1fr; }
@@ -310,7 +314,7 @@ const standards = [
     margin-inline: auto;
     padding: var(--space-lg);
     overflow: hidden;
-    background: rgb(255 255 255 / 0.62); /* white fog on the card only — photo stays fully clear */
+    background: rgb(255 255 255 / 0.75); /* white fog on the card only — photo stays fully clear */
     border: 0;
     border-radius: var(--radius-card);
     transition: transform 0.3s ease;
@@ -328,8 +332,10 @@ const standards = [
     transform-origin: left;
     transition: transform 0.45s ease;
   }
-  .why-panel:hover { transform: scale(1.015); }
-  .why-panel:hover::before { transform: scaleX(1); }
+  @media (hover: hover) {
+    .why-panel:hover { transform: scale(1.015); }
+    .why-panel:hover::before { transform: scaleX(1); }
+  }
   .why-quote {
     margin: 0 0 var(--space-md);
     padding-left: var(--space-md);
@@ -467,6 +473,10 @@ const standards = [
     .dots { width: 200px; height: 150px; }
     .adv-num { font-size: 60px; }
   }
+  @media (max-width: 479px) {
+    .adv-num { font-size: 46px; right: 12px; bottom: -6px; opacity: 0.16; }
+    .adv-wm { width: 64px; height: 64px; }
+  }
 
   /* Standards — document photo background (kept clear), frosted heading panel, bottom-edge cards */
   .standards {
@@ -508,8 +518,9 @@ const standards = [
     transform-origin: top;
     transition: transform 0.6s ease;
   }
-  .std-card:hover::after { transform: scaleY(1); }
-  .std-card .h-underline { margin-bottom: var(--space-sm); }
+  @media (hover: hover) {
+    .std-card:hover::after { transform: scaleY(1); }
+  }
   .standards .lede { margin: 0 0 var(--space-md); }
 
   .std-grid {
@@ -568,5 +579,14 @@ const standards = [
   @media (max-width: 767px) {
     .std-card { padding: var(--space-md); }
     .std-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Reduced motion: no movement at all on this page */
+  @media (prefers-reduced-motion: reduce) {
+    .ov-card:hover, .adv-item:hover, .why-panel:hover { transform: none; }
+    .adv-item:hover .icon, .adv-item:hover .adv-wm,
+    .figure:hover .figure-frame :global(img) { transform: none; }
+    .std-item:hover .check :global(svg path) { animation: none; }
+    .ov-card::before, .why-panel::before, .std-card::after { transition: none; }
   }
 </style>

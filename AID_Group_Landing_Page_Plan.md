@@ -141,7 +141,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
   **Button hover — superseded:** original spec was primary CTA hover → navy `#0c385d`. **Built and approved instead:** hover → light teal-green `#4fa68d` with the new deep-navy text `#071f33` for contrast. This applies to every `.btn-primary` site-wide, including the header/hero CTA and the closing CTA.
 
-  **Shadow system — new, not in the original spec:** two shadow tokens, `--shadow-bar` (soft, navy-tinted, used on light backgrounds — header, hero, Areas of Engagement/Partners) and `--shadow-bar-strong` (higher-contrast, plain black, used on colored/dark backgrounds — At a Glance/Positioning, Expertise, Why AID Group). Every Home section casts one of these under itself, creating a consistent "each section separates from the next" rhythm down the page. This should be applied to About/Services/Projects/Contact as they're built, for consistency.
+  **Shadow system — new, not in the original spec:** two shadow tokens, `--shadow-bar` (soft, navy-tinted, used on light backgrounds — header, hero, Areas of Engagement/Partners) and `--shadow-bar-strong` (higher-contrast, plain black, used on colored/dark backgrounds — At a Glance/Positioning, Expertise, Why AID Group). Every Home section casts one of these under itself, creating a consistent "each section separates from the next" rhythm down the page. This should be applied to About/Services/Projects/Contact as they're built, for consistency. **Update:** About now applies this via a reusable `.section-shadow` / `.section-shadow--strong` class pair in `global.css`; the strong variant is chosen by what the section's shadow falls *onto* (a photo or dark section), see "About — As Built".
 
 - **2.2 Typography** — ✅ Finalized, **one deviation on sourcing, one on scale.**
 
@@ -305,18 +305,28 @@ FOOTER (shared)
 
 ```
 HEADER (shared)
-├ About head — kicker "ABOUT" + H1 "About Us" + page intro
-├ Company Overview — text + team/office photo, side by side (photo moves above text on mobile)
-├ Why AID Group Was Created — plain text block, both paragraphs verbatim
-├ Key Advantages and Differentiation — intro line + 8-item icon card grid (2 cols desktop, 1 col mobile)
-│  (one lucide icon per advantage, chosen by meaning — flask for sector specialization,
-│  shield for GMP/validation, connected people for the Quality/Production/Engineering link, etc.)
+├ About head — kicker "ABOUT" + H1 "About Us" + page intro. Same gradient as the Home hero, with the full logo lockup
+│  (logo-watermark.png, trimmed from the client's Photoroom PNG) as a faint 20% watermark on the right edge
+├ Company Overview — light-blue gradient band + teal/blue glow blobs. Two paragraphs on faint translucent cards
+│  (teal edge bar grows on hover); team/office photo with an offset teal backing shape and slow hover zoom
+├ Why AID Group Was Created — full-bleed cleanroom photo (about-why-bg.jpg, 1400x600, kept fully clear). One white-fog card (75%),
+│  top teal line draws in on hover; first paragraph as a pull-quote with a teal bar, three key phrases bold teal with highlighter
+├ Key Advantages and Differentiation — light-green gradient band, glow blobs + dotted decoration. 8 white cards, each with a faded
+│  01-08 numeral behind the text, the card's own icon as a faint corner watermark, icon tilt + card lift on hover
 ├ [Founders and Team Experience — NOT BUILT, postponed on client instruction; copy ready below]
-└ Standards and Regulatory Frameworks — intro + 9-item checklist (2 cols desktop, 1 col mobile) + closing note
+└ Standards and Regulatory Frameworks — documents photo (about-standards-bg.jpg, cropped to 1536x800, kept fully clear).
+   ONE card (1000px, right-aligned, Company Overview gradient at 85%): heading + intro + 9-item list with empty square
+   checkboxes (tick redraws on hover) + divider + bold italic closing note. A green edge sweeps down the card's right side on hover.
 FOOTER (shared)
 ```
 
-**Design decision:** Key Advantages and Standards both use the teal icon-box / checkmark-circle style first established on the Contact page's three cards, for visual consistency across pages.
+**Design decisions (visual refinement pass):**
+- **Photo rule:** on About, background photos are kept fully clear. Readability comes from a fog on the *card only*, never a veil over the photo. Mobile uses the same cards.
+- **Shared pieces:** every About section uses `.section-shadow` (global.css) and every heading uses `.h-underline` (underline draws in on hover; sizes in tokens `--underline-color/-height/-speed`). Both are reusable on other pages.
+- **Shadow rule applied:** the darker `.section-shadow--strong` is used when the *next* section is dark or a photo. On About: Overview (next = photo), Advantages (next = photo), Standards (next = dark footer) use strong; header and Why use the soft `--shadow-bar`. Section stacking is set with `--section-z` (header 6, Overview 5, Why 4, Advantages 3, Standards 2) so each shadow falls on the section below.
+- **Touch and motion:** hover effects only run under `@media (hover: hover)`; with `prefers-reduced-motion` all movement and keyframe animation is switched off (global.css handles transitions/animations, the page adds explicit transform resets).
+- **Alt text:** the Standards photo has descriptive alt text on request; the Why photo and the header watermark are decorative (empty alt).
+- **Tested** at 320, 390, 768, 1024 and 1440 px: no horizontal overflow.
 
 ---
 
@@ -594,4 +604,4 @@ Each numbered sub-step is completed and presented for approval before moving to 
 5. **hreflang alternates** — blocked on `/ka/` pages not existing; will be done as part of the Georgian rollout, not before.
 6. **Georgian (`/ka/`) translation** — not started. This is now the only major remaining body of work. English is fully built and live, all SEO infrastructure is in place and submitted, so this is a clean point to begin translation whenever the client is ready.
 
-**About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅.
+**About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅. **Visual refinement pass (CSS) on About: ✅ complete** (all sections, final polish and mobile check done); Home was refined earlier.
