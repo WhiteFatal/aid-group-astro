@@ -19,7 +19,7 @@
 | **Home**     | ✅ **Built.** Hero → **Areas of Engagement + Partners** (merged, side-by-side) → **AID Group Expertise** (service highlights, redesigned) → Why AID Group → **At a Glance / Our Positioning + Closing CTA** (merged). Featured Projects section dropped entirely. See "Home — As Built" below for the full detail.                             |
 | **About Us** | ✅ **Built, except Founders & Team (postponed).** Page intro + Company Overview (with team photo) → Why AID Group Was Created → Key Advantages & Differentiation (8-item icon grid) → Standards & Regulatory Frameworks (9-item checklist). Founders & Team copy is ready in Appendix A but not yet on the page — postponed on client instruction, no founder names/titles available yet. See "About — As Built" below.                                                                                          |
 | **Services** | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header + intro → **Our End-to-End Process** (moved up, directly under the header; dark navy blueprint band, 10 glass step cards) → **Services and Scope + 7 Service Clusters** (merged into one light-blue section: laboratory photo beside the intro, bento grid of cluster cards below) → Facility Types We Support (one card, 8-item checklist) → **Areas of Engagement** (renamed from "Who We Serve"; 6 audience cards over an aerial campus photo). See "Services — As Built" below. |
-| **Projects** | ✅ **Built.** Header + intro → `[All Projects] [Completed] [Ongoing]` filter (JS, no framework; "All Projects" is the default view on load) → full-width stacked cards from `src/data/projects.json`. One real project live: the Kutaisi GMP secondary packaging facility (completed, 2026). See "Projects — As Built" below.                                                                                                                                                              |
+| **Projects** | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header + intro → `[All Projects] [Completed] [Ongoing]` filter (JS, no framework; "All Projects" is the default view on load) → full-width stacked card(s) from `src/data/projects.json`, all on one light-blue band. One real project live: the Kutaisi GMP secondary packaging facility (completed, 2026). See "Projects — As Built" below. |
 | **Contact**  | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header intro → three cards (Email / Phone / Address; Email and Phone cards are fully clickable) on a light-green band → WhatsApp/Facebook buttons → **Find Us**: lazy-loaded Google Maps embed on a light-blue band, with an "Open in Google Maps" button. Buttons use the `.btn-secondary` style, centered. See "Contact — As Built" below. |
 
 **All five pages are now built** (About minus one postponed section). **SEO infrastructure — ✅ fully built and live:** `site` URL and `@astrojs/sitemap` integration configured in `astro.config.mjs` (sitemap excludes the bare `/` redirect); `public/robots.txt` referencing the sitemap; canonical URLs and Open Graph/Twitter meta tags added to `BaseLayout.astro` (default share image: `public/og-image.jpg`); `ProfessionalService` JSON-LD added to `BaseLayout.astro` (see below); sitemap submitted to and accepted by Google Search Console. **Still postponed:** hreflang alternates only — needs `/ka/` pages to exist first, deliberately left until the Georgian translation work begins.
@@ -283,6 +283,26 @@ Not yet started as a formal pass. Informally, each Home section was visually che
 
 ---
 
+## Shared Inner-Page Header — As Built (About, Services, Contact, Projects)
+
+All four inner pages use the same header block, so it has to look identical from page to page. It is defined in each page's own file with the same CSS (the class is `.about-head` / `.services-head` / `.contact-head` / `.projects-head`; the watermark image is `.head-deco`).
+
+- **Structure:** kicker + H1 + one intro paragraph on a white-to-`--bg` gradient, with the full logo lockup (`logo-watermark.png`) as a faint watermark on the right edge, aligned to the container's right edge. Watermark opacity 20% (14% on phones).
+- **Fixed sizes (unified):**
+
+  | | Desktop and tablet (768px and up) | Phones (767px and below) |
+  | --- | --- | --- |
+  | Header minimum height | 296px | 288px |
+  | Vertical padding | 72px | 48px |
+  | Watermark height | 260px | 180px (shifted 25% off the right edge) |
+
+- **Why it was unified:** the watermark was originally sized as a percentage of the header's height (88% desktop, 70% mobile), so any difference in intro length changed the header height and, with it, the logo size. Projects has a one-line intro (the others have two), so its logo came out visibly smaller; on phones the logo also varied between pages (166px About, 184px Contact, 202px Services). Fixing the logo to an absolute size and giving every header the same minimum height removed the dependency on the text.
+- **Verified by measurement** at 1440, 1024, 768, 430, 390, 360 and 320px: all four headers are exactly 296px tall with a 260px logo at 768px and up, and exactly 288px with a 180px logo on phones down to 360px. **One known exception:** at 320px the Services header grows to 314px because its intro wraps to five lines; its logo stays 180px. Avoiding it would mean shortening the client's Services intro, so it was left.
+- **Shadow** under each header follows the shared rule (strong when the next section is dark or a photo, otherwise soft): About soft, Services **strong** (next is the dark Process band), Contact soft, Projects soft. This is the only intentional difference between the four headers.
+- **If an intro is ever changed:** a longer intro can push a header above the minimum height. The logo will still be the same size; only that page's header gets taller.
+
+---
+
 ## Contact — As Built
 
 ```
@@ -307,7 +327,7 @@ FOOTER (shared)
 
 **Visual refinement pass (CSS, done one step at a time with client approval after each):**
 
-- **Header:** matches About and Services — white-to-`--bg` gradient, logo watermark, 72px padding (48px on mobile), soft shadow.
+- **Header:** the shared inner-page header — see "Shared Inner-Page Header — As Built" (soft shadow here, since the next section is light).
 - **Contact cards band (light green, `#e9f5ee` → `#d7ebdf`):** teal glow top-left, blue glow bottom-right, fine white mesh (7px cells, 50% white lines, fading at the top and bottom edges). It was first built in light blue, then changed to green on request so it alternates with the blue map band below.
   - **Cards:** translucent white (55%, hover 90%) with a thin blue border; a faded blue dotted decoration fading from the top-right corner (11.5px dot grid); a faded 76px icon watermark bottom-right matching the 48px teal icon chip; on hover (hover-capable devices only) a 2px lift, a teal edge bar growing on the left, a tilting icon chip and a stronger watermark. Grid: 3 columns, 18px gap, 1 column at 899px and below.
   - **Whole cards clickable:** the Email and Phone cards use a stretched link, so the entire card opens `mailto:` / `tel:`, with a card-sized keyboard focus ring. The Address card has no link and stays static.
@@ -380,7 +400,7 @@ FOOTER (shared)
 
 **Design decisions (visual refinement pass, done one section at a time with client approval after each):**
 
-- **Header:** matches About's header (gradient + logo watermark, 72px padding, 48px on mobile).
+- **Header:** the shared inner-page header — see "Shared Inner-Page Header — As Built" (strong shadow here, since the next section is the dark Process band).
 - **Process (moved to the top):**
   - Dark navy base, teal glow top-left, blue glow bottom-right, faint 48px blueprint grid fading toward the edges; white heading and soft-white intro.
   - Each step is a glass card (6% white, 14% border; hover 11%) with a faded large numeral behind the text, a glowing teal-ringed number, and a mint connector line threaded behind the cards from circle to circle.
@@ -424,20 +444,39 @@ FOOTER (shared)
 
 ```
 HEADER (shared)
-├ Projects head — kicker "PROJECTS" + H1 "Projects" + page intro
-├ Filter — [All Projects] [Completed] [Ongoing] buttons, plain JS (no framework)
-│  "All Projects" is the default active view on page load, showing every entry regardless of status
-├ Project cards — full-width, stacked one per row (not a grid, per plan); each card:
-│  image (left) + status badge, title, location, scope-item checklist, and Year as the last
-│  item, set off with a thin divider line
-└ Empty state — "No [status] projects to show right now — check back soon." when a filter
-   matches zero cards
+├ Projects head — kicker "PROJECTS" + H1 "Projects" + page intro (the shared inner-page header)
+└ Projects list — ONE light-blue band (glow blobs, fine white mesh, dotted corner)
+   ├ Filter — [All Projects] [Completed] [Ongoing], plain JS (no framework); "All Projects" is the default on load
+   ├ Project cards — full-width, stacked one per row (not a grid, per plan); each card:
+   │  framed drawing (left) + status badge, title, location, scope-item list, and Year as the last
+   │  item, set off with a thin divider line
+   └ Empty state — "No [status] projects to show right now — check back soon." when a filter
+      matches zero cards (the status word follows the selected filter)
 FOOTER (shared)
 ```
 
 **Data structure:** project content lives in `src/data/projects.json` (plain JSON — status, title, location, scope array, year, an image *key*, and alt text), matching the pattern already used for `partners.json`. The image itself lives in `src/assets/images/project/`, one level deeper than other page images, and is imported directly in `projects.astro` with a small lookup table mapping each JSON `image` key to the actual imported file. This split — plain JSON for data, real imports for images — exists so project data can be added by editing only the JSON file, while images still get Astro's automatic build-time optimization (resize + WebP conversion), which a plain string path into `public/` would not get. To add a new project: drop the photo in `src/assets/images/project/`, add one `import` line and one map entry in `projects.astro`, then reference that key from `projects.json`.
 
 **Real project live:** Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse — Kutaisi, Georgia — Completed, 2026. Scope: zoning, floor movement plan, movement flows, interlock system, lighting and supply/exhaust, cleaning plan, room and ceiling configuration. Image is the facility's zoning/layout drawing; the title block's "Project Owner" field was blanked out by the client before upload, staff names (preparer/checker/approver) remain visible per client's confirmation.
+
+**Data cleanup:** `projects.json` had been filled with three identical copies of the Kutaisi project (statuses completed, completed and ongoing) as placeholders while the page was being built. Two were removed on the client's instruction, keeping the first (completed). With a single project, the **Ongoing** filter shows the empty-state message — kept deliberately, so the page is ready as soon as an ongoing project is added.
+
+**Visual refinement pass (CSS, one step at a time with client approval after each):**
+
+- **Header:** the shared inner-page header (see that section). Projects was the page that exposed the logo-size problem and led to unifying all four headers.
+- **Band (light blue, `#e9f2f8` → `#d8e7f2`):** teal glow top-left, blue glow bottom-right, fine white mesh (7px cells, fading at the top and bottom edges) and a faded blue dotted corner at the top-right — the same family as Services and Scope. Strong shadow into the footer; stacking order set just under the header.
+- **Filter:** a segmented control — translucent white bar with a thin border and soft shadow, 44px-tall buttons (easier to tap), the active button a teal pill with a soft shadow, a mint tint on hover (hover-capable devices only), a keyboard focus ring, and `aria-pressed` kept in sync by the script so screen readers announce the active filter. On phones it stretches to full width with three equal buttons.
+- **Project card:** translucent white (70%, hover 90%) over the band with a thin blue border, a dotted corner, and on hover a 2px lift and a teal edge bar growing on the left. Note that over this very pale band the card reads as almost white; the transparency is real but barely visible (measured: band RGB 223/235/244, card RGB 244/248/251). The client reviewed it and approved it as is.
+  - **Drawing:** a white mat with a thin border and soft shadow, an offset teal backing shape (12px, 35%) and a slight zoom (1.03) on hover; the backing shape stays inside the viewport on phones.
+  - **Details:** the status badge has a colour dot (teal for completed, blue for ongoing); location and year have small Lucide icons (`map-pin`, `calendar`); scope items use small teal dots.
+- **Empty state:** a card in the same style as the project card, with a dotted corner and a teal circle holding a `folder-open` icon, centered message, announced to screen readers as a polite status. The status word in the message now follows the selected filter (previously it always said "ongoing").
+- **Filter transitions:** when a filter reveals a card or the empty message it fades in and rises 10px over 0.4s, once; cards already visible do not replay it. Switched off for visitors who prefer reduced motion.
+- **Tried and removed:** a "View full size" link under the drawing (opening the original in a new tab) was added so the drawing's small text could be read, then removed on the client's instruction — not required. The card shows the drawing only.
+- **Touch and motion:** hover effects run only under `@media (hover: hover)`.
+- **Files changed for this pass:** `src/pages/en/projects.astro` and `src/data/projects.json`. No new assets or dependencies (the three icons come from the existing `lucide-static` package).
+- **Tested:** built successfully after every step; screenshots at 1440 and 390px with no horizontal overflow; the full filter sequence All → Ongoing → Completed → All checked in a browser (card count, empty message, pressed state, fade class added and removed) with no JavaScript errors. **Not yet done:** the formal final pass (320 / 390 / 768 / 1024 / 1440px, keyboard and reduced-motion checks).
+
+**Original build (superseded by the above):** Projects was first built as a plain page — flat white header, a plain pill toggle, plain white cards with a teal bottom border, all on one flat grey background, and the same project repeated three times.
 
 ---
 
@@ -673,6 +712,12 @@ Each numbered sub-step is completed and presented for approval before moving to 
 
 **Services page status (for reference):** Header ✅ · Our End-to-End Process (moved to the top) ✅ · Services and Scope + 7 Service Clusters (merged) ✅ · Facility Types We Support ✅ · Areas of Engagement (aerial photo background) ✅. **Visual refinement pass (CSS) on Services: ✅ all sections done, approved section by section.** **Still pending:** the formal final pass on Services — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks.
 
-**Contact page status (for reference):** Header ✅ · Contact cards + social buttons (light-green band) ✅ · Find Us (light-blue band; map untouched) ✅. **Visual refinement pass (CSS) on Contact: ✅ all sections done, approved step by step.** **Still pending:** the formal final pass on Contact — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks. Projects is the only page not yet through the visual refinement pass.
+**Contact page status (for reference):** Header ✅ · Contact cards + social buttons (light-green band) ✅ · Find Us (light-blue band; map untouched) ✅. **Visual refinement pass (CSS) on Contact: ✅ all sections done, approved step by step.** **Still pending:** the formal final pass on Contact — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks. Projects has since been refined too.
+
+**Projects page status (for reference):** Header ✅ · Filter + project card on a light-blue band ✅ · Empty state and filter transitions ✅ · `projects.json` reduced from three placeholder copies to the one real project ✅. **Visual refinement pass (CSS) on Projects: ✅ done, approved step by step.** **Still pending:** the formal final pass on Projects — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks.
+
+**Header unification:** the four inner-page headers (About, Services, Contact, Projects) are now identical in height and logo size — see "Shared Inner-Page Header — As Built".
+
+**All five pages are now through the visual refinement pass** (Home earlier; About, Services, Contact and Projects in this round). **The one outstanding piece of that work is the formal final pass** on Services, Contact and Projects (the three pages whose status lines above still list it as pending): all five breakpoints, keyboard and reduced-motion checks.
 
 **About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅. **Visual refinement pass (CSS) on About: ✅ complete** (all sections, final polish and mobile check done); Home was refined earlier.

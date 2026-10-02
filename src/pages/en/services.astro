@@ -895,9 +895,23 @@ const audiences = [
     .audience-card { padding-right: 80px; }
     .mark { width: 60px; height: 60px; right: 10px; }
   }
+  @media (max-width: 359px) {
+    /* smallest phones: smaller icon watermark so the card text keeps a usable width */
+    .audience-card { padding-right: 56px; }
+    .mark { width: 44px; height: 44px; right: 8px; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .audience-card:hover { transform: none; }
     .audience-card:hover .mark { transform: none; }
     .audience-card::before { transition: none; }
+  }
+
+  /* reduced motion: Services and Scope cards (lift, edge bar) and the lab photo zoom */
+  @media (prefers-reduced-motion: reduce) {
+    .scope-card:hover,
+    .cluster-card:hover { transform: none; }
+    .scope-card::before,
+    .cluster-card::before { transition: none; }
+    .figure:hover .figure-frame :global(img) { transform: none; }
   }
 </style>

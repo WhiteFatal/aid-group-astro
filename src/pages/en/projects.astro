@@ -5,7 +5,7 @@ import projects from '../../data/projects.json';
 import headWatermark from '../../assets/brand/logo-watermark.png';
 import iPin from 'lucide-static/icons/map-pin.svg?raw';
 import iCalendar from 'lucide-static/icons/calendar.svg?raw';
-import iExpand from 'lucide-static/icons/maximize-2.svg?raw';
+import iFolder from 'lucide-static/icons/folder-open.svg?raw';
 
 // Each project's `image` field in projects.json is a key into this map, not a path.
 // This is what lets project data live in plain JSON while the actual image files
@@ -59,10 +59,6 @@ const projectImages: Record<string, ImageMetadata> = {
                   <Image src={projectImages[p.image]} alt={p.imageAlt} width={1288} height={910} />
                 </div>
               </div>
-              <a class="view-full" href={projectImages[p.image].src} target="_blank" rel="noopener">
-                <span class="ico" set:html={iExpand} aria-hidden="true" />
-                View full size<span class="sr-only"> (opens in a new tab)</span>
-              </a>
             </div>
             <div class="card-body">
               <span class="badge" data-status={p.status}>{p.status === 'completed' ? 'Completed' : 'Ongoing'}</span>
@@ -77,7 +73,10 @@ const projectImages: Record<string, ImageMetadata> = {
         ))}
       </ul>
 
-      <p class="empty-state" id="empty-state" hidden>No ongoing projects to show right now — check back soon.</p>
+      <div class="empty-state" id="empty-state" role="status" hidden>
+        <span class="empty-icon" set:html={iFolder} aria-hidden="true" />
+        <p id="empty-text">No ongoing projects to show right now — check back soon.</p>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -86,6 +85,16 @@ const projectImages: Record<string, ImageMetadata> = {
   const buttons = document.querySelectorAll<HTMLButtonElement>('.toggle-btn');
   const cards = document.querySelectorAll<HTMLElement>('#project-cards .card');
   const emptyState = document.getElementById('empty-state');
+  const emptyText = document.getElementById('empty-text');
+
+  // play the soft fade-in once, on elements that were hidden and are now being shown
+  function reveal(el: HTMLElement) {
+    el.hidden = false;
+    el.classList.remove('is-entering');
+    void el.offsetWidth; // restart the animation if the same element is revealed again
+    el.classList.add('is-entering');
+    el.addEventListener('animationend', () => el.classList.remove('is-entering'), { once: true });
+  }
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -96,10 +105,26 @@ const projectImages: Record<string, ImageMetadata> = {
       let visibleCount = 0;
       cards.forEach((card) => {
         const match = filter === 'all' || card.dataset.status === filter;
-        card.hidden = !match;
-        if (match) visibleCount++;
+        if (match) {
+          visibleCount++;
+          if (card.hidden) reveal(card);
+        } else {
+          card.hidden = true;
+          card.classList.remove('is-entering');
+        }
       });
-      if (emptyState) emptyState.hidden = visibleCount > 0;
+      if (emptyState) {
+        if (visibleCount > 0) {
+          emptyState.hidden = true;
+        } else {
+          if (emptyText) {
+            emptyText.textContent = filter === 'all'
+              ? 'No projects to show right now — check back soon.'
+              : `No ${filter} projects to show right now — check back soon.`;
+          }
+          reveal(emptyState);
+        }
+      }
     });
   });
 </script>
@@ -292,7 +317,7 @@ const projectImages: Record<string, ImageMetadata> = {
   }
 
   /* drawing: white mat with an offset teal backing shape, and a link to the full-size file */
-  .card-media { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .card-media { min-width: 0; }
   .media-frame { position: relative; }
   .media-frame::before {
     content: '';
@@ -322,21 +347,7 @@ const projectImages: Record<string, ImageMetadata> = {
   @media (hover: hover) {
     .card:hover .media-mat :global(img) { transform: scale(1.03); }
   }
-  .view-full {
-    align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin: 6px 0 0 4px;
-    font: 600 var(--small-size)/1.2 var(--font-heading);
-    color: var(--blue);
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.2s ease;
-  }
-  .view-full:hover, .view-full:focus-visible { border-bottom-color: var(--blue); }
-  .view-full:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 2px; }
-  .view-full .ico :global(svg), .location .ico :global(svg), .year .ico :global(svg) { width: 16px; height: 16px; }
+  .location .ico :global(svg), .year .ico :global(svg) { width: 16px; height: 16px; }
   .ico { display: inline-flex; flex: none; }
 
   .badge {
@@ -405,23 +416,58 @@ const projectImages: Record<string, ImageMetadata> = {
     font-weight: 600;
     color: var(--teal-dark);
   }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
 
+  /* empty state (no projects for the selected status): glass card with an icon, same family as the project card */
   .empty-state {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
     margin: 0;
-    padding: var(--space-lg);
+    padding: var(--space-lg) var(--space-md);
     text-align: center;
-    color: var(--text-body);
-    background: var(--surface);
+    background: rgb(255 255 255 / 0.7);
+    border: 1px solid rgb(17 102 159 / 0.16);
     border-radius: var(--radius-card);
   }
+  .empty-state[hidden] { display: none; }
+  .empty-state::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    right: -8px;
+    top: -8px;
+    width: 260px;
+    height: 170px;
+    pointer-events: none;
+    background-image: radial-gradient(rgb(17 102 159 / 0.34) 1.5px, transparent 1.7px);
+    background-size: 11.5px 11.5px;
+    -webkit-mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+    opacity: 0.75;
+  }
+  .empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    color: var(--navy-deep);
+  }
+  .empty-icon :global(svg) { width: 28px; height: 28px; }
+  .empty-state p { margin: 0; max-width: 46ch; color: var(--text-body); }
+
+  /* soft fade-in when a filter reveals a card or the empty message */
+  @keyframes enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  .is-entering { animation: enter 0.4s ease both; }
 
   @media (max-width: 899px) {
     .card { grid-template-columns: 1fr; }
@@ -433,8 +479,13 @@ const projectImages: Record<string, ImageMetadata> = {
     .toggle { display: flex; width: 100%; }
     .toggle-btn { flex: 1; padding: 0 8px; }
   }
+  @media (max-width: 380px) {
+    /* very small phones: slightly tighter buttons so "All Projects" stays on one line */
+    .toggle-btn { padding: 0 4px; letter-spacing: 0; font-size: 13px; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .card:hover, .card:hover .media-mat :global(img) { transform: none; }
     .card::before { transition: none; }
+    .is-entering { animation: none; }
   }
 </style>
