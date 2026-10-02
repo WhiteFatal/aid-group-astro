@@ -2,6 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import projects from '../../data/projects.json';
+import headWatermark from '../../assets/brand/logo-watermark.png';
+import iPin from 'lucide-static/icons/map-pin.svg?raw';
+import iCalendar from 'lucide-static/icons/calendar.svg?raw';
+import iExpand from 'lucide-static/icons/maximize-2.svg?raw';
 
 // Each project's `image` field in projects.json is a key into this map, not a path.
 // This is what lets project data live in plain JSON while the actual image files
@@ -18,35 +22,56 @@ const projectImages: Record<string, ImageMetadata> = {
   description="Completed and ongoing pharmaceutical facility engineering, qualification and validation projects delivered by AID Group."
 >
   <section class="projects-head">
-    <div class="container">
+    <Image
+      class="head-deco"
+      src={headWatermark}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="800px"
+      loading="eager"
+    />
+    <div class="container head-inner">
       <p class="kicker">Projects</p>
       <h1>Projects</h1>
       <p class="intro">A record of facilities we've helped design, build and qualify.</p>
     </div>
   </section>
 
-  <section class="section projects-list">
-    <div class="container">
+  <section class="section projects-list section-shadow section-shadow--strong">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="dots" aria-hidden="true"></div>
+    <div class="container list-inner">
       <div class="toggle" role="group" aria-label="Filter projects by status">
-        <button type="button" class="toggle-btn is-active" data-filter="all">All Projects</button>
-        <button type="button" class="toggle-btn" data-filter="completed">Completed</button>
-        <button type="button" class="toggle-btn" data-filter="ongoing">Ongoing</button>
+        <button type="button" class="toggle-btn is-active" data-filter="all" aria-pressed="true">All Projects</button>
+        <button type="button" class="toggle-btn" data-filter="completed" aria-pressed="false">Completed</button>
+        <button type="button" class="toggle-btn" data-filter="ongoing" aria-pressed="false">Ongoing</button>
       </div>
 
       <ul class="cards" id="project-cards">
         {projects.map((p) => (
           <li class="card" data-status={p.status}>
             <div class="card-media">
-              <Image src={projectImages[p.image]} alt={p.imageAlt} width={1288} height={910} />
+              <div class="media-frame">
+                <div class="media-mat">
+                  <Image src={projectImages[p.image]} alt={p.imageAlt} width={1288} height={910} />
+                </div>
+              </div>
+              <a class="view-full" href={projectImages[p.image].src} target="_blank" rel="noopener">
+                <span class="ico" set:html={iExpand} aria-hidden="true" />
+                View full size<span class="sr-only"> (opens in a new tab)</span>
+              </a>
             </div>
             <div class="card-body">
-              <span class="badge">{p.status === 'completed' ? 'Completed' : 'Ongoing'}</span>
+              <span class="badge" data-status={p.status}>{p.status === 'completed' ? 'Completed' : 'Ongoing'}</span>
               <h2>{p.title}</h2>
-              <p class="location">{p.location}</p>
+              <p class="location"><span class="ico" set:html={iPin} aria-hidden="true" />{p.location}</p>
               <ul class="scope">
                 {p.scope.map((item) => (<li>{item}</li>))}
               </ul>
-              <p class="year">Year: {p.year}</p>
+              <p class="year"><span class="ico" set:html={iCalendar} aria-hidden="true" />Year: {p.year}</p>
             </div>
           </li>
         ))}
@@ -64,8 +89,9 @@ const projectImages: Record<string, ImageMetadata> = {
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      buttons.forEach((b) => b.classList.remove('is-active'));
+      buttons.forEach((b) => { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('is-active');
+      btn.setAttribute('aria-pressed', 'true');
       const filter = btn.dataset.filter;
       let visibleCount = 0;
       cards.forEach((card) => {
@@ -80,10 +106,31 @@ const projectImages: Record<string, ImageMetadata> = {
 
 <style>
   .projects-head {
-    background: var(--surface);
-    padding-block: var(--space-lg);
-    box-shadow: var(--shadow-bar);
     position: relative;
+    z-index: 6;
+    overflow: hidden;
+    padding-block: 72px;
+    min-height: 296px;
+    box-shadow: var(--shadow-bar);
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 30%, var(--bg) 100%);
+  }
+  .head-deco {
+    position: absolute;
+    z-index: 0;
+    right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
+    top: 50%;
+    transform: translateY(-50%);
+    height: 260px;
+    width: auto;
+    max-width: none;
+    opacity: 0.2;
+    pointer-events: none;
+    user-select: none;
+  }
+  .head-inner { position: relative; z-index: 1; }
+  @media (max-width: 767px) {
+    .projects-head { padding-block: var(--space-lg); min-height: 288px; }
+    .head-deco { right: -25%; height: 180px; opacity: 0.14; }
   }
   .kicker {
     margin: 0 0 var(--space-sm);
@@ -95,29 +142,90 @@ const projectImages: Record<string, ImageMetadata> = {
   .projects-head h1 { margin-bottom: var(--space-sm); }
   .intro { max-width: 60ch; margin: 0; }
 
+  /* Filter + project card — light-blue band, glow blobs, fine white mesh, dotted corner (same family as Services and Scope) */
+  .projects-list {
+    --section-z: 5;
+    overflow: hidden;
+    background: linear-gradient(180deg, #e9f2f8 0%, #d8e7f2 100%);
+  }
+  .glow {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+  .glow-a {
+    width: 560px;
+    height: 560px;
+    left: -200px;
+    top: -240px;
+    background: radial-gradient(circle, rgb(79 166 141 / 0.22) 0%, transparent 70%);
+  }
+  .glow-b {
+    width: 640px;
+    height: 640px;
+    right: -240px;
+    bottom: -280px;
+    background: radial-gradient(circle, rgb(17 102 159 / 0.22) 0%, transparent 70%);
+  }
+  .mesh {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.5) 1px, transparent 1px);
+    background-size: 7px 7px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  }
+  .dots {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    top: 0;
+    width: 460px;
+    height: 280px;
+    pointer-events: none;
+    background-image: radial-gradient(rgb(17 102 159 / 0.34) 1.5px, transparent 1.7px);
+    background-size: 11.5px 11.5px;
+    -webkit-mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+  }
+  .list-inner { position: relative; z-index: 1; }
+
+  /* status filter: segmented control */
   .toggle {
     display: inline-flex;
     gap: 4px;
-    padding: 4px;
+    padding: 5px;
     margin-bottom: var(--space-lg);
-    background: var(--surface);
+    background: rgb(255 255 255 / 0.7);
+    border: 1px solid rgb(17 102 159 / 0.16);
     border-radius: var(--radius-card);
     box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
   }
   .toggle-btn {
     border: 0;
     background: transparent;
-    padding: 10px 22px;
-    border-radius: calc(var(--radius-card) - 4px);
+    min-height: 44px;
+    padding: 0 24px;
+    border-radius: calc(var(--radius-card) - 3px);
     font: 600 var(--small-size)/1 var(--font-heading);
     letter-spacing: 0.04em;
     color: var(--text-body);
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   }
+  .toggle-btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
   .toggle-btn.is-active {
     background: var(--teal-dark);
     color: #fff;
+    box-shadow: 0 3px 10px rgb(31 99 98 / 0.35);
+  }
+  @media (hover: hover) {
+    .toggle-btn:not(.is-active):hover { background: rgb(155 213 194 / 0.45); color: var(--navy-deep); }
   }
 
   .cards {
@@ -128,32 +236,115 @@ const projectImages: Record<string, ImageMetadata> = {
     flex-direction: column;
     gap: var(--space-lg);
   }
+  /* project card: translucent glass, dotted corner, teal edge bar and lift on hover */
   .card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 1.1fr 1fr;
     gap: var(--space-lg);
     align-items: center;
-    background: var(--surface);
-    border-radius: var(--radius-card);
-    border-bottom: 4px solid var(--teal-light);
-    box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
     padding: var(--space-md);
+    background: rgb(255 255 255 / 0.7);
+    border: 1px solid rgb(17 102 159 / 0.16);
+    border-radius: var(--radius-card);
+    transition: background-color 0.25s ease, border-color 0.25s ease,
+      box-shadow 0.25s ease, transform 0.25s ease;
   }
   .card[hidden] { display: none; }
-  .card-media {
-    border-radius: calc(var(--radius-card) - 4px);
-    overflow: hidden;
-    border: 1px solid var(--border);
+  .card::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    right: -8px;
+    top: -8px;
+    width: 340px;
+    height: 220px;
+    pointer-events: none;
+    background-image: radial-gradient(rgb(17 102 159 / 0.34) 1.5px, transparent 1.7px);
+    background-size: 11.5px 11.5px;
+    -webkit-mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 72%);
+    opacity: 0.75;
+    transition: opacity 0.25s ease;
   }
-  .card-media :global(img) {
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--teal-light);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+  @media (hover: hover) {
+    .card:hover {
+      background: rgb(255 255 255 / 0.9);
+      border-color: var(--teal-light);
+      box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
+      transform: translateY(-2px);
+    }
+    .card:hover::before { transform: scaleY(1); }
+    .card:hover::after { opacity: 1; }
+  }
+
+  /* drawing: white mat with an offset teal backing shape, and a link to the full-size file */
+  .card-media { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .media-frame { position: relative; }
+  .media-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translate(12px, 12px);
+    border-radius: calc(var(--radius-card) - 2px);
+    background: var(--teal-light);
+    opacity: 0.35;
+  }
+  .media-mat {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius-card) - 2px);
+    box-shadow: 0 6px 18px rgb(12 56 93 / 0.14);
+  }
+  .media-mat :global(img) {
     display: block;
     width: 100%;
     height: auto;
+    transition: transform 0.5s ease;
   }
+  @media (hover: hover) {
+    .card:hover .media-mat :global(img) { transform: scale(1.03); }
+  }
+  .view-full {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 0 4px;
+    font: 600 var(--small-size)/1.2 var(--font-heading);
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .view-full:hover, .view-full:focus-visible { border-bottom-color: var(--blue); }
+  .view-full:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 2px; }
+  .view-full .ico :global(svg), .location .ico :global(svg), .year .ico :global(svg) { width: 16px; height: 16px; }
+  .ico { display: inline-flex; flex: none; }
+
   .badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: var(--space-sm);
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 999px;
     background: var(--teal-light);
     color: var(--navy-deep);
@@ -161,8 +352,19 @@ const projectImages: Record<string, ImageMetadata> = {
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
+  .badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal-dark);
+  }
+  .badge[data-status='ongoing']::before { background: var(--blue); }
   .card-body h2 { margin: 0 0 var(--space-xs); font-size: 22px; }
   .location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin: 0 0 var(--space-sm);
     color: var(--teal-dark);
     font-weight: 600;
@@ -193,12 +395,23 @@ const projectImages: Record<string, ImageMetadata> = {
   }
 
   .year {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin: var(--space-sm) 0 0;
     padding-top: var(--space-sm);
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgb(12 56 93 / 0.14);
     font-size: var(--small-size);
     font-weight: 600;
     color: var(--teal-dark);
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .empty-state {
@@ -213,5 +426,15 @@ const projectImages: Record<string, ImageMetadata> = {
   @media (max-width: 899px) {
     .card { grid-template-columns: 1fr; }
     .scope { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 767px) {
+    /* keep the offset backing shape inside the viewport */
+    .card-media { padding-right: 12px; }
+    .toggle { display: flex; width: 100%; }
+    .toggle-btn { flex: 1; padding: 0 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover, .card:hover .media-mat :global(img) { transform: none; }
+    .card::before { transition: none; }
   }
 </style>

@@ -18,9 +18,9 @@
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Home**     | ✅ **Built.** Hero → **Areas of Engagement + Partners** (merged, side-by-side) → **AID Group Expertise** (service highlights, redesigned) → Why AID Group → **At a Glance / Our Positioning + Closing CTA** (merged). Featured Projects section dropped entirely. See "Home — As Built" below for the full detail.                             |
 | **About Us** | ✅ **Built, except Founders & Team (postponed).** Page intro + Company Overview (with team photo) → Why AID Group Was Created → Key Advantages & Differentiation (8-item icon grid) → Standards & Regulatory Frameworks (9-item checklist). Founders & Team copy is ready in Appendix A but not yet on the page — postponed on client instruction, no founder names/titles available yet. See "About — As Built" below.                                                                                          |
-| **Services** | ✅ **Built.** Header + intro → Services and Scope (with laboratory photo) → 7 Service Clusters (18 items grouped, card grid) → Facility Types We Support (8-item checklist) → Our End-to-End Process (10-step horizontal scrolling track) → **Areas of Engagement** (renamed from "Who We Serve," matching the Home rename; same 6 detailed audience items from Appendix A). See "Services — As Built" below.                                                                            |
+| **Services** | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header + intro → **Our End-to-End Process** (moved up, directly under the header; dark navy blueprint band, 10 glass step cards) → **Services and Scope + 7 Service Clusters** (merged into one light-blue section: laboratory photo beside the intro, bento grid of cluster cards below) → Facility Types We Support (one card, 8-item checklist) → **Areas of Engagement** (renamed from "Who We Serve"; 6 audience cards over an aerial campus photo). See "Services — As Built" below. |
 | **Projects** | ✅ **Built.** Header + intro → `[All Projects] [Completed] [Ongoing]` filter (JS, no framework; "All Projects" is the default view on load) → full-width stacked cards from `src/data/projects.json`. One real project live: the Kutaisi GMP secondary packaging facility (completed, 2026). See "Projects — As Built" below.                                                                                                                                                              |
-| **Contact**  | ✅ **Built.** Header intro + three cards (Email / Phone / Address, with `mailto:`/`tel:` links) → WhatsApp/Facebook buttons → lazy-loaded Google Maps embed of the office address. Buttons use the `.btn-secondary` style, centered. See "Contact — As Built" below. **Note:** the page intro was written ad hoc during build, before this Appendix A copy was supplied — see that section for the discrepancy and the approved fix.                                                    |
+| **Contact**  | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header intro → three cards (Email / Phone / Address; Email and Phone cards are fully clickable) on a light-green band → WhatsApp/Facebook buttons → **Find Us**: lazy-loaded Google Maps embed on a light-blue band, with an "Open in Google Maps" button. Buttons use the `.btn-secondary` style, centered. See "Contact — As Built" below. |
 
 **All five pages are now built** (About minus one postponed section). **SEO infrastructure — ✅ fully built and live:** `site` URL and `@astrojs/sitemap` integration configured in `astro.config.mjs` (sitemap excludes the bare `/` redirect); `public/robots.txt` referencing the sitemap; canonical URLs and Open Graph/Twitter meta tags added to `BaseLayout.astro` (default share image: `public/og-image.jpg`); `ProfessionalService` JSON-LD added to `BaseLayout.astro` (see below); sitemap submitted to and accepted by Google Search Console. **Still postponed:** hreflang alternates only — needs `/ka/` pages to exist first, deliberately left until the Georgian translation work begins.
 
@@ -187,7 +187,8 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
   1. **Home hero** — meeting room with a wall-mounted screen showing facility drawings (matches the originally-planned prompt closely).
   2. **Why AID Group** — two pharmaceutical engineers in cleanroom garments reviewing a tablet beside a filling machine. _(Not one of the three originally-planned placements — this is a new image used in a section that didn't have a photo in the original wireframe.)_
   3. **Areas of Engagement / Partners background** — a wide (21:9) cleanroom corridor with steel piping and glass-walled rooms, used full-bleed behind that entire merged section. _(Also new — not in the original three-image plan.)_
-  4. **About Us** and **Services** placement photos were supplied (team/office image; laboratory image) but **not yet used**, since those pages aren't built.
+  4. **About Us** and **Services** placement photos (team/office image; laboratory image) — ✅ now used: the team photo in About's Company Overview, the laboratory photo in Services' Services and Scope section.
+  5. **Services — Areas of Engagement background** — an aerial photograph of a modern pharmaceutical campus (AI-generated from a prompt written for the purpose; supplied as a 1400×600 PNG, converted to JPG, `areas-aerial-bg.jpg`), used full-bleed and kept clear behind that section. See "Services — As Built".
 
   The three original AI-generation prompts (Home hero, About, Services) are kept below for reference/reuse, though the actual supplied photos may not be AI-generated:
   1. _"Modern clean office meeting room, large wall-mounted TV monitor displaying facility design drawings and technical blueprints, minimalist interior design, natural light, navy blue and teal-green accent tones, professional editorial photography style, wide shot"_
@@ -211,7 +212,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
   **About Us / Services / Projects / Contact:** unchanged from the original plan, not yet built. Repeated here for continuity:
   - **About Us:** Page intro → Company Overview → Why Created → Key Advantages (2-col icon list) → Founders & Team (+ image) → Standards & Regulatory Frameworks (2-col checklist)
-  - **Services:** Page intro → Service Clusters (7 grouped cards w/ sub-items — desktop: static, all visible · mobile: accordion) → End-to-End Process (10-step stepper, vertical on mobile) → Facility Types (icon/tag grid) → Who We Serve (detailed, service-tied cards)
+  - **Services** _(superseded — see "Services — As Built")_**:** Page intro → Service Clusters (7 grouped cards w/ sub-items — desktop: static, all visible · mobile: accordion) → End-to-End Process (10-step stepper, vertical on mobile) → Facility Types (icon/tag grid) → Who We Serve (detailed, service-tied cards)
   - **Projects:** Page intro → Toggle/Tabs [Completed | Ongoing] → data-driven, full-width stacked cards, one per row (name, status badge, description, photo)
   - **Contact:** Page intro → Contact details block (icon-labeled) → live Google Maps embed
 
@@ -286,18 +287,47 @@ Not yet started as a formal pass. Informally, each Home section was visually che
 
 ```
 HEADER (shared)
-├ Contact head — kicker "CONTACT" + H1 "Contact Us" + intro line (see copy note below)
-├ Three cards: Email (mailto: link) · Phone (tel: link) · Address (two-line, static)
-├ WhatsApp + Facebook buttons, centered, .btn-secondary style
-├ "Find Us" — Google Maps iframe, injected via IntersectionObserver on scroll
-│  (keeps the page fast; nothing loads from Google until the visitor scrolls near it)
-└ "Open in Google Maps" button, centered, links out to Maps directly
+├ Contact head — kicker "CONTACT" + H1 "Contact Us" + intro line. Same gradient as About's/Services' head, with the full
+│  logo lockup (logo-watermark.png) as a faint 20% watermark on the right edge
+├ Contact cards + social buttons — ONE light-GREEN band (glow blobs, fine white mesh)
+│  ├ Three cards: Email (mailto:) · Phone (tel:) · Address (two-line, static)
+│  └ WhatsApp + Facebook buttons, centered, .btn-secondary style
+└ Find Us — light-BLUE band (glow blobs, dotted corner)
+   ├ Google Maps iframe, injected via IntersectionObserver on scroll (nothing loads from Google until the visitor
+   │  scrolls near it) — UNCHANGED by the refinement pass
+   └ "Open in Google Maps" button, centered, links out to Maps directly
 FOOTER (shared)
 ```
 
-**Copy note:** the page intro currently reads *"Planning a facility, a GMP upgrade, or a qualification and validation project? Get in touch and we will get back to you."* — written during build, before the client supplied the Appendix A copy below. The approved Appendix A intro is **"Let's discuss your project."** Per client instruction, the built page is being left as-is for now; swapping in the approved line is a small pending fix, not yet scheduled.
+**Copy note — resolved:** the page intro reads *"Planning a facility, a GMP upgrade, or a qualification and validation project? Get in touch and we will get back to you."* It was written during build, before the Appendix A copy was supplied, but the client reviewed it and confirmed it is acceptable. The Appendix A line ("Let's discuss your project.") is historical only. The refinement pass did not touch the copy.
 
-**Design decision:** buttons use `.btn-secondary` (navy outline, blue fill on hover), not `.btn-primary` (the solid teal used on Home's CTAs) — confirmed with the client after an initial pass used primary buttons.
+**Design decisions:**
+
+- Buttons use `.btn-secondary` (navy outline, blue fill on hover), not `.btn-primary` (the solid teal used on Home's CTAs) — confirmed with the client after an initial pass used primary buttons. The refinement pass keeps this and only adds a soft white fill (60%) at rest so the outline buttons read as buttons on the coloured bands; hover is unchanged.
+
+**Visual refinement pass (CSS, done one step at a time with client approval after each):**
+
+- **Header:** matches About and Services — white-to-`--bg` gradient, logo watermark, 72px padding (48px on mobile), soft shadow.
+- **Contact cards band (light green, `#e9f5ee` → `#d7ebdf`):** teal glow top-left, blue glow bottom-right, fine white mesh (7px cells, 50% white lines, fading at the top and bottom edges). It was first built in light blue, then changed to green on request so it alternates with the blue map band below.
+  - **Cards:** translucent white (55%, hover 90%) with a thin blue border; a faded blue dotted decoration fading from the top-right corner (11.5px dot grid); a faded 76px icon watermark bottom-right matching the 48px teal icon chip; on hover (hover-capable devices only) a 2px lift, a teal edge bar growing on the left, a tilting icon chip and a stronger watermark. Grid: 3 columns, 18px gap, 1 column at 899px and below.
+  - **Whole cards clickable:** the Email and Phone cards use a stretched link, so the entire card opens `mailto:` / `tel:`, with a card-sized keyboard focus ring. The Address card has no link and stays static.
+  - **Buttons:** 48px of space above (was 24px), centered, wrapping on narrow screens.
+- **Find Us band (light blue, `#e9f2f8` → `#d8e7f2`):** teal glow top-right, blue glow bottom-left, a faded blue dotted corner at the top-left; the heading has the standard hover underline; the map frame has an offset teal backing shape (35% opacity, offset 14px) like the site's photos, with a 14px right margin on phones so the shape stays inside the viewport; the "Open in Google Maps" button has 48px above it and the same soft white fill as the social buttons.
+- **The map itself was deliberately not changed** — client confirmed it works and needs no changes. Its size, teal bottom border, lazy-load script and `data-map-src` attribute are exactly as before.
+- **Not built, by choice:** an address card overlapping a corner of the map (with the Maps button inside it). It was in the proposed plan, then dropped when the client said the map should stay as it was. It can be added later if wanted.
+- **Shadow rule applied** (strong when the *next* section is dark or a photo, otherwise soft), stacking set by `--section-z`:
+
+  | Section | Stacking order | Next section | Shadow |
+  | --- | --- | --- | --- |
+  | Header | 6 | Contact cards (light) | soft |
+  | Contact cards | 5 | Find Us (light) | soft |
+  | Find Us | 4 | Footer (dark) | strong |
+
+- **Touch and motion:** hover effects run only under `@media (hover: hover)`; with `prefers-reduced-motion` the card movement and transitions are switched off.
+- **Files changed for this pass:** `src/pages/en/contact.astro` only (all markup and styles are in this file). No new assets (the logo watermark is reused) and no new dependencies.
+- **Tested:** built successfully after every step; screenshots checked at 1440 and 390px with no horizontal overflow; shadows and stacking order confirmed in the browser. The Google Maps embed cannot be previewed in the build sandbox (Google is blocked there), so the live map is confirmed by the client on the deployed site. **Not yet done:** the formal final pass (320 / 390 / 768 / 1024 / 1440px, keyboard and reduced-motion checks).
+
+**Original build (superseded by the above):** Contact was first built as a plain page — flat white header, three plain white cards with a teal bottom border, a bare grey map rectangle, all on one flat grey background.
 
 ---
 
@@ -334,22 +364,59 @@ FOOTER (shared)
 
 ```
 HEADER (shared)
-├ Services head — kicker "SERVICES" + H1 "Services" + page intro
-├ Services and Scope — text + laboratory photo, side by side (same pattern as About's Company Overview)
-├ 7 Service Clusters — card grid (2 cols desktop, 1 col mobile), each card a heading + bullet list
-│  of that cluster's items (all 18 original service line items preserved, grouped as in Appendix A)
-├ Facility Types We Support — intro + 8-item checklist (2 cols desktop, 1 col mobile) + closing note
-│  (same checklist style as About's Standards section)
-├ Our End-to-End Process — all 10 steps as a horizontally scrolling "step track": numbered circles
-│  on a connecting line, inside its own scroll container (doesn't affect page width). Right edge
-│  fades out and a "Scroll to see all 10 steps →" hint signals there's more — added after an early
-│  version cut steps 8–10 off abruptly with no visual cue.
-└ Areas of Engagement — renamed from "Who We Serve" to match Home's rename; same 6 detailed
-   audience items from Appendix A, as plain (non-checklist) cards, 2 cols desktop / 1 col mobile
+├ Services head — kicker "SERVICES" + H1 "Services" + page intro. Same gradient as About's head, with the full logo
+│  lockup (logo-watermark.png) as a faint 20% watermark on the right edge
+├ Our End-to-End Process — MOVED UP to sit directly under the header. Dark navy blueprint band (same recipe as Home's
+│  Expertise section). All 10 steps visible, no scrolling: two rows of five on desktop (>=1100px), vertical timeline below
+├ Services and Scope  +  7 Service Clusters   (ONE merged section — light-blue band, white mesh, glow blobs)
+│  ├ Top block: heading + intro card + first cluster card (GMP/GDP) on the left; laboratory photo on the right,
+│  │            stretched to the full height of the left column, so the cards appear to wrap around it
+│  └ Below: 6 more cluster cards as a 12-column bento grid of different widths, equal height within each row
+├ Facility Types We Support — light-green band; ONE card: heading + intro + 8-item checklist + divider + closing note
+└ Areas of Engagement — aerial campus photo background, kept clear; heading right-aligned on a frosted plate;
+   6 audience cards (frosted glass, each with a faded icon watermark)
 FOOTER (shared)
 ```
 
-**Design decision:** "Our End-to-End Process" was built as a horizontal step track (client's preferred option, over a plain numbered list) since a 10-step sequence reads better as a track than a checklist-style layout.
+**Design decisions (visual refinement pass, done one section at a time with client approval after each):**
+
+- **Header:** matches About's header (gradient + logo watermark, 72px padding, 48px on mobile).
+- **Process (moved to the top):**
+  - Dark navy base, teal glow top-left, blue glow bottom-right, faint 48px blueprint grid fading toward the edges; white heading and soft-white intro.
+  - Each step is a glass card (6% white, 14% border; hover 11%) with a faded large numeral behind the text, a glowing teal-ringed number, and a mint connector line threaded behind the cards from circle to circle.
+  - Hover (hover-capable devices only): card lifts 3px, brightens, a teal edge bar grows on the left, the numeral takes a mint tint, the circle scales up and its glow intensifies. Step text is 15px.
+  - Layout: 5 columns (16px gap) from 1100px up; below 1100px a single-column vertical timeline (max 640px wide) with a continuous line from step 1 to 10. The old sideways scroll track, scrollbar, edge fade and "Scroll to see all 10 steps" hint were removed — they hid half the steps even on desktop.
+  - 1100px (not 1000px) is the breakpoint because the longest step name ("Construction/installation coordination") no longer fits cleanly in five columns below that.
+- **Services and Scope + Service Clusters (merged):**
+  - Light-blue gradient band, teal/blue glow blobs, and a **fine white mesh** (7px cells, 1px lines at 50% white, fading out at the top and bottom edges). Two earlier decoration attempts were tried and dropped: a diagonal dashed-line field (rejected as unattractive) and a coarser 24px mesh (made finer on request).
+  - The intro sentence sits on a translucent card; the photo has an offset teal backing shape, a soft shadow and a slow hover zoom.
+  - Bento spans (12 columns): Facility & Engineering Design 5 / Utilities & Critical Systems 7; Equipment & Procurement 4 / Implementation & Commissioning 3 / Qualification & Validation 5; Facility Modernization as a full-width banner (one item). Gap between cards 18px.
+  - Cards: translucent white 55% (hover 90%), thin blue border, a faded blue dotted decoration fading from the top-right corner (11.5px dot grid), a teal edge bar and a 2px lift on hover. Fonts in this section are one step smaller than the global scale (heading −4px, card titles −3px, text −1px, all relative to the tokens).
+  - Responsive: at 899px and below the photo moves above the heading and the cards become two columns; at 767px and below they become one column.
+  - **This section is finished and approved — do not change its card styling again.**
+- **Facility Types We Support:** light-green gradient band with glow blobs; one translucent card (72% white) with the same blue dot decoration; a teal edge sweeps down the card's right side on hover; the 8-item checklist uses empty square checkboxes whose tick redraws on hover (same pattern as About's Standards); divider with a short teal lead-in and a bold italic closing note.
+- **Areas of Engagement:**
+  - Full-bleed aerial photo (`areas-aerial-bg.jpg`) kept **clear — no veil over the photo** (same rule as About), with a mild contrast/saturation boost (12%) to cut the image's own haze. Decorative: empty alt text, lazy-loaded.
+  - Because the photo is clear, readability comes from the **elements on top of it**: each list card is frosted glass (75% white, 2px blur, soft light text halo; hover 90%; on phones 82%), and the heading sits on its own frosted plate (55% white; 68% on phones).
+  - The heading is **right-aligned**, its right edge matching the card grid's right edge.
+  - Six cards (2 columns desktop, 1 column at 899px and below), each with a faded Lucide line icon in the bottom-right corner that strengthens and tilts on hover: factory, rocket, globe, handshake, landmark, wrench. Teal edge bar and 2px lift on hover.
+  - The photo is only 1400px wide, so it is enlarged about 1.4× on 1920px-wide screens and looks slightly soft there. If sharper results on large monitors are wanted, supply a ~2800px upscaled version under the same filename.
+- **Shadow rule applied** (strong when the *next* section is dark or a photo, otherwise soft), with stacking set by `--section-z`:
+
+  | Section | Stacking order | Next section | Shadow |
+  | --- | --- | --- | --- |
+  | Header | 6 | Process (dark) | strong |
+  | Process | 5 | Services and Scope (light) | soft |
+  | Services and Scope + Clusters | 4 | Facility Types (light) | soft |
+  | Facility Types | 3 | Areas of Engagement (photo) | strong |
+  | Areas of Engagement | 2 | Footer (dark) | strong |
+
+  This was audited twice: moving Process to the top, and later adding the photo to Areas, each changed which shadow was correct for a neighbouring section.
+- **Touch and motion:** hover effects run only under `@media (hover: hover)`; with `prefers-reduced-motion` the movement and transitions are switched off.
+- **Files changed for this pass:** `src/pages/en/services.astro` (all markup and styles are in this one file) and one new asset, `src/assets/images/areas-aerial-bg.jpg`. Lucide icons (`factory`, `rocket`, `globe`, `handshake`, `landmark`, `wrench`) come from the existing `lucide-static` package, no new dependencies.
+- **Tested:** built successfully after every step; screenshots checked at 1440, 1100, 820 and 390px with no horizontal overflow. **Not yet done:** the formal final pass (320 / 390 / 768 / 1024 / 1440px, keyboard and reduced-motion checks) — see "Working Method".
+
+**Original build (superseded by the above):** Services was first built as a plain page — flat white/grey sections, a horizontally scrolling 10-step track with a scroll hint, and Services and Scope and the Service Clusters as two separate sections.
 
 ---
 
@@ -400,7 +467,7 @@ Validated with Google's Rich Results Test — passes with "2 valid items" (Organ
 
 Single source of truth for all page content, restored in full below (previously trimmed to avoid duplication once About/Services/Projects/Contact were expected to be built soon; since those pages are still pending, the full copy is kept here again so nothing has to be re-requested from the client).
 
-**Home page copy has changed** in the ways documented under "Home — As Built" and the updated-sections note further below — the Home copy in this appendix is the **original, pre-build draft** and is kept for history only. Do not use the Home copy below as a build reference; use "Home — As Built" instead. **Contact page copy below is current and not yet fully implemented** — see "Contact — As Built" above for the one outstanding discrepancy (page intro).
+**Home page copy has changed** in the ways documented under "Home — As Built" and the updated-sections note further below — the Home copy in this appendix is the **original, pre-build draft** and is kept for history only. Do not use the Home copy below as a build reference; use "Home — As Built" instead. **Contact page copy below is implemented** — the one difference (the page intro) was reviewed and confirmed by the client; see "Contact — As Built" above.
 
 ### Shared Header
 
@@ -580,7 +647,7 @@ Toggle: `[Completed] [Ongoing]` — cards rendered from a data array, displayed 
 **Details:** Email aidgcec@gmail.com · Phone +995 571 13 03 35 (also WhatsApp) · Address: Otar Chiladze St. #166, Tbilisi, Georgia, 0160
 **Map:** live Google Maps embed of the above address
 
-> **Build status vs. this copy:** implemented, except the page intro — see "Contact — As Built" above.
+> **Build status vs. this copy:** implemented. The page intro differs from the line above, and the client confirmed the built version — see "Contact — As Built" above.
 
 ---
 
@@ -603,5 +670,9 @@ Each numbered sub-step is completed and presented for approval before moving to 
 **Remaining, by client's explicit choice — saved for last:**
 5. **hreflang alternates** — blocked on `/ka/` pages not existing; will be done as part of the Georgian rollout, not before.
 6. **Georgian (`/ka/`) translation** — not started. This is now the only major remaining body of work. English is fully built and live, all SEO infrastructure is in place and submitted, so this is a clean point to begin translation whenever the client is ready.
+
+**Services page status (for reference):** Header ✅ · Our End-to-End Process (moved to the top) ✅ · Services and Scope + 7 Service Clusters (merged) ✅ · Facility Types We Support ✅ · Areas of Engagement (aerial photo background) ✅. **Visual refinement pass (CSS) on Services: ✅ all sections done, approved section by section.** **Still pending:** the formal final pass on Services — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks.
+
+**Contact page status (for reference):** Header ✅ · Contact cards + social buttons (light-green band) ✅ · Find Us (light-blue band; map untouched) ✅. **Visual refinement pass (CSS) on Contact: ✅ all sections done, approved step by step.** **Still pending:** the formal final pass on Contact — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks. Projects is the only page not yet through the visual refinement pass.
 
 **About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅. **Visual refinement pass (CSS) on About: ✅ complete** (all sections, final polish and mobile check done); Home was refined earlier.

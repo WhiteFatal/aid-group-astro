@@ -152,6 +152,7 @@ const standards = [
     z-index: 6;
     overflow: hidden;
     padding-block: 72px;
+    min-height: 296px;
     box-shadow: var(--shadow-bar);
     background: linear-gradient(180deg, #fff 0%, var(--bg) 30%, var(--bg) 100%);
   }
@@ -161,7 +162,7 @@ const standards = [
     right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
     top: 50%;
     transform: translateY(-50%);
-    height: 88%;
+    height: 260px;
     width: auto;
     max-width: none;
     opacity: 0.2;
@@ -170,8 +171,8 @@ const standards = [
   }
   .head-inner { position: relative; z-index: 1; }
   @media (max-width: 767px) {
-    .about-head { padding-block: var(--space-lg); }
-    .head-deco { right: -25%; height: 70%; opacity: 0.14; }
+    .about-head { padding-block: var(--space-lg); min-height: 288px; }
+    .head-deco { right: -25%; height: 180px; opacity: 0.14; }
   }
   .kicker {
     margin: 0 0 var(--space-sm);
