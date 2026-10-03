@@ -160,7 +160,7 @@ const why = [
             partners.map((p) => (
               <li>
                 {p.logo ? (
-                  <div class="p-tile has-logo" aria-label={p.name}>
+                  <div class="p-tile has-logo">
                     <img
                       class="p-logo"
                       src={p.logo}
@@ -169,10 +169,7 @@ const why = [
                     />
                   </div>
                 ) : (
-                  <div
-                    class="p-tile is-placeholder"
-                    aria-label={`${p.name} — logo coming soon`}
-                  >
+                  <div class="p-tile is-placeholder">
                     <span class="ph" set:html={iImage} aria-hidden="true" />
                     <span class="p-name">{p.name}</span>
                   </div>
@@ -1154,7 +1151,7 @@ const why = [
   }
   .engagement-card p {
     margin: 0;
-    color: var(--text-body);
+    color: #2b343c; /* a touch darker than --text-body: the card fades to transparent at its left, over the photo */
     font-size: 16px;
     line-height: 1.55;
   }
@@ -1249,5 +1246,15 @@ const why = [
     .challenges-col {
       text-align: left;
     }
+  }
+
+  /* reduced motion: the Areas of Engagement card lift and the Expertise card scale/tilt/arrow nudge
+     (colour and shadow changes on hover stay; only movement is removed) */
+  @media (prefers-reduced-motion: reduce) {
+    .engagement-card:hover { transform: none; }
+    .exp-card:hover,
+    .exp-card:focus-visible { transform: none; }
+    .exp-card:hover .exp-icon { transform: none; }
+    .exp-card:hover .go { transform: none; }
   }
 </style>

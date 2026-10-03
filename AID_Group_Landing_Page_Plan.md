@@ -76,6 +76,8 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 - A full-bleed photographic background (steel piping / cleanroom corridor, cropped to 21:9) behind Areas of Engagement / Partners, with a gradient overlay.
 - Small hover animations throughout: card-group scaling, spotlight-follows-cursor on the Expertise cards, spread-apart Why-AID-Group cards, bobbing arrow between the At a Glance cards and the CTA.
 
+**Final QA pass (after the visual work):** zero axe violations; all measured text meets WCAG AA; keyboard and reduced motion verified. Changes made: the two partner-tile `div`s lost an `aria-label` that ARIA does not allow on a generic element (no visual change); the Partners intro line was left on its original transparent background (a backing plate was tried and rejected by the client — the text is clearly legible on screen, although the worst-case measurement at the line's right end is about 2.2:1); Areas of Engagement card text darkened slightly (`#2b343c`); and the Areas of Engagement card lift plus the Expertise card scale, icon tilt and arrow nudge now stop under `prefers-reduced-motion`. The faded 01–04 numerals on the Why AID Group cards are decorative (`aria-hidden`) and were left as they are. See Phase 6.
+
 ---
 
 ## Phase 1 — Content Strategy & SEO Foundations
@@ -262,21 +264,26 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 ## Phase 6 — QA Pass
 
-Partly done. Home and About were checked visually (desktop + mobile, no horizontal overflow) as they were built. A formal pass has since been completed on **Services, Contact and Projects**:
+**Formal final pass — ✅ done on all five pages** (Services, Contact and Projects first; Home and About afterwards, with the identical checks). Run on the built site with automated checks plus visual review:
 
-**Final pass — ✅ done (Services, Contact, Projects).** Run after the visual refinement, on the built site, with automated checks plus visual review:
-  - **Layout:** each page at 320, 390, 768, 1024 and 1440px — no horizontal overflow, no broken images, no console errors (15 of 15 combinations pass; re-run after the fixes).
-  - **Accessibility (axe-core, WCAG 2 A/AA + best-practice):** zero violations on all three pages at 1440 and 390px.
-  - **Text contrast:** axe cannot compute contrast over gradients, translucent cards or photos, so it was measured directly — the real rendered background under every text element (332 elements across the six page/width runs), worst-case pixel against the actual text colour. All meet WCAG AA. Tightest: the shared header's inactive language link "GE" at 4.76:1 (4.5 required); the Areas of Engagement cards over the photo are not among the tightest.
-  - **Keyboard:** every focusable element on all three pages shows a visible focus indicator and there are no keyboard traps; the Contact Email/Phone cards show a ring around the whole card; the Projects filter works with Enter and Space and keeps `aria-pressed` in sync.
-  - **Reduced motion:** with `prefers-reduced-motion: reduce`, every hover lift/zoom and the Projects filter fade stop — checked by comparing computed styles with the preference on and off.
-  - **Fixed during the pass:** (1) Services — the Services and Scope intro/cluster card lift and the laboratory photo zoom did not respect reduced motion (the only real bug found); (2) Projects at 320px — the "All Projects" filter button wrapped onto two lines (now one line at 380px and below); (3) Services at under 360px — the Areas of Engagement cards' text column was squeezed to 168px by the icon watermark reserve (now 190px, icon scaled down on those screens).
+  - **Layout:** every page at 320, 390, 768, 1024 and 1440px — no horizontal overflow, no broken images, no console errors, no element sticking out past the screen (25 of 25 page/width combinations pass; re-run after each round of fixes).
+  - **Accessibility (axe-core, WCAG 2 A/AA + best-practice rules):** zero violations on all five pages at 1440 and 390px. Home and About each started with one violation (see "Fixed during the pass").
+  - **Text contrast, measured directly:** axe cannot compute contrast over gradients, translucent cards, the mesh or photos (it reports 15–70 "needs manual review" items per page), so contrast was measured on the real rendered pixels — the text is hidden, the true background behind every text element is sampled, and the worst-case pixel (the extreme 5% tail) is compared against the actual text colour. 567 of 568 text elements across all pages and the 390/1440px runs meet WCAG AA (4.5:1, or 3:1 for large text). The one exception is the Home Partners intro line at desktop width (about 2.2:1 in the worst-case pixel, over the photo's teal equipment), which the client reviewed on screen and accepted as is — see "Open items". Purely decorative text that is hidden from assistive technology (`aria-hidden`, e.g. the faded corner numerals on Home's Why AID Group cards) is exempt under WCAG 1.4.3, as it is in axe. The checker ignores text shadows, so the Areas of Engagement photo cards, which rely on a soft halo, are measured conservatively.
+  - **Keyboard:** every focusable element on every page shows a visible focus indicator and there are no keyboard traps (Home 24 stops, About 18); the Contact Email/Phone cards show a ring around the whole card; the Projects filter works with Enter and Space and keeps `aria-pressed` in sync; the shared mobile menu opens with Enter (`aria-expanded` false → true) and closes with Escape.
+  - **Reduced motion:** with `prefers-reduced-motion: reduce`, every hover lift, zoom, tilt and nudge stops, as does Home's one self-running animation (the bobbing arrow) and Projects' filter fade. The final version of this test finds animated elements automatically (every element with a movement transition, hovered with the preference on and off) instead of relying on a hand-picked list — a hand-picked list is what missed the Home items below, so all five pages were re-run with the automatic version.
 
-Still outstanding for the whole site (the checklist below is the original list; ticks show what the pass above has covered):
-- Cross-device / responsive check, all pages — ✅ Services, Contact, Projects (five breakpoints); Home and About checked visually only
-- Navigation and internal linking check (currently only Home has real content to link to/from)
+**Fixed during the pass**
+  - **Services:** the Services and Scope intro/cluster card lift and the laboratory photo zoom did not respect reduced motion; at 320px the Areas of Engagement card text was squeezed to 168px by the icon reserve (now 190px, smaller icon below 360px).
+  - **Projects:** at 320px the "All Projects" filter button wrapped onto two lines (now one line at 380px and below).
+  - **Home:** (1) the two partner-tile `div`s carried an `aria-label`, which ARIA does not permit on a generic element (axe violation) — removed; the logo image's alt text and the visible partner name already label each tile; no visual change. (2) The Partners intro line ("We work alongside manufacturers…") measures about 2.2:1 in the worst-case pixel, where its right end runs over the photo's teal equipment and the veil has faded. A soft backing plate was tried and **rejected by the client**, who sees the text as fully legible on a transparent background; the original transparent treatment was restored, and this is recorded as a known, client-accepted item (see open items). (3) The Areas of Engagement card text sat at 4.48:1 against 4.5 (the card gradient is transparent at its left) — text colour nudged from `#37414a` to `#2b343c`, not visible. (4) Reduced motion: the Areas of Engagement card lift and the Expertise card scale, icon tilt and arrow nudge did not stop — fixed (colour and shadow changes on hover are kept; only movement is removed).
+  - **About:** (1) the large faded numerals 01–08 on the Key Advantages cards were real text tested for contrast (axe violation ×8) — they are now drawn from CSS (`::before` with `content: attr(data-n)`, the same technique as the Services Process numerals), so they are treated as decoration; no visual change. (2) The three bold highlighted phrases in "Why AID Group Was Created" measured 3.95–4.27:1 against 4.5 — text colour darkened from `--teal-dark` to `#164a49` (still teal, bold, with the same mint highlight).
+  - **Left alone on purpose:** Home's faded 01–04 numerals on the Why AID Group cards (decoration, `aria-hidden`, exempt).
+
+Still outstanding for the whole site (the original Phase 6 checklist; ticks show what the pass above covered):
+- Cross-device / responsive check, all pages — ✅ all five pages, five breakpoints
+- Navigation and internal linking check (all five pages now exist and are linked from the shared header/footer; not yet formally walked through link by link)
 - SEO technical check: heading hierarchy, alt text, meta tags per page, structured data
-- Accessibility check (WCAG AA) — ✅ Services, Contact, Projects (axe-core + measured contrast + keyboard + reduced motion); Home and About still need the same pass
+- Accessibility check (WCAG AA) — ✅ all five pages (axe-core, measured contrast, keyboard, reduced motion)
 - Performance/load check
 - Content proofing, broken-link check
 
@@ -386,7 +393,7 @@ FOOTER (shared)
 - **Shadow rule applied:** the darker `.section-shadow--strong` is used when the *next* section is dark or a photo. On About: Overview (next = photo), Advantages (next = photo), Standards (next = dark footer) use strong; header and Why use the soft `--shadow-bar`. Section stacking is set with `--section-z` (header 6, Overview 5, Why 4, Advantages 3, Standards 2) so each shadow falls on the section below.
 - **Touch and motion:** hover effects only run under `@media (hover: hover)`; with `prefers-reduced-motion` all movement and keyframe animation is switched off (global.css handles transitions/animations, the page adds explicit transform resets).
 - **Alt text:** the Standards photo has descriptive alt text on request; the Why photo and the header watermark are decorative (empty alt).
-- **Tested** at 320, 390, 768, 1024 and 1440 px: no horizontal overflow.
+- **Tested** at 320, 390, 768, 1024 and 1440 px: no horizontal overflow. **Formal final pass done** (axe, measured contrast, keyboard, reduced motion — see Phase 6). It led to two invisible-to-slightly-visible fixes: the Key Advantages numerals 01–08 are now drawn from CSS generated content so they count as decoration (no visual change), and the three bold highlighted phrases in "Why AID Group Was Created" use a darker teal (`#164a49`) to meet WCAG AA over the photo.
 
 ---
 
@@ -728,11 +735,12 @@ Each numbered sub-step is completed and presented for approval before moving to 
 
 **Header unification:** the four inner-page headers (About, Services, Contact, Projects) are now identical in height and logo size — see "Shared Inner-Page Header — As Built".
 
-**All five pages are now through the visual refinement pass** (Home earlier; About, Services, Contact and Projects in this round). **The formal final pass is done on Services, Contact and Projects** (see Phase 6). **Not yet run in the same formal way on Home and About** — they were checked visually (desktop + mobile, no horizontal overflow) as they were built, but the keyboard, reduced-motion, axe and measured-contrast checks have not been repeated on them.
+**All five pages are now through both the visual refinement pass and the formal final pass** (see Phase 6). Remaining site-wide work: navigation/internal-link walkthrough, SEO technical check, performance/load check, and content proofing with a broken-link check.
 
 **Open items found by the final pass (decisions for the client, nothing broken):**
 - **Contact — map focus:** the Google Maps iframe takes keyboard focus but shows no focus indicator of its own (it is a third-party embed, and the client asked that the map not be changed). A one-line `:focus-visible` outline on `.map iframe` would fix it if wanted.
-- **Shared site header at about 768px:** the logo sits very close to the "HOME" nav link. This is the shared header component, outside the pages covered by this pass.
+- **Shared site header at about 768px:** the logo sits very close to the "HOME" nav link. This is the shared header component, outside the pages covered by the contrast/layout work.
 - **Services at 320px:** the header is 314px tall rather than 288px (intro copy wraps to five lines) — accepted; only shortening the client's intro would remove it.
+- **Home — Partners intro line (client-accepted):** the intro text sits directly on the photo with no backing. The client reviewed it on screen and prefers it that way, and it reads clearly. A worst-case pixel measurement at the right end of the line (over the teal equipment) is about 2.2:1, below the 4.5:1 guideline; it is accepted as is. If this is ever revisited without adding a visible plate, options are a very soft text halo or shortening the line so it ends before the photo's busy right side.
 
 **About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅. **Visual refinement pass (CSS) on About: ✅ complete** (all sections, final polish and mobile check done); Home was refined earlier.

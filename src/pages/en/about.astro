@@ -108,7 +108,7 @@ const standards = [
       <ul class="adv-grid">
         {advantages.map((a, i) => (
           <li class="adv-item">
-            <span class="adv-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="adv-num" aria-hidden="true" data-n={String(i + 1).padStart(2, '0')}></span>
             <span class="adv-wm" set:html={a.icon} aria-hidden="true" />
             <span class="icon" set:html={a.icon} aria-hidden="true" />
             <p>{a.text}</p>
@@ -346,7 +346,7 @@ const standards = [
   }
   .why-text { margin: 0; max-width: 72ch; }
   .why-text strong {
-    color: var(--teal-dark);
+    color: #164a49; /* darker than --teal-dark so the highlighted phrases meet WCAG AA over the photo */
     font-weight: 700;
     background: linear-gradient(transparent 60%, rgb(79 166 141 / 0.3) 60%);
     padding-inline: 2px;
@@ -427,6 +427,8 @@ const standards = [
     user-select: none;
     transition: opacity 0.25s ease;
   }
+  /* decorative numeral drawn from CSS, so assistive tech and contrast checkers treat it as decoration, not text */
+  .adv-num::before { content: attr(data-n); }
   /* corner watermark: the card's own icon, very faint */
   .adv-wm {
     position: absolute;
