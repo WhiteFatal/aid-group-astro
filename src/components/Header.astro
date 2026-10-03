@@ -52,6 +52,11 @@ const isActive = (p: string) => (p === '/en/' ? path === p : path.startsWith(p))
     .nav .lang { justify-self: end; }
   }
 
+  /* Tablet: tighter menu gaps so the logo doesn't crowd "HOME" around 768px */
+  @media (min-width: 768px) and (max-width: 899px) {
+    .nav ul { gap: 32px; }
+  }
+
   @media (max-width: 767px) {
     .menu-toggle { display: block; }
     .nav { display: none; position: absolute; inset: 100% 0 auto 0; flex-direction: column; align-items: flex-start; gap: var(--space-sm); background: var(--surface); box-shadow: 0 8px 16px rgb(12 56 93 / .1); padding: var(--space-md) var(--gutter); }
