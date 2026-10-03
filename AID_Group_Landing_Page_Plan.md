@@ -262,11 +262,21 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 ## Phase 6 — QA Pass
 
-Not yet started as a formal pass. Informally, each Home section was visually checked (desktop + mobile) as it was built, including a no-horizontal-overflow check at each step. Still outstanding once all pages are built:
-- Cross-device / responsive check, all pages
+Partly done. Home and About were checked visually (desktop + mobile, no horizontal overflow) as they were built. A formal pass has since been completed on **Services, Contact and Projects**:
+
+**Final pass — ✅ done (Services, Contact, Projects).** Run after the visual refinement, on the built site, with automated checks plus visual review:
+  - **Layout:** each page at 320, 390, 768, 1024 and 1440px — no horizontal overflow, no broken images, no console errors (15 of 15 combinations pass; re-run after the fixes).
+  - **Accessibility (axe-core, WCAG 2 A/AA + best-practice):** zero violations on all three pages at 1440 and 390px.
+  - **Text contrast:** axe cannot compute contrast over gradients, translucent cards or photos, so it was measured directly — the real rendered background under every text element (332 elements across the six page/width runs), worst-case pixel against the actual text colour. All meet WCAG AA. Tightest: the shared header's inactive language link "GE" at 4.76:1 (4.5 required); the Areas of Engagement cards over the photo are not among the tightest.
+  - **Keyboard:** every focusable element on all three pages shows a visible focus indicator and there are no keyboard traps; the Contact Email/Phone cards show a ring around the whole card; the Projects filter works with Enter and Space and keeps `aria-pressed` in sync.
+  - **Reduced motion:** with `prefers-reduced-motion: reduce`, every hover lift/zoom and the Projects filter fade stop — checked by comparing computed styles with the preference on and off.
+  - **Fixed during the pass:** (1) Services — the Services and Scope intro/cluster card lift and the laboratory photo zoom did not respect reduced motion (the only real bug found); (2) Projects at 320px — the "All Projects" filter button wrapped onto two lines (now one line at 380px and below); (3) Services at under 360px — the Areas of Engagement cards' text column was squeezed to 168px by the icon watermark reserve (now 190px, icon scaled down on those screens).
+
+Still outstanding for the whole site (the checklist below is the original list; ticks show what the pass above has covered):
+- Cross-device / responsive check, all pages — ✅ Services, Contact, Projects (five breakpoints); Home and About checked visually only
 - Navigation and internal linking check (currently only Home has real content to link to/from)
 - SEO technical check: heading hierarchy, alt text, meta tags per page, structured data
-- Accessibility check (WCAG AA) — ongoing throughout Home build, needs a final full-page pass
+- Accessibility check (WCAG AA) — ✅ Services, Contact, Projects (axe-core + measured contrast + keyboard + reduced motion); Home and About still need the same pass
 - Performance/load check
 - Content proofing, broken-link check
 
@@ -345,7 +355,7 @@ FOOTER (shared)
 
 - **Touch and motion:** hover effects run only under `@media (hover: hover)`; with `prefers-reduced-motion` the card movement and transitions are switched off.
 - **Files changed for this pass:** `src/pages/en/contact.astro` only (all markup and styles are in this file). No new assets (the logo watermark is reused) and no new dependencies.
-- **Tested:** built successfully after every step; screenshots checked at 1440 and 390px with no horizontal overflow; shadows and stacking order confirmed in the browser. The Google Maps embed cannot be previewed in the build sandbox (Google is blocked there), so the live map is confirmed by the client on the deployed site. **Not yet done:** the formal final pass (320 / 390 / 768 / 1024 / 1440px, keyboard and reduced-motion checks).
+- **Tested:** built successfully after every step; screenshots checked at 1440 and 390px with no horizontal overflow; shadows and stacking order confirmed in the browser. The Google Maps embed cannot be previewed in the build sandbox (Google is blocked there), so the live map is confirmed by the client on the deployed site. **Final pass done** (320 / 390 / 768 / 1024 / 1440px, keyboard, reduced motion, axe, measured contrast) — see Phase 6.
 
 **Original build (superseded by the above):** Contact was first built as a plain page — flat white header, three plain white cards with a teal bottom border, a bare grey map rectangle, all on one flat grey background.
 
@@ -434,7 +444,7 @@ FOOTER (shared)
   This was audited twice: moving Process to the top, and later adding the photo to Areas, each changed which shadow was correct for a neighbouring section.
 - **Touch and motion:** hover effects run only under `@media (hover: hover)`; with `prefers-reduced-motion` the movement and transitions are switched off.
 - **Files changed for this pass:** `src/pages/en/services.astro` (all markup and styles are in this one file) and one new asset, `src/assets/images/areas-aerial-bg.jpg`. Lucide icons (`factory`, `rocket`, `globe`, `handshake`, `landmark`, `wrench`) come from the existing `lucide-static` package, no new dependencies.
-- **Tested:** built successfully after every step; screenshots checked at 1440, 1100, 820 and 390px with no horizontal overflow. **Not yet done:** the formal final pass (320 / 390 / 768 / 1024 / 1440px, keyboard and reduced-motion checks) — see "Working Method".
+- **Tested:** built successfully after every step; screenshots checked at 1440, 1100, 820 and 390px with no horizontal overflow. **Final pass done** (320 / 390 / 768 / 1024 / 1440px, keyboard, reduced motion, axe, measured contrast) — see Phase 6. It caught and fixed a reduced-motion bug on the Services and Scope cards and photo, and a too-narrow text column on the Areas cards below 360px. **Known and accepted:** at 320px the Services header grows to 314px because the client's intro wraps to five lines (the logo stays 180px).
 
 **Original build (superseded by the above):** Services was first built as a plain page — flat white/grey sections, a horizontally scrolling 10-step track with a scroll hint, and Services and Scope and the Service Clusters as two separate sections.
 
@@ -474,7 +484,7 @@ FOOTER (shared)
 - **Tried and removed:** a "View full size" link under the drawing (opening the original in a new tab) was added so the drawing's small text could be read, then removed on the client's instruction — not required. The card shows the drawing only.
 - **Touch and motion:** hover effects run only under `@media (hover: hover)`.
 - **Files changed for this pass:** `src/pages/en/projects.astro` and `src/data/projects.json`. No new assets or dependencies (the three icons come from the existing `lucide-static` package).
-- **Tested:** built successfully after every step; screenshots at 1440 and 390px with no horizontal overflow; the full filter sequence All → Ongoing → Completed → All checked in a browser (card count, empty message, pressed state, fade class added and removed) with no JavaScript errors. **Not yet done:** the formal final pass (320 / 390 / 768 / 1024 / 1440px, keyboard and reduced-motion checks).
+- **Tested:** built successfully after every step; screenshots at 1440 and 390px with no horizontal overflow; the full filter sequence All → Ongoing → Completed → All checked in a browser (card count, empty message, pressed state, fade class added and removed) with no JavaScript errors. **Final pass done** (320 / 390 / 768 / 1024 / 1440px, keyboard, reduced motion, axe, measured contrast) — see Phase 6.
 
 **Original build (superseded by the above):** Projects was first built as a plain page — flat white header, a plain pill toggle, plain white cards with a teal bottom border, all on one flat grey background, and the same project repeated three times.
 
@@ -710,14 +720,19 @@ Each numbered sub-step is completed and presented for approval before moving to 
 5. **hreflang alternates** — blocked on `/ka/` pages not existing; will be done as part of the Georgian rollout, not before.
 6. **Georgian (`/ka/`) translation** — not started. This is now the only major remaining body of work. English is fully built and live, all SEO infrastructure is in place and submitted, so this is a clean point to begin translation whenever the client is ready.
 
-**Services page status (for reference):** Header ✅ · Our End-to-End Process (moved to the top) ✅ · Services and Scope + 7 Service Clusters (merged) ✅ · Facility Types We Support ✅ · Areas of Engagement (aerial photo background) ✅. **Visual refinement pass (CSS) on Services: ✅ all sections done, approved section by section.** **Still pending:** the formal final pass on Services — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks.
+**Services page status (for reference):** Header ✅ · Our End-to-End Process (moved to the top) ✅ · Services and Scope + 7 Service Clusters (merged) ✅ · Facility Types We Support ✅ · Areas of Engagement (aerial photo background) ✅. **Visual refinement pass (CSS) on Services: ✅ all sections done, approved section by section.** **Formal final pass: ✅ done** (see Phase 6).
 
-**Contact page status (for reference):** Header ✅ · Contact cards + social buttons (light-green band) ✅ · Find Us (light-blue band; map untouched) ✅. **Visual refinement pass (CSS) on Contact: ✅ all sections done, approved step by step.** **Still pending:** the formal final pass on Contact — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks. Projects has since been refined too.
+**Contact page status (for reference):** Header ✅ · Contact cards + social buttons (light-green band) ✅ · Find Us (light-blue band; map untouched) ✅. **Visual refinement pass (CSS) on Contact: ✅ all sections done, approved step by step.** **Formal final pass: ✅ done** (see Phase 6).
 
-**Projects page status (for reference):** Header ✅ · Filter + project card on a light-blue band ✅ · Empty state and filter transitions ✅ · `projects.json` reduced from three placeholder copies to the one real project ✅. **Visual refinement pass (CSS) on Projects: ✅ done, approved step by step.** **Still pending:** the formal final pass on Projects — all five breakpoints (320 / 390 / 768 / 1024 / 1440px), keyboard and reduced-motion checks.
+**Projects page status (for reference):** Header ✅ · Filter + project card on a light-blue band ✅ · Empty state and filter transitions ✅ · `projects.json` reduced from three placeholder copies to the one real project ✅. **Visual refinement pass (CSS) on Projects: ✅ done, approved step by step.** **Formal final pass: ✅ done** (see Phase 6).
 
 **Header unification:** the four inner-page headers (About, Services, Contact, Projects) are now identical in height and logo size — see "Shared Inner-Page Header — As Built".
 
-**All five pages are now through the visual refinement pass** (Home earlier; About, Services, Contact and Projects in this round). **The one outstanding piece of that work is the formal final pass** on Services, Contact and Projects (the three pages whose status lines above still list it as pending): all five breakpoints, keyboard and reduced-motion checks.
+**All five pages are now through the visual refinement pass** (Home earlier; About, Services, Contact and Projects in this round). **The formal final pass is done on Services, Contact and Projects** (see Phase 6). **Not yet run in the same formal way on Home and About** — they were checked visually (desktop + mobile, no horizontal overflow) as they were built, but the keyboard, reduced-motion, axe and measured-contrast checks have not been repeated on them.
+
+**Open items found by the final pass (decisions for the client, nothing broken):**
+- **Contact — map focus:** the Google Maps iframe takes keyboard focus but shows no focus indicator of its own (it is a third-party embed, and the client asked that the map not be changed). A one-line `:focus-visible` outline on `.map iframe` would fix it if wanted.
+- **Shared site header at about 768px:** the logo sits very close to the "HOME" nav link. This is the shared header component, outside the pages covered by this pass.
+- **Services at 320px:** the header is 314px tall rather than 288px (intro copy wraps to five lines) — accepted; only shortening the client's intro would remove it.
 
 **About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅. **Visual refinement pass (CSS) on About: ✅ complete** (all sections, final polish and mobile check done); Home was refined earlier.
