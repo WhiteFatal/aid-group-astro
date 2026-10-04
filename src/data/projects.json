@@ -1,19 +1,25 @@
 [
   {
     "status": "completed",
-    "title": "Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse",
-    "location": "Kutaisi, Georgia",
+    "title": {
+      "en": "Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse",
+      "ka": "ფარმაცევტული მეორადი შეფუთვის GMP საწარმო ლაბორატორიითა და საწყობით"
+    },
+    "location": { "en": "Kutaisi, Georgia", "ka": "ქუთაისი, საქართველო" },
     "year": 2026,
     "scope": [
-      "Zoning",
-      "Floor movement plan",
-      "Movement flows",
-      "Interlock system",
-      "Lighting and supply/exhaust",
-      "Cleaning plan",
-      "Room and ceiling configuration"
+      { "en": "Zoning", "ka": "ზონირება" },
+      { "en": "Floor movement plan", "ka": "სართულზე გადაადგილების გეგმა" },
+      { "en": "Movement flows", "ka": "მოძრაობის ნაკადები" },
+      { "en": "Interlock system", "ka": "ინტერლოკის (ურთიერთბლოკირების) სისტემა" },
+      { "en": "Lighting and supply/exhaust", "ka": "განათება და მიმწოდებელ-გამწოვი ვენტილაცია" },
+      { "en": "Cleaning plan", "ka": "დასუფთავების გეგმა" },
+      { "en": "Room and ceiling configuration", "ka": "ოთახებისა და ჭერის კონფიგურაცია" }
     ],
     "image": "kutaisi-zones",
-    "imageAlt": "Zoning and layout drawing for the Kutaisi pharmaceutical facility, showing warehouse, factory, office, technical and laboratory zones"
+    "imageAlt": {
+      "en": "Zoning and layout drawing for the Kutaisi pharmaceutical facility, showing warehouse, factory, office, technical and laboratory zones",
+      "ka": "ქუთაისის ფარმაცევტული საწარმოს ზონირებისა და განლაგების ნახაზი, სადაც ნაჩვენებია საწყობის, საწარმოო, საოფისე, ტექნიკური და ლაბორატორიული ზონები"
+    }
   }
 ]

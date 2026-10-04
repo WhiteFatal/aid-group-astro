@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import labPhoto from '../assets/images/services_laboratory_environment.jpg';
+import headWatermark from '../assets/brand/logo-watermark.png';
+import areasBg from '../assets/images/areas-aerial-bg.jpg';
+import { Image } from 'astro:assets';
+import { localize, type Lang } from '../i18n';
+import { servicesText } from '../i18n/pages/services';
+import '../styles/pages/services.css';
+import iCheck from 'lucide-static/icons/check.svg?raw';
+import iFactory from 'lucide-static/icons/factory.svg?raw';
+import iRocket from 'lucide-static/icons/rocket.svg?raw';
+import iGlobe from 'lucide-static/icons/globe.svg?raw';
+import iHandshake from 'lucide-static/icons/handshake.svg?raw';
+import iLandmark from 'lucide-static/icons/landmark.svg?raw';
+import iWrench from 'lucide-static/icons/wrench.svg?raw';
+
+const audienceIcons = [iFactory, iRocket, iGlobe, iHandshake, iLandmark, iWrench];
+
+const { lang } = Astro.props as { lang: Lang };
+const c = localize(servicesText, lang);
+const clusters = c.clusters;
+const facilityTypes = c.facility.items;
+const processSteps = c.process.steps;
+const audiences = c.audiences.items;
+---
+<BaseLayout
+  title={c.metaTitle}
+  description={c.metaDescription}
+  pageClass="page-services"
+>
+  <section class="services-head">
+    <Image
+      class="head-deco"
+      src={headWatermark}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="800px"
+      loading="eager"
+    />
+    <div class="container head-inner">
+      <p class="kicker">{c.kicker}</p>
+      <h1>{c.title}</h1>
+      <p class="intro">{c.intro}</p>
+    </div>
+  </section>
+
+  <section class="section process section-shadow">
+    <div class="container">
+      <h2 class="h-underline">{c.process.title}</h2>
+      <p class="lede">{c.process.lede}</p>
+      <ol class="steps">
+        {processSteps.map((step, i) => (
+          <li class="step">
+            <div class="step-card" data-n={i + 1}>
+              <span class="circle">{i + 1}</span>
+              <p>{step}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section scope section-shadow">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="container scope-inner">
+      <div class="split">
+        <div class="copy">
+          <h2 class="h-underline">{c.scope.title}</h2>
+          <p class="scope-card">{c.scope.card}</p>
+          <ul class="cluster-lead">
+            {clusters.slice(0, 1).map((cl) => (
+              <li class="cluster-card">
+                <h3>{cl.title}</h3>
+                <ul>
+                  {cl.items.map((item) => (<li>{item}</li>))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="figure">
+          <div class="figure-frame">
+            <Image src={labPhoto} alt={c.scope.photoAlt} width={1200} height={800} />
+          </div>
+        </div>
+      </div>
+      <ul class="cluster-grid">
+        {clusters.slice(1).map((cl) => (
+          <li class="cluster-card">
+            <h3>{cl.title}</h3>
+            <ul>
+              {cl.items.map((item) => (<li>{item}</li>))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section facility-types section-shadow section-shadow--strong">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="container fac-inner">
+      <div class="fac-card">
+        <h2 class="h-underline">{c.facility.title}</h2>
+        <p class="lede">{c.facility.lede}</p>
+        <ul class="std-grid">
+          {facilityTypes.map((f) => (
+            <li class="std-item">
+              <span class="check" set:html={iCheck} aria-hidden="true" />
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="std-divider" aria-hidden="true"></div>
+        <p class="std-note">{c.facility.note}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section audiences-section section-shadow section-shadow--strong">
+    <div class="aud-bg" aria-hidden="true">
+      <Image src={areasBg} alt="" widths={[700, 1100, 1400]} sizes="100vw" />
+    </div>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="container aud-inner">
+      <h2 class="h-underline">{c.audiences.title}</h2>
+      <ul class="audience-grid">
+        {audiences.map((a, i) => (
+          <li class="audience-card">
+            <span class="mark" set:html={audienceIcons[i]} aria-hidden="true" />
+            <span class="aud-text">{a}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

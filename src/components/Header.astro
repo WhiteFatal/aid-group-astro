@@ -1,27 +1,37 @@
 ---
 import Logo from './Logo.astro';
-import type { Strings } from '../i18n/en';
+import { langLinks, type Strings } from '../i18n';
 const { t } = Astro.props as { t: Strings };
 const path = Astro.url.pathname;
-const isActive = (p: string) => (p === '/en/' ? path === p : path.startsWith(p));
+const isActive = (p: string) => (p === t.nav[0].path ? path === p : path.startsWith(p));
+const langs = langLinks(path, t.lang as 'en' | 'ka');
 ---
 <header class="site-header" id="site-header">
   <div class="container bar">
     <Logo href={t.nav[0].path} />
-    <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+    <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label={t.a11y.menu}>
       <svg class="i-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       <svg class="i-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <nav id="site-nav" class="nav" aria-label="Main">
+    <nav id="site-nav" class="nav" aria-label={t.a11y.mainNav}>
       <ul>
         {t.nav.map((item) => (
           <li><a href={item.path} data-text={item.label} aria-current={isActive(item.path) ? 'page' : undefined}>{item.label}</a></li>
         ))}
       </ul>
-      <div class="lang" role="group" aria-label="Language">
-        <span aria-current="true">{t.langSwitch.current}</span>
-        <span aria-hidden="true">|</span>
-        <span class="lang-off" aria-disabled="true" title={t.langSwitch.otherLabel}>{t.langSwitch.other}</span>
+      <div class="lang" role="group" aria-label={t.a11y.language}>
+        {langs.map((l, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true">|</span>}
+            {l.current ? (
+              <span aria-current="true">{l.code}</span>
+            ) : l.href ? (
+              <a href={l.href} hreflang={l.lang} lang={l.lang} aria-label={l.name} title={l.name}>{l.code}</a>
+            ) : (
+              <span class="lang-off" aria-disabled="true" title={t.langSwitch.unavailableLabel}>{l.code}</span>
+            )}
+          </>
+        ))}
       </div>
     </nav>
   </div>
@@ -40,6 +50,11 @@ const isActive = (p: string) => (p === '/en/' ? path === p : path.startsWith(p))
   .lang { display: flex; gap: 6px; font-size: 14px; letter-spacing: .06em; color: var(--navy); }
   .lang [aria-current] { font-weight: 700; }
   .lang-off { color: #6b747c; cursor: not-allowed; }
+  /* Georgian menu: no uppercase, lighter letter-spacing (Georgian labels are wider than English) */
+  :global(html[lang='ka']) .nav ul a { text-transform: none; letter-spacing: .02em; }
+  .nav .lang a { text-transform: none; letter-spacing: inherit; font-size: inherit; font-weight: inherit; padding: 0; border-bottom: 0; }
+  .nav .lang a::after { content: none; }
+  .nav .lang a:hover { color: var(--blue); }
   .menu-toggle { display: none; background: none; border: 0; color: var(--navy); padding: 8px; cursor: pointer; }
   .menu-toggle .i-close { display: none; }
   .menu-toggle[aria-expanded='true'] .i-open { display: none; }
@@ -55,6 +70,15 @@ const isActive = (p: string) => (p === '/en/' ? path === p : path.startsWith(p))
   /* Tablet: tighter menu gaps so the logo doesn't crowd "HOME" around 768px */
   @media (min-width: 768px) and (max-width: 899px) {
     .nav ul { gap: 32px; }
+  }
+
+  /* Georgian: longer labels need a smaller font and tighter gaps on tablets */
+  @media (min-width: 768px) and (max-width: 899px) {
+    :global(html[lang='ka']) .nav ul { gap: 24px; }
+    :global(html[lang='ka']) .nav ul a { font-size: 13px; letter-spacing: .01em; }
+  }
+  @media (min-width: 900px) and (max-width: 1023px) {
+    :global(html[lang='ka']) .nav ul { gap: 40px; }
   }
 
   @media (max-width: 767px) {

@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import teamPhoto from '../assets/images/about_us_teamoffice.jpg';
+import headWatermark from '../assets/brand/logo-watermark.png';
+import standardsBg from '../assets/images/about-standards-bg.jpg';
+import { Image } from 'astro:assets';
+import { localize, type Lang } from '../i18n';
+import { aboutText } from '../i18n/pages/about';
+import '../styles/pages/about.css';
+
+// Optional background photo for "Why AID Group Was Created".
+// Drop a file named about-why-bg.jpg (or .png/.webp) into src/assets/images/ and it appears automatically.
+const whyBgFiles = import.meta.glob('../assets/images/about-why-bg.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
+const whyBg = Object.values(whyBgFiles)[0] as ImageMetadata | undefined;
+import iFlask from 'lucide-static/icons/flask-conical.svg?raw';
+import iShield from 'lucide-static/icons/shield-check.svg?raw';
+import iLayers from 'lucide-static/icons/layers.svg?raw';
+import iUsers from 'lucide-static/icons/users.svg?raw';
+import iWorkflow from 'lucide-static/icons/workflow.svg?raw';
+import iSearchCheck from 'lucide-static/icons/search-check.svg?raw';
+import iScale from 'lucide-static/icons/scale.svg?raw';
+import iSliders from 'lucide-static/icons/sliders-horizontal.svg?raw';
+import iCheck from 'lucide-static/icons/check.svg?raw';
+
+const advIcons = [iFlask, iShield, iLayers, iUsers, iWorkflow, iSearchCheck, iScale, iSliders];
+
+const { lang } = Astro.props as { lang: Lang };
+const c = localize(aboutText, lang);
+const advantages = c.advantages.items.map((text, i) => ({ icon: advIcons[i], text }));
+const standards = c.standards.items;
+---
+<BaseLayout
+  title={c.metaTitle}
+  description={c.metaDescription}
+  pageClass="page-about"
+>
+  <section class="about-head">
+    <Image
+      class="head-deco"
+      src={headWatermark}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="800px"
+      loading="eager"
+    />
+    <div class="container head-inner">
+      <p class="kicker">{c.kicker}</p>
+      <h1>{c.title}</h1>
+      <p class="intro">{c.intro}</p>
+    </div>
+  </section>
+
+  <section class="section overview section-shadow section-shadow--strong">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="container split">
+      <div class="copy">
+        <h2 class="h-underline">{c.overview.title}</h2>
+        <div class="ov-cards">
+          {c.overview.paragraphs.map((p) => (
+            <p class="ov-card">{p}</p>
+          ))}
+        </div>
+      </div>
+      <div class="figure">
+        <div class="figure-frame">
+          <Image src={teamPhoto} alt={c.overview.photoAlt} width={1200} height={800} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section why section-shadow">
+    {whyBg && (
+      <div class="why-bg" aria-hidden="true">
+        <Image src={whyBg} alt="" widths={[700, 1100, 1400]} sizes="100vw" />
+      </div>
+    )}
+    <div class="container why-inner">
+      <div class="why-panel">
+        <h2 class="h-underline">{c.why.title}</h2>
+        <p class="why-quote">{c.why.quote}</p>
+        <p class="why-text" set:html={c.why.text} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section advantages section-shadow section-shadow--strong">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="dots dots-a" aria-hidden="true"></div>
+    <div class="dots dots-b" aria-hidden="true"></div>
+    <div class="container adv-inner">
+      <h2 class="h-underline">{c.advantages.title}</h2>
+      <p class="lede">{c.advantages.lede}</p>
+      <ul class="adv-grid">
+        {advantages.map((a, i) => (
+          <li class="adv-item">
+            <span class="adv-num" aria-hidden="true" data-n={String(i + 1).padStart(2, '0')}></span>
+            <span class="adv-wm" set:html={a.icon} aria-hidden="true" />
+            <span class="icon" set:html={a.icon} aria-hidden="true" />
+            <p>{a.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section standards section-shadow section-shadow--strong">
+    <div class="std-bg">
+      <Image
+        src={standardsBg}
+        alt={c.standards.photoAlt}
+        widths={[700, 1100, 1536]}
+        sizes="100vw"
+      />
+    </div>
+    <div class="container std-inner">
+      <div class="std-card">
+        <h2 class="h-underline">{c.standards.title}</h2>
+        <p class="lede">{c.standards.lede}</p>
+        <ul class="std-grid">
+          {standards.map((s) => (
+            <li class="std-item">
+              <span class="check" set:html={iCheck} aria-hidden="true" />
+              <span>{s}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="std-divider" aria-hidden="true"></div>
+        <p class="std-note">{c.standards.note}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

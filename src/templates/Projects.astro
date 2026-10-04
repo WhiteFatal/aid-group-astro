@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import projectsData from '../data/projects.json';
+import { localize, type Lang } from '../i18n';
+import { projectsText } from '../i18n/pages/projects';
+import '../styles/pages/projects.css';
+import headWatermark from '../assets/brand/logo-watermark.png';
+import iPin from 'lucide-static/icons/map-pin.svg?raw';
+import iCalendar from 'lucide-static/icons/calendar.svg?raw';
+import iFolder from 'lucide-static/icons/folder-open.svg?raw';
+
+// Each project's `image` field in projects.json is a key into this map, not a path.
+// This is what lets project data live in plain JSON while the actual image files
+// still live in src/assets and get Astro's automatic optimization (resize + WebP).
+// To add a project photo: drop the file in src/assets/images/, import it below,
+// add it to projectImages, then reference that key from projects.json.
+import kutaisiZones from '../assets/images/project/project-kutaisi-zones.png';
+const projectImages: Record<string, ImageMetadata> = {
+  'kutaisi-zones': kutaisiZones,
+};
+
+const { lang } = Astro.props as { lang: Lang };
+const c = localize(projectsText, lang);
+const projects = localize(projectsData, lang);
+---
+<BaseLayout
+  title={c.metaTitle}
+  description={c.metaDescription}
+  pageClass="page-projects"
+>
+  <section class="projects-head">
+    <Image
+      class="head-deco"
+      src={headWatermark}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="800px"
+      loading="eager"
+    />
+    <div class="container head-inner">
+      <p class="kicker">{c.kicker}</p>
+      <h1>{c.title}</h1>
+      <p class="intro">{c.intro}</p>
+    </div>
+  </section>
+
+  <section class="section projects-list section-shadow section-shadow--strong">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="dots" aria-hidden="true"></div>
+    <div class="container list-inner">
+      <div class="toggle" role="group" aria-label={c.filterLabel}>
+        <button type="button" class="toggle-btn is-active" data-filter="all" aria-pressed="true">{c.filters.all}</button>
+        <button type="button" class="toggle-btn" data-filter="completed" aria-pressed="false">{c.filters.completed}</button>
+        <button type="button" class="toggle-btn" data-filter="ongoing" aria-pressed="false">{c.filters.ongoing}</button>
+      </div>
+
+      <ul class="cards" id="project-cards">
+        {projects.map((p) => (
+          <li class="card" data-status={p.status}>
+            <div class="card-media">
+              <div class="media-frame">
+                <div class="media-mat">
+                  <Image src={projectImages[p.image]} alt={p.imageAlt} width={1288} height={910} />
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <span class="badge" data-status={p.status}>{c.status[p.status as 'completed' | 'ongoing']}</span>
+              <h2>{p.title}</h2>
+              <p class="location"><span class="ico" set:html={iPin} aria-hidden="true" />{p.location}</p>
+              <ul class="scope">
+                {p.scope.map((item) => (<li>{item}</li>))}
+              </ul>
+              <p class="year"><span class="ico" set:html={iCalendar} aria-hidden="true" />{c.year} {p.year}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div
+        class="empty-state"
+        id="empty-state"
+        role="status"
+        hidden
+        data-empty-all={c.empty.all}
+        data-empty-completed={c.empty.completed}
+        data-empty-ongoing={c.empty.ongoing}
+      >
+        <span class="empty-icon" set:html={iFolder} aria-hidden="true" />
+        <p id="empty-text">{c.empty.ongoing}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.toggle-btn');
+  const cards = document.querySelectorAll<HTMLElement>('#project-cards .card');
+  const emptyState = document.getElementById('empty-state');
+  const emptyText = document.getElementById('empty-text');
+
+  // play the soft fade-in once, on elements that were hidden and are now being shown
+  function reveal(el: HTMLElement) {
+    el.hidden = false;
+    el.classList.remove('is-entering');
+    void el.offsetWidth; // restart the animation if the same element is revealed again
+    el.classList.add('is-entering');
+    el.addEventListener('animationend', () => el.classList.remove('is-entering'), { once: true });
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-pressed', 'true');
+      const filter = btn.dataset.filter;
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const match = filter === 'all' || card.dataset.status === filter;
+        if (match) {
+          visibleCount++;
+          if (card.hidden) reveal(card);
+        } else {
+          card.hidden = true;
+          card.classList.remove('is-entering');
+        }
+      });
+      if (emptyState) {
+        if (visibleCount > 0) {
+          emptyState.hidden = true;
+        } else {
+          if (emptyText) {
+            const key = filter === 'completed' ? 'emptyCompleted' : filter === 'ongoing' ? 'emptyOngoing' : 'emptyAll';
+            emptyText.textContent = emptyState.dataset[key] ?? '';
+          }
+          reveal(emptyState);
+        }
+      }
+    });
+  });
+</script>

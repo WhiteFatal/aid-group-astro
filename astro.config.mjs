@@ -7,6 +7,8 @@ export default defineConfig({
     sitemap({
       // `/` is only a redirect to `/en/`, so keep it out of the sitemap.
       filter: (page) => page !== 'https://gxp.ge/',
+      // Adds hreflang alternates between /en/ and /ka/ versions of each page.
+      i18n: { defaultLocale: 'en', locales: { en: 'en', ka: 'ka' } },
     }),
   ],
   i18n: {

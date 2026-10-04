@@ -8,12 +8,22 @@ import '@fontsource/ibm-plex-sans/600.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { en } from '../i18n/en';
+import '@fontsource/noto-sans-georgian/400.css';
+import '@fontsource/noto-sans-georgian/500.css';
+import '@fontsource/noto-sans-georgian/600.css';
+import '@fontsource/noto-sans-georgian/700.css';
+import { strings, langFromPath, pageAlternates } from '../i18n';
 
-const { title, description, image = '/og-image.jpg' } = Astro.props;
-const t = en; // /ka/ layout will pass ka strings in a later step
+const { title, description, image = '/og-image.jpg', pageClass } = Astro.props;
+const lang = langFromPath(Astro.url.pathname);
+const t = strings[lang];
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+// Language alternates (hreflang). Only languages the page actually exists in are listed; English doubles as x-default.
+const alternates = pageAlternates(Astro.url.pathname).map((a) => ({ ...a, href: new URL(a.path, Astro.site).href }));
+const otherLocale = lang === 'ka' ? 'en_US' : 'ka_GE';
+const hasOtherLanguage = alternates.length > 1;
 const imageUrl = new URL(image, Astro.site).href;
 
 // ProfessionalService JSON-LD — same on every page, identifies AID Group as an entity
@@ -22,25 +32,25 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'AID Group',
-  legalName: 'LLC "Engineering and Consulting Company AID Group"',
+  legalName: t.legalName,
   taxID: '405843084',
-  url: new URL('/en/', Astro.site).href,
+  url: new URL(`/${lang}/`, Astro.site).href,
   logo: new URL('/og-image.jpg', Astro.site).href,
   image: new URL('/og-image.jpg', Astro.site).href,
-  description:
-    'AID Group is a pharmaceutical consulting and engineering company providing GMP/GDP consulting, facility and utility engineering support, equipment selection, project coordination, qualification and validation services.',
+  description: t.footer.blurb,
   telephone: '+995571130335',
   email: 'aidgcec@gmail.com',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '166 Otar Chiladze Str.',
-    addressLocality: 'Tbilisi',
+    streetAddress: t.contact.addressLines[0],
+    addressLocality: t.city,
     postalCode: '0160',
     addressCountry: 'GE',
   },
   areaServed: 'GE',
   sameAs: ['https://www.facebook.com/profile.php?id=61593867286368'],
 };
+
 ---
 <!doctype html>
 <html lang={t.lang}>
@@ -50,10 +60,13 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {hasOtherLanguage && alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
+    {hasOtherLanguage && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AID Group" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={lang === 'ka' ? 'ka_GE' : 'en_US'} />
+    {hasOtherLanguage && <meta property="og:locale:alternate" content={otherLocale} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
@@ -74,9 +87,9 @@ const jsonLd = {
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{t.a11y.skipLink}</a>
     <Header t={t} />
-    <main id="main"><slot /></main>
+    <main id="main" class={pageClass}><slot /></main>
     <Footer t={t} />
   </body>
 </html>

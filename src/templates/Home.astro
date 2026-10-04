@@ -1,0 +1,222 @@
+---
+import { Image } from "astro:assets";
+import { localize, type Lang } from "../i18n";
+import { homeText } from "../i18n/pages/home";
+import "../styles/pages/home.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import hero from "../assets/images/home_hero.jpg";
+import whyImg from "../assets/images/why-engineers.png";
+import partnersBg from "../assets/images/partners-bg.jpg";
+import heroLogo from "../assets/brand/logo-icon.png";
+import iClipboard from "lucide-static/icons/clipboard-check.svg?raw";
+import iCompass from "lucide-static/icons/drafting-compass.svg?raw";
+import iPackage from "lucide-static/icons/package-check.svg?raw";
+import iBadge from "lucide-static/icons/badge-check.svg?raw";
+import iPill from "lucide-static/icons/pill.svg?raw";
+import iShield from "lucide-static/icons/shield-check.svg?raw";
+import iUsers from "lucide-static/icons/users.svg?raw";
+import iRoute from "lucide-static/icons/route.svg?raw";
+import iLayers from "lucide-static/icons/layers.svg?raw";
+import iBridge from "lucide-static/icons/arrow-left-right.svg?raw";
+import iArrow from "lucide-static/icons/arrow-up-right.svg?raw";
+import iChevronDown from "lucide-static/icons/chevron-down.svg?raw";
+import iImage from "lucide-static/icons/image.svg?raw";
+import partners from "../data/partners.json";
+
+const { lang } = Astro.props as { lang: Lang };
+const c = localize(homeText, lang);
+const link = (slug: string) => `/${lang}/${slug}/`;
+
+const engagementAreas = c.engagement.items;
+const serviceIcons = [iClipboard, iCompass, iPackage, iBadge];
+const services = c.expertise.items.map((x, i) => ({ ...x, icon: serviceIcons[i] }));
+const whyIcons = [iPill, iShield, iUsers, iRoute];
+const why = c.why.items.map((title, i) => ({ title, icon: whyIcons[i] }));
+---
+
+<BaseLayout
+  title={c.metaTitle}
+  description={c.metaDescription}
+  pageClass="page-home"
+>
+  <section class="hero">
+    <Image
+      class="hero-deco"
+      src={heroLogo}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="900px"
+      loading="eager"
+    />
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="kicker">{c.hero.kicker}</p>
+        <h1>{c.hero.title}</h1>
+        <p class="subline">{c.hero.subline}</p>
+        <a class="btn btn-primary" href={link("contact")}>{c.hero.cta}</a>
+      </div>
+      <Image
+        class="hero-img"
+        src={hero}
+        alt={c.hero.imageAlt}
+        widths={[480, 720, 1200]}
+        sizes="(max-width: 899px) 100vw, 560px"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section merge">
+    <div class="merge-bg-wrap" aria-hidden="true">
+      <Image
+        src={partnersBg}
+        alt=""
+        widths={[800, 1400, 2000]}
+        sizes="100vw"
+        loading="lazy"
+      />
+      <span class="merge-overlay"></span>
+    </div>
+    <div class="container merge-grid">
+      <div class="merge-col challenges-col">
+        <h2>{c.engagement.title}</h2>
+        <ul class="engagement-list">
+          {
+            engagementAreas.map((area) => (
+              <li class="engagement-card">
+                <h3>{area.title}</h3>
+                <p>{area.description}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <span class="divider" aria-hidden="true"></span>
+      <div class="merge-col">
+        <h2>{c.partners.title}</h2>
+        <p class="lead">{c.partners.lead}</p>
+        <ul class="partners-grid">
+          {
+            partners.map((p) => (
+              <li>
+                {p.logo ? (
+                  <div class="p-tile has-logo">
+                    <img
+                      class="p-logo"
+                      src={p.logo}
+                      alt={c.partners.logoAlt.replace("{name}", p.name)}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div class="p-tile is-placeholder">
+                    <span class="ph" set:html={iImage} aria-hidden="true" />
+                    <span class="p-name">{p.name}</span>
+                  </div>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section expertise">
+    <div class="container">
+      <h2>{c.expertise.title}</h2>
+      <ul class="bento">
+        {
+          services.map((x, i) => (
+            <li class={`b b${i + 1}`}>
+              <a class="exp-card" href={link("services")}>
+                <span class="exp-icon" set:html={x.icon} aria-hidden="true" />
+                <h3>
+                  {x.parts.map((p) =>
+                    p.em ? <span class="em">{p.t}</span> : p.t,
+                  )}
+                </h3>
+                <p>{x.desc}</p>
+                <span class="go" set:html={iArrow} aria-hidden="true" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section why">
+    <span class="ring ring-a" aria-hidden="true"></span>
+    <span class="ring ring-b" aria-hidden="true"></span>
+    <div class="container why-grid">
+      <div class="why-left">
+        <h2>{c.why.title}</h2>
+        <div class="why-img">
+          <Image
+            src={whyImg}
+            alt={c.why.imageAlt}
+            widths={[480, 720, 1024]}
+            sizes="(max-width: 1023px) 100vw, 460px"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <ul class="why-cards">
+        {
+          why.map((x, i) => (
+            <li class="why-card">
+              <span class="wm" set:html={x.icon} aria-hidden="true" />
+              <span class="num" aria-hidden="true">{`0${i + 1}`}</span>
+              <span class="icon" set:html={x.icon} aria-hidden="true" />
+              <h3>{x.title}</h3>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section glance">
+    <span class="glow glow-a" aria-hidden="true"></span>
+    <span class="glow glow-b" aria-hidden="true"></span>
+    <div class="container glance-grid">
+      <article class="g-card">
+        <span class="wm" set:html={iLayers} aria-hidden="true" />
+        <div class="g-head">
+          <span class="icon" set:html={iLayers} aria-hidden="true" />
+          <h2>{c.glance.title}</h2>
+        </div>
+        <p set:html={c.glance.text} />
+      </article>
+      <article class="g-card">
+        <span class="wm" set:html={iBridge} aria-hidden="true" />
+        <div class="g-head">
+          <span class="icon" set:html={iBridge} aria-hidden="true" />
+          <h2>{c.glance.positioningTitle}</h2>
+        </div>
+        <p set:html={c.glance.positioningText} />
+      </article>
+    </div>
+    <div class="guide-connector" aria-hidden="true">
+      <span class="guide-line"></span>
+      <span class="guide-arrow" set:html={iChevronDown} />
+    </div>
+    <div class="container cta-band">
+      <p class="cta-text">{c.cta.text}</p>
+      <a class="btn btn-primary" href={link("contact")}>{c.cta.button}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".exp-card").forEach((c) => {
+    c.addEventListener("pointermove", (e) => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      c.style.setProperty("--my", `${e.clientY - r.top}px`);
+    });
+  });
+</script>

@@ -58,3 +58,9 @@
     --body-size: 16px;
   }
 }
+
+/* Georgian pages: Latin fonts stay first (GMP, AID Group...), Noto Sans Georgian covers Georgian letters */
+html[lang='ka'] {
+  --font-heading: 'Space Grotesk', 'Noto Sans Georgian', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Noto Sans Georgian', system-ui, sans-serif;
+}

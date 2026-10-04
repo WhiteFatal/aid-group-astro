@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import headWatermark from '../assets/brand/logo-watermark.png';
+import { strings, localize, type Lang } from '../i18n';
+import { contactText } from '../i18n/pages/contact';
+import '../styles/pages/contact.css';
+import iMail from 'lucide-static/icons/mail.svg?raw';
+import iPhone from 'lucide-static/icons/phone.svg?raw';
+import iPin from 'lucide-static/icons/map-pin.svg?raw';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = strings[lang];
+const c = localize(contactText, lang);
+
+const mapQuery = '166 Otar Chiladze Street, Tbilisi 0160, Georgia';
+// Georgian pages ask Google Maps for a Georgian interface; the English embed URL is unchanged.
+const hl = lang === 'ka' ? '&hl=ka' : '';
+const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed${hl}`;
+const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}${hl}`;
+
+const fbPath = 'M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z';
+const waPath = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z';
+
+const cards = [
+  {
+    title: c.email.title,
+    icon: iMail,
+    lines: [t.contact.email],
+    href: `mailto:${t.contact.email}`,
+    label: c.email.label,
+  },
+  {
+    title: c.phone.title,
+    icon: iPhone,
+    lines: [t.contact.phone],
+    href: t.contact.phoneHref,
+    label: c.phone.label,
+  },
+  {
+    title: c.address.title,
+    icon: iPin,
+    lines: t.contact.addressLines.map((l, i, all) => (i === all.length - 1 ? l.replace(/\.$/, '') : l)),
+  },
+];
+---
+<BaseLayout
+  title={c.metaTitle}
+  description={c.metaDescription}
+  pageClass="page-contact"
+>
+  <section class="contact-head">
+    <Image
+      class="head-deco"
+      src={headWatermark}
+      alt=""
+      aria-hidden="true"
+      widths={[600, 900, 1200]}
+      sizes="800px"
+      loading="eager"
+    />
+    <div class="container head-inner">
+      <p class="kicker">{c.kicker}</p>
+      <h1>{c.title}</h1>
+      <p class="intro">
+        {c.intro}
+      </p>
+    </div>
+  </section>
+
+  <section class="section contact-cards section-shadow">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="container cards-inner">
+      <ul class="cards">
+        {cards.map((c) => (
+          <li class="card">
+            <span class="mark" set:html={c.icon} aria-hidden="true" />
+            <span class="icon" set:html={c.icon} aria-hidden="true" />
+            <h2>{c.title}</h2>
+            {c.href ? (
+              <a class="card-link" href={c.href} aria-label={`${c.label}: ${c.lines[0]}`}>{c.lines[0]}</a>
+            ) : (
+              <address>
+                {c.lines.map((l, i) => (<>{i > 0 && <br />}{l}</>))}
+              </address>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <ul class="social-row">
+        <li>
+          <a class="btn btn-secondary" href={t.contact.whatsapp} target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={waPath} /></svg>
+            {c.whatsapp}
+          </a>
+        </li>
+        <li>
+          <a class="btn btn-secondary" href={t.facebook} target="_blank" rel="noopener">
+            <svg width="15" height="19" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d={fbPath} /></svg>
+            {c.facebook}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section map-section section-shadow section-shadow--strong">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <div class="dots" aria-hidden="true"></div>
+    <div class="container map-inner">
+      <h2 class="h-underline">{c.findUs}</h2>
+      <div class="map-wrap">
+        <div class="map" data-map-src={mapEmbedSrc} data-map-title={c.mapIframeTitle} role="region" aria-label={c.mapLabel}>
+          <p class="map-fallback">{c.mapFallback}</p>
+        </div>
+      </div>
+      <p class="map-link">
+        <a class="btn btn-secondary" href={mapLink} target="_blank" rel="noopener">{c.openMaps}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Inject the Google Maps iframe only when the map area nears the viewport.
+  const box = document.querySelector<HTMLElement>('[data-map-src]');
+  if (box) {
+    const load = () => {
+      const f = document.createElement('iframe');
+      f.src = box.dataset.mapSrc!;
+      f.title = box.dataset.mapTitle ?? '';
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.allowFullscreen = true;
+      box.replaceChildren(f);
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { io.disconnect(); load(); }
+      }, { rootMargin: '300px' });
+      io.observe(box);
+    } else {
+      load();
+    }
+  }
+</script>

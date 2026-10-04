@@ -1,8 +1,9 @@
 ---
 import Logo from './Logo.astro';
-import type { Strings } from '../i18n/en';
+import { langLinks, type Strings } from '../i18n';
 const { t } = Astro.props as { t: Strings };
 const year = new Date().getFullYear();
+const langs = langLinks(Astro.url.pathname, t.lang as 'en' | 'ka');
 ---
 <footer class="site-footer">
   <div class="container cols">
@@ -36,7 +37,18 @@ const year = new Date().getFullYear();
   <div class="container bottom">
     <span>© AID Group {year}</span>
     <a class="credit" href={t.footer.creditHref} target="_blank" rel="noopener">{t.footer.credit}</a>
-    <span>{t.langSwitch.current} | <span class="off" title={t.langSwitch.otherLabel}>{t.langSwitch.other}</span></span>
+    <span>
+      {langs.map((l, i) => (
+        <>
+          {i > 0 && ' | '}
+          {l.current ? l.code : l.href ? (
+            <a href={l.href} hreflang={l.lang} lang={l.lang} aria-label={l.name} title={l.name}>{l.code}</a>
+          ) : (
+            <span class="off" title={t.langSwitch.unavailableLabel}>{l.code}</span>
+          )}
+        </>
+      ))}
+    </span>
   </div>
 </footer>
 

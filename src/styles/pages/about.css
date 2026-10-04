@@ -1,0 +1,446 @@
+/* About page styles. Every selector is under .page-about (set on <main> by the page template), so nothing leaks into other pages. */
+
+.page-about .about-head {
+  position: relative;
+  z-index: 6;
+  overflow: hidden;
+  padding-block: 72px;
+  min-height: 296px;
+  box-shadow: var(--shadow-bar);
+  background: linear-gradient(180deg, #fff 0%, var(--bg) 30%, var(--bg) 100%);
+}
+.page-about .head-deco {
+  position: absolute;
+  z-index: 0;
+  right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
+  top: 50%;
+  transform: translateY(-50%);
+  height: 260px;
+  width: auto;
+  max-width: none;
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}
+.page-about .head-inner { position: relative; z-index: 1; }
+@media (max-width: 767px) {
+  .page-about .about-head { padding-block: var(--space-lg); min-height: 288px; }
+  .page-about .head-deco { right: -25%; height: 180px; opacity: 0.14; }
+}
+.page-about .kicker {
+  margin: 0 0 var(--space-sm);
+  color: var(--teal-dark);
+  font: 600 var(--small-size)/var(--small-lh) var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.page-about .about-head h1 { margin-bottom: var(--space-sm); }
+.page-about .intro { max-width: 60ch; margin: 0; }
+
+/* Company Overview — light-blue band with shadow, glow blobs, faint cards */
+.page-about .overview {
+  --section-z: 5;
+  overflow: hidden;
+  background: linear-gradient(180deg, #e9f2f8 0%, #d8e7f2 100%);
+}
+.page-about .glow {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.page-about .glow-a {
+  width: 560px;
+  height: 560px;
+  left: -200px;
+  top: -240px;
+  background: radial-gradient(circle, rgb(79 166 141 / 0.22) 0%, transparent 70%);
+}
+.page-about .glow-b {
+  width: 640px;
+  height: 640px;
+  right: -240px;
+  bottom: -280px;
+  background: radial-gradient(circle, rgb(17 102 159 / 0.22) 0%, transparent 70%);
+}
+.page-about .split {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.page-about .h-underline { margin-bottom: var(--space-md); }
+
+.page-about .ov-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.page-about .ov-card {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: var(--space-md);
+  background: rgb(255 255 255 / 0.55);
+  border: 1px solid rgb(17 102 159 / 0.16);
+  border-radius: var(--radius-card);
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease, transform 0.25s ease;
+}
+/* teal edge bar that grows from the centre on hover */
+.page-about .ov-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--teal-light);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+@media (hover: hover) {
+  .page-about .ov-card:hover {
+    background: rgb(255 255 255 / 0.9);
+    border-color: var(--teal-light);
+    box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
+    transform: translateY(-2px);
+  }
+  .page-about .ov-card:hover::before { transform: scaleY(1); }
+}
+
+/* Photo with offset teal backing shape and hover zoom */
+.page-about .figure { position: relative; }
+.page-about .figure::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translate(14px, 14px);
+  border-radius: 12px;
+  background: var(--teal-light);
+  opacity: 0.35;
+}
+.page-about .figure-frame {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgb(12 56 93 / 0.14);
+  border-bottom: 4px solid var(--teal-light);
+}
+.page-about .figure-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+@media (hover: hover) {
+  .page-about .figure:hover .figure-frame img { transform: scale(1.05); }
+}
+
+@media (max-width: 899px) {
+  .page-about .split { grid-template-columns: 1fr; }
+  .page-about .figure { order: -1; }
+}
+
+/* Why AID Group Was Created — photo background, frosted panel, pull-quote */
+.page-about .why {
+  --section-z: 4;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+}
+.page-about .why-bg { position: absolute; inset: 0; z-index: 0; }
+.page-about .why-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.page-about .why-inner { position: relative; z-index: 1; }
+.page-about .why-panel {
+  position: relative;
+  max-width: 880px;
+  margin-inline: auto;
+  padding: var(--space-lg);
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.75); /* white fog on the card only — photo stays fully clear */
+  border: 0;
+  border-radius: var(--radius-card);
+  transition: transform 0.3s ease;
+}
+/* top line draws in from the left on hover */
+.page-about .why-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--teal-light);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s ease;
+}
+@media (hover: hover) {
+  .page-about .why-panel:hover { transform: scale(1.015); }
+  .page-about .why-panel:hover::before { transform: scaleX(1); }
+}
+.page-about .why-quote {
+  margin: 0 0 var(--space-md);
+  padding-left: var(--space-md);
+  border-left: 4px solid var(--teal-light);
+  color: var(--navy);
+  font: 500 21px/1.5 var(--font-heading);
+}
+.page-about .why-text { margin: 0; max-width: 72ch; }
+.page-about .why-text strong {
+  color: #164a49; /* darker than --teal-dark so the highlighted phrases meet WCAG AA over the photo */
+  font-weight: 700;
+  background: linear-gradient(transparent 60%, rgb(79 166 141 / 0.3) 60%);
+  padding-inline: 2px;
+}
+@media (max-width: 767px) {
+  .page-about .why-panel { padding: var(--space-md); }
+  .page-about .why-quote { font-size: 18px; padding-left: var(--space-sm); }
+}
+
+.page-about .lede { max-width: 72ch; margin: 0 0 var(--space-sm); }
+.page-about .lede:last-of-type { margin-bottom: 0; }
+/* Key Advantages — light-green band (same style as Company Overview), dotted decoration */
+.page-about .advantages {
+  --section-z: 3;
+  overflow: hidden;
+  background: linear-gradient(180deg, #e9f5ee 0%, #d7ebdf 100%);
+}
+.page-about .advantages .glow-a {
+  left: auto;
+  right: -200px;
+  top: -240px;
+  background: radial-gradient(circle, rgb(79 166 141 / 0.26) 0%, transparent 70%);
+}
+.page-about .advantages .glow-b {
+  right: auto;
+  left: -240px;
+  bottom: -280px;
+  background: radial-gradient(circle, rgb(17 102 159 / 0.14) 0%, transparent 70%);
+}
+.page-about .dots {
+  position: absolute;
+  z-index: 0;
+  width: 320px;
+  height: 220px;
+  pointer-events: none;
+  background-image: radial-gradient(rgb(31 99 98 / 0.42) 1.7px, transparent 1.9px);
+  background-size: 20px 20px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse at center, #000 0%, transparent 72%);
+}
+.page-about .dots-a { left: 24px; top: 36px; }
+.page-about .dots-b { right: 24px; bottom: 36px; }
+.page-about .adv-inner { position: relative; z-index: 1; }
+.page-about .advantages .lede { margin-bottom: var(--space-md); }
+
+.page-about .adv-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+.page-about .adv-item {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  border-bottom: 4px solid var(--teal-light);
+  box-shadow: 0 4px 14px rgb(12 56 93 / 0.08);
+  min-height: 120px;
+  padding: var(--space-md);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+/* big faded number, behind the text */
+.page-about .adv-num {
+  position: absolute;
+  right: 16px;
+  bottom: -10px;
+  z-index: 0;
+  font: 800 68px/1 var(--font-heading);
+  color: var(--teal-light);
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.25s ease;
+}
+/* decorative numeral drawn from CSS, so assistive tech and contrast checkers treat it as decoration, not text */
+.page-about .adv-num::before { content: attr(data-n); }
+/* corner watermark: the card's own icon, very faint */
+.page-about .adv-wm {
+  position: absolute;
+  right: -16px;
+  top: -16px;
+  z-index: 0;
+  width: 84px;
+  height: 84px;
+  color: var(--navy);
+  opacity: 0.06;
+  transform: rotate(12deg);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.4s ease;
+}
+.page-about .adv-wm svg { width: 100%; height: 100%; }
+.page-about .adv-item .icon {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-card);
+  background: var(--teal-light);
+  color: var(--navy-deep);
+  transition: transform 0.3s ease;
+}
+.page-about .adv-item .icon svg { width: 20px; height: 20px; }
+.page-about .adv-item p { position: relative; z-index: 1; margin: 0; padding-top: 4px; }
+
+@media (hover: hover) {
+  .page-about .adv-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgb(12 56 93 / 0.16);
+  }
+  .page-about .adv-item:hover .icon { transform: rotate(-8deg) scale(1.1); }
+  .page-about .adv-item:hover .adv-num { opacity: 0.32; }
+  .page-about .adv-item:hover .adv-wm { opacity: 0.1; transform: rotate(4deg) scale(1.06); }
+}
+
+@media (max-width: 767px) {
+  .page-about .adv-grid { grid-template-columns: 1fr; }
+  .page-about .dots { width: 200px; height: 150px; }
+  .page-about .adv-num { font-size: 60px; }
+}
+@media (max-width: 479px) {
+  .page-about .adv-num { font-size: 46px; right: 12px; bottom: -6px; opacity: 0.16; }
+  .page-about .adv-wm { width: 64px; height: 64px; }
+}
+
+/* Standards — document photo background (kept clear), frosted heading panel, bottom-edge cards */
+.page-about .standards {
+  --section-z: 2;
+  overflow: hidden;
+  background: var(--bg);
+}
+.page-about .std-bg { position: absolute; inset: 0; z-index: 0; }
+.page-about .std-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+}
+.page-about .std-inner { position: relative; z-index: 1; }
+
+/* one card holds heading, list, divider and note */
+.page-about .std-card {
+  position: relative;
+  overflow: hidden;
+  max-width: 1000px;
+  margin: 0 0 0 auto; /* pushed to the right end of the container */
+  padding: var(--space-lg);
+  /* same gradient as Company Overview, at 85% opacity */
+  background: linear-gradient(180deg, rgb(233 242 248 / 0.85) 0%, rgb(216 231 242 / 0.85) 100%);
+  border-radius: var(--radius-card);
+  box-shadow: 0 6px 18px rgb(12 56 93 / 0.12);
+}
+/* green edge on the right side: appears only on hover, sweeping down */
+.page-about .std-card::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--teal-light);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.6s ease;
+}
+@media (hover: hover) {
+  .page-about .std-card:hover::after { transform: scaleY(1); }
+}
+.page-about .standards .lede { margin: 0 0 var(--space-md); }
+
+.page-about .std-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm) var(--space-lg);
+}
+.page-about .std-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+/* empty, square checkbox with a check mark */
+.page-about .check {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  border: 2px solid var(--teal-dark);
+  border-radius: 0;
+  background: transparent;
+  color: var(--teal-dark);
+}
+.page-about .check svg { width: 14px; height: 14px; stroke-width: 3.2; }
+.page-about .check svg path { stroke-dasharray: 24; stroke-dashoffset: 0; }
+
+@media (hover: hover) {
+  .page-about .std-item:hover .check svg path { animation: about-tick 0.45s ease forwards; }
+}
+@keyframes about-tick {
+  from { stroke-dashoffset: 24; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* closing note: separated by a divider, smaller and quieter than the list */
+.page-about .std-divider {
+  height: 1px;
+  margin: var(--space-md) 0 var(--space-sm);
+  background: linear-gradient(90deg, var(--teal-light) 0, var(--teal-light) 64px, rgb(12 56 93 / 0.14) 64px);
+}
+.page-about .std-note {
+  margin: 0;
+  color: var(--text-body);
+  opacity: 0.9;
+  font-size: var(--small-size);
+  font-style: italic;
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .page-about .std-card { padding: var(--space-md); }
+  .page-about .std-grid { grid-template-columns: 1fr; }
+}
+
+/* Reduced motion: no movement at all on this page */
+@media (prefers-reduced-motion: reduce) {
+  .page-about .ov-card:hover, .page-about .adv-item:hover, .page-about .why-panel:hover { transform: none; }
+  .page-about .adv-item:hover .icon, .page-about .adv-item:hover .adv-wm, .page-about .figure:hover .figure-frame img { transform: none; }
+  .page-about .std-item:hover .check svg path { animation: none; }
+  .page-about .ov-card::before, .page-about .why-panel::before, .page-about .std-card::after { transition: none; }
+}
