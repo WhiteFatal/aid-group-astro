@@ -1,11 +1,11 @@
 ---
 // Raster logo for now (client supplied PNG). Swap for the SVG version when available.
-const { href = '/en/', light = false, height = 36 } = Astro.props;
+const { href = '/en/', light = false, height = 36, alt = 'AID Group — home' } = Astro.props;
 const width = Math.round((400 / 152) * height);
 const src = light ? '/brand/logo-icon-light.png' : '/brand/logo-icon.png';
 ---
 <a class="logo" href={href}>
-  <img src={src} alt="AID Group — home" width={width} height={height} />
+  <img src={src} alt={alt} width={width} height={height} />
 </a>
 <style>
   .logo { display: inline-block; line-height: 0; }

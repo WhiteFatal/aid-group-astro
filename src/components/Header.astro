@@ -8,7 +8,7 @@ const langs = langLinks(path, t.lang as 'en' | 'ka');
 ---
 <header class="site-header" id="site-header">
   <div class="container bar">
-    <Logo href={t.nav[0].path} />
+    <Logo href={t.nav[0].path} alt={t.a11y.logoAlt} />
     <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label={t.a11y.menu}>
       <svg class="i-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       <svg class="i-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>

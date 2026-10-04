@@ -17,6 +17,7 @@ export const common = {
     menu: { en: 'Menu', ka: 'მენიუ' },
     mainNav: { en: 'Main', ka: 'მთავარი ნავიგაცია' },
     language: { en: 'Language', ka: 'ენა' },
+    logoAlt: { en: 'AID Group — home', ka: 'AID Group — მთავარი გვერდი' },
   },
   langSwitch: {
     unavailableLabel: { en: 'Georgian version coming soon', ka: 'ინგლისური ვერსია მიუწვდომელია' },

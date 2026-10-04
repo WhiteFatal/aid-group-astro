@@ -8,7 +8,7 @@ const langs = langLinks(Astro.url.pathname, t.lang as 'en' | 'ka');
 <footer class="site-footer">
   <div class="container cols">
     <div class="brand">
-      <Logo href={t.nav[0].path} light height={44} />
+      <Logo href={t.nav[0].path} light height={44} alt={t.a11y.logoAlt} />
       <p class="tagline">{t.footer.tagline}</p>
       <p class="blurb">{t.footer.blurb}</p>
     </div>
