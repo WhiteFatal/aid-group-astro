@@ -40,8 +40,8 @@ export const common = {
   city: { en: "Tbilisi", ka: "თბილისი" },
   contact: {
     email: "aidgcec@gmail.com",
-    phone: "+995 544 55 69 55",
-    phoneHref: "tel:+995 544 55 69 55",
+    phone: "+995 544556955",
+    phoneHref: "tel:+995 544556955",
     whatsapp: "https://wa.me/995544556955",
     addressLines: {
       en: ["166 Otar Chiladze Str.", "Tbilisi 0160, Georgia."],
