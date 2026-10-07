@@ -4,25 +4,27 @@
 **Type:** Static site (Astro), no backend, no e-commerce, no contact form
 **Hosting:** GitHub → Netlify/Vercel
 **Domain:** **[gxp.ge](https://gxp.ge)** — ✅ acquired and confirmed
-**Language:** Bilingual site (English + Georgian, `/en/` `/ka/` URL structure). English built first; Georgian translation added afterward, manually corrected by client — not a dedicated translation workstream in this plan.
+**Language:** Bilingual site (English + Georgian, `/en/` `/ka/` URL structure). English built first; Georgian translation added afterward — ✅ **now complete on all five pages** (drafted page by page, reviewed and accepted by the client). See "Georgian (`/ka/`) Translation — As Built".
 **SEO Geographic Target:** Caucasus & wider region
 **Approach:** Sequential phases, each approved before the next begins — in practice, the Home page has been built and refined through many small, individually-approved steps rather than one single sign-off, per the client's preferred step-by-step working method.
 
 > **Revision note:** This plan was updated after the Home page build to reflect what was actually approved and shipped, which diverges from the original wireframe and design-system spec in a number of places (stack, section order/content, imagery, decoration). Nothing below is aspirational — it describes the live Home page plus the still-outstanding pages. Where the original plan's decision was superseded, the original line is kept and struck through in spirit by an inline **"Superseded"** note rather than deleted, so the project history stays visible.
 
+> **Revision note 2 (Georgian rollout):** this plan was updated again after the Georgian translation, the hreflang/SEO work and the final two-language QA pass. Code organisation changed during that work: each page is now a shared template plus its own CSS file plus a paired English/Georgian text file. Older per-page notes that say "all markup and styles are in this file" describe how the pages were _refined_, and are kept as history — the current structure is described in "Georgian (`/ka/`) Translation — As Built".
+
 ---
 
 ## Sitemap (Updated)
 
-| Page         | Content                                                                                                                                                                                                                                                                                                                                          |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Home**     | ✅ **Built.** Hero → **Areas of Engagement + Partners** (merged, side-by-side) → **AID Group Expertise** (service highlights, redesigned) → Why AID Group → **At a Glance / Our Positioning + Closing CTA** (merged). Featured Projects section dropped entirely. See "Home — As Built" below for the full detail.                             |
-| **About Us** | ✅ **Built, except Founders & Team (postponed).** Page intro + Company Overview (with team photo) → Why AID Group Was Created → Key Advantages & Differentiation (8-item icon grid) → Standards & Regulatory Frameworks (9-item checklist). Founders & Team copy is ready in Appendix A but not yet on the page — postponed on client instruction, no founder names/titles available yet. See "About — As Built" below.                                                                                          |
-| **Services** | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header + intro → **Our End-to-End Process** (moved up, directly under the header; dark navy blueprint band, 10 glass step cards) → **Services and Scope + 7 Service Clusters** (merged into one light-blue section: laboratory photo beside the intro, bento grid of cluster cards below) → Facility Types We Support (one card, 8-item checklist) → **Areas of Engagement** (renamed from "Who We Serve"; 6 audience cards over an aerial campus photo). See "Services — As Built" below. |
-| **Projects** | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header + intro → `[All Projects] [Completed] [Ongoing]` filter (JS, no framework; "All Projects" is the default view on load) → full-width stacked card(s) from `src/data/projects.json`, all on one light-blue band. One real project live: the Kutaisi GMP secondary packaging facility (completed, 2026). See "Projects — As Built" below. |
-| **Contact**  | ✅ **Built and visually refined (CSS pass complete; final QA pass pending).** Header intro → three cards (Email / Phone / Address; Email and Phone cards are fully clickable) on a light-green band → WhatsApp/Facebook buttons → **Find Us**: lazy-loaded Google Maps embed on a light-blue band, with an "Open in Google Maps" button. Buttons use the `.btn-secondary` style, centered. See "Contact — As Built" below. |
+| Page         | Content                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Home**     | ✅ **Built.** Hero → **Areas of Engagement + Partners** (merged, side-by-side) → **AID Group Expertise** (service highlights, redesigned) → Why AID Group → **At a Glance / Our Positioning + Closing CTA** (merged). Featured Projects section dropped entirely. See "Home — As Built" below for the full detail.                                                                                                                                                                                                                                                     |
+| **About Us** | ✅ **Built, except Founders & Team (postponed).** Page intro + Company Overview (with team photo) → Why AID Group Was Created → Key Advantages & Differentiation (8-item icon grid) → Standards & Regulatory Frameworks (9-item checklist). Founders & Team copy is ready in Appendix A but not yet on the page — postponed on client instruction, no founder names/titles available yet. See "About — As Built" below.                                                                                                                                                |
+| **Services** | ✅ **Built and visually refined (CSS pass complete; formal QA pass done).** Header + intro → **Our End-to-End Process** (moved up, directly under the header; dark navy blueprint band, 10 glass step cards) → **Services and Scope + 7 Service Clusters** (merged into one light-blue section: laboratory photo beside the intro, bento grid of cluster cards below) → Facility Types We Support (one card, 8-item checklist) → **Areas of Engagement** (renamed from "Who We Serve"; 6 audience cards over an aerial campus photo). See "Services — As Built" below. |
+| **Projects** | ✅ **Built and visually refined (CSS pass complete; formal QA pass done).** Header + intro → `[All Projects] [Completed] [Ongoing]` filter (JS, no framework; "All Projects" is the default view on load) → full-width stacked card(s) from `src/data/projects.json`, all on one light-blue band. One real project live: the Kutaisi GMP secondary packaging facility (completed, 2026). See "Projects — As Built" below.                                                                                                                                              |
+| **Contact**  | ✅ **Built and visually refined (CSS pass complete; formal QA pass done).** Header intro → three cards (Email / Phone / Address; Email and Phone cards are fully clickable) on a light-green band → WhatsApp/Facebook buttons → **Find Us**: lazy-loaded Google Maps embed on a light-blue band, with an "Open in Google Maps" button. Buttons use the `.btn-secondary` style, centered. See "Contact — As Built" below.                                                                                                                                               |
 
-**All five pages are now built** (About minus one postponed section). **SEO infrastructure — ✅ fully built and live:** `site` URL and `@astrojs/sitemap` integration configured in `astro.config.mjs` (sitemap excludes the bare `/` redirect); `public/robots.txt` referencing the sitemap; canonical URLs and Open Graph/Twitter meta tags added to `BaseLayout.astro` (default share image: `public/og-image.jpg`); `ProfessionalService` JSON-LD added to `BaseLayout.astro` (see below); sitemap submitted to and accepted by Google Search Console. **Still postponed:** hreflang alternates only — needs `/ka/` pages to exist first, deliberately left until the Georgian translation work begins.
+**All five pages are now built** (About minus one postponed section). **SEO infrastructure — ✅ fully built and live:** `site` URL and `@astrojs/sitemap` integration configured in `astro.config.mjs` (sitemap excludes the bare `/` redirect); `public/robots.txt` referencing the sitemap; canonical URLs and Open Graph/Twitter meta tags added to `BaseLayout.astro` (default share image: `public/og-image.jpg`); `ProfessionalService` JSON-LD added to `BaseLayout.astro` (see below); sitemap submitted to and accepted by Google Search Console. **hreflang alternates — ✅ done** with the Georgian rollout (see "Georgian (`/ka/`) Translation — As Built"); sitemap now carries language alternates too.
 
 **Navigation:** `Home · About · Services · Projects · Contact` (shared header/footer across all pages) — ✅ built as planned, styling updated (see Phase 2).
 
@@ -30,7 +32,7 @@
 
 **Note on Featured Projects:** originally planned as a 2–3 card teaser on Home linking to the Projects page. **Cut entirely** on client instruction — no Projects teaser appears on Home. The Projects page itself is unaffected and still planned as originally scoped.
 
-**Content balancing rationale:** unchanged from original plan for the pages not yet built (About/Services split of "Who We Work With"). On Home, the short-hook version of "Who We Serve" was itself replaced (see below), so this balancing logic now applies only to About/Services.
+**Content balancing rationale:** unchanged from original plan (About/Services split of "Who We Work With"). On Home, the short-hook version of "Who We Serve" was itself replaced (see below), so this balancing logic now applies only to About/Services.
 
 ---
 
@@ -69,6 +71,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 **"Who We Serve" (6-label hook):** removed. Replaced by "Areas of Engagement," which uses entirely different, more specific copy (3 audience-segment cards rather than 6 single-word labels). See Appendix A for exact wording.
 
 **Decorative system added (not in the original Phase 2 spec at all):**
+
 - A shared drop-shadow token pair (`--shadow-bar`, `--shadow-bar-strong`) applied under every section, so each section visibly separates from the one below it as you scroll. This is a new, page-wide convention that should be carried into About/Services/Projects/Contact for visual consistency.
 - Faint "blueprint" grid-line textures (AID Group Expertise; the CTA band in the closing section).
 - Soft radial glow blobs (AID Group Expertise; the closing At a Glance/CTA section).
@@ -82,10 +85,10 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 ## Phase 1 — Content Strategy & SEO Foundations
 
-- **1.1 Information architecture** — ✅ Finalized at the time, **superseded for Home** by the section changes above. About/Services/Projects/Contact architecture unchanged and still pending build.
-- **1.2 SEO & keyword strategy** — ✅ Drafted (English), unchanged. Georgian keyword localization still deferred to the translation pass.
+- **1.1 Information architecture** — ✅ Finalized at the time, **superseded for Home** by the section changes above. About/Services/Projects/Contact architecture ✅ since built (see their "As Built" sections).
+- **1.2 SEO & keyword strategy** — ✅ Drafted (English), unchanged. Georgian keyword list ✅ drafted and reviewed by the client during the Georgian rollout (see "Georgian (`/ka/`) Translation — As Built").
 - **1.3 Copywriting per section** — ✅ Drafted and QA'd for the pages as originally scoped. **Home copy has since diverged**: the "Who We Serve" hook was dropped in favor of new "Areas of Engagement" copy (see Appendix A), and the Service Highlights / Why AID Group sections kept their original text but gained new visual treatment. About/Services/Projects/Contact copy is unchanged from the original QA pass and still awaiting build.
-- **1.4 Metadata plan** — ✅ Finalized and **implemented for all 5 pages** — every page currently live (as a stub or as the full Home build) uses the exact `<title>` and meta description from the table below via a shared layout component. OG/Twitter card tags and JSON-LD structured data are **drafted here but not yet added to the code** — see the new "SEO infrastructure" note under Phase 4.
+- **1.4 Metadata plan** — ✅ Finalized and **implemented for all 5 pages** — every page currently live (as a stub or as the full Home build) uses the exact `<title>` and meta description from the table below via a shared layout component. OG/Twitter card tags, JSON-LD structured data and hreflang are ✅ **now implemented** — see "JSON-LD, Domain Fix and Search Console — As Built" and "Georgian (`/ka/`) Translation — As Built". All five pages are fully built (the "stub" wording above is historical), with titles and descriptions in both languages.
 
   **Per-page metadata** _(implemented, unchanged from original plan):_
 
@@ -111,7 +114,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 2. **Vector logo file (SVG/AI)** — ⏳ **Still pending.** The client instead supplied **raster PNG logo files** (a full lockup with tagline, and an icon-only mark) plus a complete favicon PNG set (16/32/48/180/512px), all of which are live in production today. The full lockup file (`logo-full.png`) has a small rendering glitch in the tagline text ("ENGINEERING") that should be fixed at the source before that file is used anywhere client-facing beyond the current header/footer icon mark. A true vector file would still be preferable for crisp rendering at all sizes and is worth requesting again.
 3. **Real contact details** — ✅ Provided and live:
    - Address (now shown on the site as two lines): 166 Otar Chiladze Str. / Tbilisi 0160, Georgia.
-   - Phone: +995 571 13 03 35
+   - Phone: +995 544 55 69 55
    - Email: aidgcec@gmail.com
 4. **Facebook URL** — ✅ Provided and live: `https://www.facebook.com/profile.php?id=61593867286368`
 
@@ -121,29 +124,29 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 - **2.1 Color palette** — ✅ Finalized, **extended during build.** All original tokens kept as specified. Two additional tokens were introduced to solve real contrast problems that came up once actual dark/photo backgrounds were built:
 
-  | Role                        | Hex       | Usage                                                                                          |
-  | --------------------------- | --------- | ----------------------------------------------------------------------------------------------- |
-  | *(all original roles unchanged — see below)* |
-  | **New: Navy (deep)**         | `#071f33` | Text on top of the light teal-green accent (e.g. button hover state) — `#0c385d` alone measured only ~4.1:1 there, below AA; `#071f33` gives ~5.7:1. |
-  | **New: Teal (tint)**         | `#9bd5c2` | Accent text/icons placed directly on dark navy surfaces, where the standard light teal-green measured under 4.5:1 — this lighter tint gives ~8:1 on navy. |
+  | Role                                         | Hex       | Usage                                                                                                                                                     |
+  | -------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | _(all original roles unchanged — see below)_ |
+  | **New: Navy (deep)**                         | `#071f33` | Text on top of the light teal-green accent (e.g. button hover state) — `#0c385d` alone measured only ~4.1:1 there, below AA; `#071f33` gives ~5.7:1.      |
+  | **New: Teal (tint)**                         | `#9bd5c2` | Accent text/icons placed directly on dark navy surfaces, where the standard light teal-green measured under 4.5:1 — this lighter tint gives ~8:1 on navy. |
 
   Original palette (all still in use, unchanged):
 
-  | Role                                | Hex       | Usage                                                                                                                                       |
-  | ----------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-  | Primary (Navy)                      | `#0c385d` | Footer, headings, primary text on light backgrounds                                                                                        |
-  | Secondary (Blue)                    | `#11669f` | Links, nav hover states, one half of the At a Glance/Positioning gradient background                                                        |
-  | Primary Accent (Dark Teal-Green)    | `#1f6362` | CTA buttons (default state), active states                                                                                                  |
+  | Role                                | Hex       | Usage                                                                                                                                                                                                             |
+  | ----------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Primary (Navy)                      | `#0c385d` | Footer, headings, primary text on light backgrounds                                                                                                                                                               |
+  | Secondary (Blue)                    | `#11669f` | Links, nav hover states, one half of the At a Glance/Positioning gradient background                                                                                                                              |
+  | Primary Accent (Dark Teal-Green)    | `#1f6362` | CTA buttons (default state), active states                                                                                                                                                                        |
   | Secondary Accent (Light Teal-Green) | `#4fa68d` | Icon backgrounds, hover glows, **and** — superseding the original "never as text background" rule — now also the CTA button's **hover** fill, paired with the new deep-navy text token above to stay AA-compliant |
-  | Background (base)                   | `#eeefed` | Page background                                                                                                                             |
-  | Background (contrast)               | `#FFFFFF` | Cards, content panels                                                                                                                       |
-  | Text — Heading                      | `#0c385d` | All headings                                                                                                                                |
-  | Text — Body                         | `#37414a` | Paragraph text                                                                                                                              |
-  | Border/Divider                      | `#DBDDD9` | Card borders, table lines — **superseded on Partner tiles**, which had their border and background removed entirely per client request, sitting borderless directly on the section's photo/gradient background |
+  | Background (base)                   | `#eeefed` | Page background                                                                                                                                                                                                   |
+  | Background (contrast)               | `#FFFFFF` | Cards, content panels                                                                                                                                                                                             |
+  | Text — Heading                      | `#0c385d` | All headings                                                                                                                                                                                                      |
+  | Text — Body                         | `#37414a` | Paragraph text                                                                                                                                                                                                    |
+  | Border/Divider                      | `#DBDDD9` | Card borders, table lines — **superseded on Partner tiles**, which had their border and background removed entirely per client request, sitting borderless directly on the section's photo/gradient background    |
 
   **Button hover — superseded:** original spec was primary CTA hover → navy `#0c385d`. **Built and approved instead:** hover → light teal-green `#4fa68d` with the new deep-navy text `#071f33` for contrast. This applies to every `.btn-primary` site-wide, including the header/hero CTA and the closing CTA.
 
-  **Shadow system — new, not in the original spec:** two shadow tokens, `--shadow-bar` (soft, navy-tinted, used on light backgrounds — header, hero, Areas of Engagement/Partners) and `--shadow-bar-strong` (higher-contrast, plain black, used on colored/dark backgrounds — At a Glance/Positioning, Expertise, Why AID Group). Every Home section casts one of these under itself, creating a consistent "each section separates from the next" rhythm down the page. This should be applied to About/Services/Projects/Contact as they're built, for consistency. **Update:** About now applies this via a reusable `.section-shadow` / `.section-shadow--strong` class pair in `global.css`; the strong variant is chosen by what the section's shadow falls *onto* (a photo or dark section), see "About — As Built".
+  **Shadow system — new, not in the original spec:** two shadow tokens, `--shadow-bar` (soft, navy-tinted, used on light backgrounds — header, hero, Areas of Engagement/Partners) and `--shadow-bar-strong` (higher-contrast, plain black, used on colored/dark backgrounds — At a Glance/Positioning, Expertise, Why AID Group). Every Home section casts one of these under itself, creating a consistent "each section separates from the next" rhythm down the page. This should be applied to About/Services/Projects/Contact as they're built, for consistency. **Update:** About now applies this via a reusable `.section-shadow` / `.section-shadow--strong` class pair in `global.css`; the strong variant is chosen by what the section's shadow falls _onto_ (a photo or dark section), see "About — As Built".
 
 - **2.2 Typography** — ✅ Finalized, **one deviation on sourcing, one on scale.**
 
@@ -157,17 +160,17 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
   - Heading: **Space Grotesk**
   - Body: **IBM Plex Sans**
 
-  **Georgian:** Noto Sans Georgian (700 headings / 400 body) — planned, not yet implemented.
+  **Georgian:** Noto Sans Georgian — ✅ **implemented**, self-hosted via `@fontsource/noto-sans-georgian` in weights 400/500/600/700 (matching the weights used by the Latin stack), Latin fonts first in the stack so acronyms and the brand name look identical to English; only `html[lang='ka']` pages use it.
 
   **Type scale (desktop → mobile), as built:**
 
-  | Element  | Desktop     | Mobile      |
-  | -------- | ----------- | ----------- |
+  | Element  | Desktop         | Mobile      |
+  | -------- | --------------- | ----------- |
   | H1       | **40px** / 1.15 | 32px / 1.2  |
-  | H2       | 34px / 1.2  | 26px / 1.25 |
-  | H3       | 22px / 1.3  | 19px / 1.3  |
-  | Body     | 17px / 1.6  | 16px / 1.6  |
-  | Small/UI | 14px / 1.4  | 14px / 1.4  |
+  | H2       | 34px / 1.2      | 26px / 1.25 |
+  | H3       | 22px / 1.3      | 19px / 1.3  |
+  | Body     | 17px / 1.6      | 16px / 1.6  |
+  | Small/UI | 14px / 1.4      | 14px / 1.4  |
 
 - **2.3 Style & iconography** — ✅ Finalized, mostly as spec'd, with additions.
 
@@ -179,7 +182,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
   **Iconography:** Lucide Icons, unchanged — now used extensively for card icons, watermark decorations, the mobile menu, and the guide-connector arrow, in addition to the originally-planned nav/service icons.
 
-  **Buttons — superseded**, see the hover color change under 2.1. Secondary button style as originally spec'd, not yet used anywhere on the built Home page.
+  **Buttons — superseded**, see the hover color change under 2.1. Secondary button style (navy outline) as originally spec'd — since adopted on the inner pages (see the page sections).
 
   **Logo — see Outstanding Inputs #2 above.** Client supplied raster PNG files, not vector. The icon-only mark is in production use in the header (dark version) and footer (a generated light/white version for the navy background).
 
@@ -206,13 +209,13 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 - **2.4 Skeleton/wireframe** — ✅ Finalized at the time, **substantially superseded for Home** — see "Home — As Built" above for the actual structure. The Header/Footer wireframe below is accurate to what's live; the About/Services/Projects/Contact wireframes are unchanged and still pending.
 
-  **Shared Header (as built):** Logo (icon mark) · Home · About · Services · Projects · Contact, **centered** (not left-aligned as implied by the original left-to-right list) · language switch "EN | GE" · nav text is uppercase with letter-spacing, active/hover state is bold + underlined in blue · white background (not navy, corrected for contrast — see 2.1) · sticky, with a permanent soft shadow that deepens slightly on scroll. Mobile: logo + hamburger → slide-down menu, same styling carried through. Language toggle still intentionally non-functional (no `/ka/` content yet).
+  **Shared Header (as built):** Logo (icon mark) · Home · About · Services · Projects · Contact, **centered** (not left-aligned as implied by the original left-to-right list) · language switch "EN | GE" · nav text is uppercase with letter-spacing, active/hover state is bold + underlined in blue · white background (not navy, corrected for contrast — see 2.1) · sticky, with a permanent soft shadow that deepens slightly on scroll. Mobile: logo + hamburger → slide-down menu, same styling carried through. Language toggle ✅ **now functional**: it links to the matching page in the other language (see "Georgian (`/ka/`) Translation — As Built").
 
   **Shared Footer (as built):** Logo (white variant) + tagline + blurb · Quick Links · Contact info (address now two lines) · Follow Us (Facebook + WhatsApp only, as planned — Instagram/YouTube still pending) · bottom bar: `© AID Group [year]` + **"Built by Radiance"** (shortened from "Website built by Radiance," now hyperlinked to `radiance.ge`) + language switch. Social icons are borderless rounded-square boxes (not circles), using the same hover colors as the primary button (light teal-green fill, deep-navy icon), with no lift/animation. Mobile: columns stack vertically, as planned.
 
   **Home:** see "Home — As Built" above — no longer matches the original ASCII wireframe in this section; that block is superseded in full.
 
-  **About Us / Services / Projects / Contact:** unchanged from the original plan, not yet built. Repeated here for continuity:
+  **About Us / Services / Projects / Contact:** _(historical — all four are now built, see their "As Built" sections)_; original plan repeated here for continuity:
   - **About Us:** Page intro → Company Overview → Why Created → Key Advantages (2-col icon list) → Founders & Team (+ image) → Standards & Regulatory Frameworks (2-col checklist)
   - **Services** _(superseded — see "Services — As Built")_**:** Page intro → Service Clusters (7 grouped cards w/ sub-items — desktop: static, all visible · mobile: accordion) → End-to-End Process (10-step stepper, vertical on mobile) → Facility Types (icon/tag grid) → Who We Serve (detailed, service-tied cards)
   - **Projects:** Page intro → Toggle/Tabs [Completed | Ongoing] → data-driven, full-width stacked cards, one per row (name, status badge, description, photo)
@@ -220,7 +223,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
   **Mobile (all pages):** sections stack single-column — confirmed working as built on Home; same approach to be carried through the remaining pages.
 
-**Output:** ✅ Phase 2 complete for Home, in an evolved form; unchanged/pending for the other four pages.
+**Output:** ✅ Phase 2 complete for Home, in an evolved form; the other four pages were built afterwards (see their "As Built" sections).
 
 ### Additional outstanding inputs
 
@@ -233,11 +236,11 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 - **3.1 Stack — superseded.** Original decision was plain static HTML/CSS/JS with no framework and no build tooling. **Built instead with [Astro](https://astro.build)**, a static-site framework, for these reasons (agreed with the client at the start of the build): a component-based structure avoids copy-pasting the header/footer across every page and across `/en/` and `/ka/`; Partners/Projects JSON data renders to real static HTML at build time (fully indexable, no client-side rendering); built-in image optimization (automatic WebP conversion, responsive `srcset`) with no extra tooling; and it still deploys as plain static files to Netlify/Vercel exactly as originally planned — the hosting story in Phase 4 is unaffected. The page ships effectively zero JavaScript by default; the handful of small interactive touches (mobile menu, scroll shadow, card hover effects) are small vanilla-JS snippets, not a client-side framework runtime.
 
-  i18n routing is configured (`/en/` as the default locale, `/ka/` registered for later), matching the original bilingual URL-structure requirement.
+  i18n routing is configured (`/en/` as the default locale, `/ka/` ✅ now fully built), matching the original bilingual URL-structure requirement.
 
 - **3.2 Contact mechanism** — ✅ Unchanged: plain contact information only, no form.
 - **3.3 Analytics** — ✅ Unchanged: not required.
-- **3.4 Data-driven content** — ✅ **Partners implemented** as a JSON file (`src/data/partners.json`); adding a partner is a one-entry addition, exactly as planned. Real data (four partners) has already replaced the original placeholder entry. **Projects JSON not yet created** — pending the Projects page build.
+- **3.4 Data-driven content** — ✅ **Partners implemented** as a JSON file (`src/data/partners.json`); adding a partner is a one-entry addition, exactly as planned. Real data (four partners) has already replaced the original placeholder entry. **Projects JSON ✅ created** (`src/data/projects.json`, one real project; text fields are now `{ en, ka }` pairs).
 - **3.5 Accessibility target** — ✅ Baseline WCAG AA maintained throughout the Home build; every new color combination introduced during build (button hover, teal-tint-on-navy, etc.) was checked and adjusted where it failed, per the new tokens described in Phase 2.1.
 
 ---
@@ -246,7 +249,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 - **4.1 Hosting** — ✅ Unchanged: GitHub → Netlify or Vercel.
 - **4.2 Domain/SSL** — ✅ **Unblocked.** Domain is confirmed: **gxp.ge**. Connecting it to Netlify/Vercel and provisioning SSL is a same-day, automatic step on either platform — not yet actioned, but no longer blocked on any missing input. Recommended as the next infrastructure step whenever the client is ready to go live, even before every page is finished (a "coming soon" or partial site can go live on the real domain early if useful).
-- **4.3 SEO infrastructure** — ✅ **Unblocked**, ⏳ **not yet implemented in code.** Now that the domain is known, the following can be finalized:
+- **4.3 SEO infrastructure** — ✅ **Implemented** (sitemap, robots.txt, canonical/OG/Twitter tags, JSON-LD, and — with the Georgian rollout — hreflang alternates). The list below is the original to-do, kept for history:
   - `sitemap.xml` — the `@astrojs/sitemap` integration is already installed as a project dependency but not yet wired into `astro.config.mjs` (it's waiting on the `site: 'https://gxp.ge'` config value, intentionally deferred until the domain was confirmed — now unblocked).
   - `robots.txt` — not yet created.
   - Canonical URLs, OG tags, and hreflang alternates — not yet added to the shared layout; straightforward now that `https://gxp.ge` is the confirmed base URL.
@@ -258,7 +261,7 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 ## Phase 5 — Build
 
-**In progress.** The Home page has been built and iteratively refined (well beyond the original single-pass wireframe — see "Home — As Built"). About, Services, Projects, and Contact exist only as routed stub pages with correct metadata and a placeholder heading; none has real content or layout yet.
+**✅ Complete.** All five pages are built in English and in Georgian (About minus the postponed Founders & Team section). Home was iteratively refined well beyond the original single-pass wireframe — see "Home — As Built"; the other pages are described in their own "As Built" sections, and the Georgian conversion in "Georgian (`/ka/`) Translation — As Built".
 
 ---
 
@@ -266,26 +269,28 @@ FOOTER (navy, two-line address, borderless icon-box social links, "Built by
 
 **Formal final pass — ✅ done on all five pages** (Services, Contact and Projects first; Home and About afterwards, with the identical checks). Run on the built site with automated checks plus visual review:
 
-  - **Layout:** every page at 320, 390, 768, 1024 and 1440px — no horizontal overflow, no broken images, no console errors, no element sticking out past the screen (25 of 25 page/width combinations pass; re-run after each round of fixes).
-  - **Accessibility (axe-core, WCAG 2 A/AA + best-practice rules):** zero violations on all five pages at 1440 and 390px. Home and About each started with one violation (see "Fixed during the pass").
-  - **Text contrast, measured directly:** axe cannot compute contrast over gradients, translucent cards, the mesh or photos (it reports 15–70 "needs manual review" items per page), so contrast was measured on the real rendered pixels — the text is hidden, the true background behind every text element is sampled, and the worst-case pixel (the extreme 5% tail) is compared against the actual text colour. 567 of 568 text elements across all pages and the 390/1440px runs meet WCAG AA (4.5:1, or 3:1 for large text). The one exception is the Home Partners intro line at desktop width (about 2.2:1 in the worst-case pixel, over the photo's teal equipment), which the client reviewed on screen and accepted as is — see "Open items". Purely decorative text that is hidden from assistive technology (`aria-hidden`, e.g. the faded corner numerals on Home's Why AID Group cards) is exempt under WCAG 1.4.3, as it is in axe. The checker ignores text shadows, so the Areas of Engagement photo cards, which rely on a soft halo, are measured conservatively.
-  - **Keyboard:** every focusable element on every page shows a visible focus indicator and there are no keyboard traps (Home 24 stops, About 18); the Contact Email/Phone cards show a ring around the whole card; the Projects filter works with Enter and Space and keeps `aria-pressed` in sync; the shared mobile menu opens with Enter (`aria-expanded` false → true) and closes with Escape.
-  - **Reduced motion:** with `prefers-reduced-motion: reduce`, every hover lift, zoom, tilt and nudge stops, as does Home's one self-running animation (the bobbing arrow) and Projects' filter fade. The final version of this test finds animated elements automatically (every element with a movement transition, hovered with the preference on and off) instead of relying on a hand-picked list — a hand-picked list is what missed the Home items below, so all five pages were re-run with the automatic version.
+- **Layout:** every page at 320, 390, 768, 1024 and 1440px — no horizontal overflow, no broken images, no console errors, no element sticking out past the screen (25 of 25 page/width combinations pass; re-run after each round of fixes).
+- **Accessibility (axe-core, WCAG 2 A/AA + best-practice rules):** zero violations on all five pages at 1440 and 390px. Home and About each started with one violation (see "Fixed during the pass").
+- **Text contrast, measured directly:** axe cannot compute contrast over gradients, translucent cards, the mesh or photos (it reports 15–70 "needs manual review" items per page), so contrast was measured on the real rendered pixels — the text is hidden, the true background behind every text element is sampled, and the worst-case pixel (the extreme 5% tail) is compared against the actual text colour. 567 of 568 text elements across all pages and the 390/1440px runs meet WCAG AA (4.5:1, or 3:1 for large text). The one exception is the Home Partners intro line at desktop width (about 2.2:1 in the worst-case pixel, over the photo's teal equipment), which the client reviewed on screen and accepted as is — see "Open items". Purely decorative text that is hidden from assistive technology (`aria-hidden`, e.g. the faded corner numerals on Home's Why AID Group cards) is exempt under WCAG 1.4.3, as it is in axe. The checker ignores text shadows, so the Areas of Engagement photo cards, which rely on a soft halo, are measured conservatively.
+- **Keyboard:** every focusable element on every page shows a visible focus indicator and there are no keyboard traps (Home 24 stops, About 18); the Contact Email/Phone cards show a ring around the whole card; the Projects filter works with Enter and Space and keeps `aria-pressed` in sync; the shared mobile menu opens with Enter (`aria-expanded` false → true) and closes with Escape.
+- **Reduced motion:** with `prefers-reduced-motion: reduce`, every hover lift, zoom, tilt and nudge stops, as does Home's one self-running animation (the bobbing arrow) and Projects' filter fade. The final version of this test finds animated elements automatically (every element with a movement transition, hovered with the preference on and off) instead of relying on a hand-picked list — a hand-picked list is what missed the Home items below, so all five pages were re-run with the automatic version.
 
 **Fixed during the pass**
-  - **Services:** the Services and Scope intro/cluster card lift and the laboratory photo zoom did not respect reduced motion; at 320px the Areas of Engagement card text was squeezed to 168px by the icon reserve (now 190px, smaller icon below 360px).
-  - **Projects:** at 320px the "All Projects" filter button wrapped onto two lines (now one line at 380px and below).
-  - **Home:** (1) the two partner-tile `div`s carried an `aria-label`, which ARIA does not permit on a generic element (axe violation) — removed; the logo image's alt text and the visible partner name already label each tile; no visual change. (2) The Partners intro line ("We work alongside manufacturers…") measures about 2.2:1 in the worst-case pixel, where its right end runs over the photo's teal equipment and the veil has faded. A soft backing plate was tried and **rejected by the client**, who sees the text as fully legible on a transparent background; the original transparent treatment was restored, and this is recorded as a known, client-accepted item (see open items). (3) The Areas of Engagement card text sat at 4.48:1 against 4.5 (the card gradient is transparent at its left) — text colour nudged from `#37414a` to `#2b343c`, not visible. (4) Reduced motion: the Areas of Engagement card lift and the Expertise card scale, icon tilt and arrow nudge did not stop — fixed (colour and shadow changes on hover are kept; only movement is removed).
-  - **About:** (1) the large faded numerals 01–08 on the Key Advantages cards were real text tested for contrast (axe violation ×8) — they are now drawn from CSS (`::before` with `content: attr(data-n)`, the same technique as the Services Process numerals), so they are treated as decoration; no visual change. (2) The three bold highlighted phrases in "Why AID Group Was Created" measured 3.95–4.27:1 against 4.5 — text colour darkened from `--teal-dark` to `#164a49` (still teal, bold, with the same mint highlight).
-  - **Left alone on purpose:** Home's faded 01–04 numerals on the Why AID Group cards (decoration, `aria-hidden`, exempt).
 
-Still outstanding for the whole site (the original Phase 6 checklist; ticks show what the pass above covered):
-- Cross-device / responsive check, all pages — ✅ all five pages, five breakpoints
-- Navigation and internal linking check (all five pages now exist and are linked from the shared header/footer; not yet formally walked through link by link)
-- SEO technical check: heading hierarchy, alt text, meta tags per page, structured data
-- Accessibility check (WCAG AA) — ✅ all five pages (axe-core, measured contrast, keyboard, reduced motion)
-- Performance/load check
-- Content proofing, broken-link check
+- **Services:** the Services and Scope intro/cluster card lift and the laboratory photo zoom did not respect reduced motion; at 320px the Areas of Engagement card text was squeezed to 168px by the icon reserve (now 190px, smaller icon below 360px).
+- **Projects:** at 320px the "All Projects" filter button wrapped onto two lines (now one line at 380px and below).
+- **Home:** (1) the two partner-tile `div`s carried an `aria-label`, which ARIA does not permit on a generic element (axe violation) — removed; the logo image's alt text and the visible partner name already label each tile; no visual change. (2) The Partners intro line ("We work alongside manufacturers…") measures about 2.2:1 in the worst-case pixel, where its right end runs over the photo's teal equipment and the veil has faded. A soft backing plate was tried and **rejected by the client**, who sees the text as fully legible on a transparent background; the original transparent treatment was restored, and this is recorded as a known, client-accepted item (see open items). (3) The Areas of Engagement card text sat at 4.48:1 against 4.5 (the card gradient is transparent at its left) — text colour nudged from `#37414a` to `#2b343c`, not visible. (4) Reduced motion: the Areas of Engagement card lift and the Expertise card scale, icon tilt and arrow nudge did not stop — fixed (colour and shadow changes on hover are kept; only movement is removed).
+- **About:** (1) the large faded numerals 01–08 on the Key Advantages cards were real text tested for contrast (axe violation ×8) — they are now drawn from CSS (`::before` with `content: attr(data-n)`, the same technique as the Services Process numerals), so they are treated as decoration; no visual change. (2) The three bold highlighted phrases in "Why AID Group Was Created" measured 3.95–4.27:1 against 4.5 — text colour darkened from `--teal-dark` to `#164a49` (still teal, bold, with the same mint highlight).
+- **Left alone on purpose:** Home's faded 01–04 numerals on the Why AID Group cards (decoration, `aria-hidden`, exempt).
+
+**Original Phase 6 checklist — all items now done** (the Georgian rollout added a second, two-language pass; results are in "Georgian (`/ka/`) Translation — As Built" → "Final QA pass on both languages"):
+
+- Cross-device / responsive check, all pages — ✅ five breakpoints, both languages
+- Navigation and internal linking check — ✅ all 153 internal links resolve
+- SEO technical check: heading hierarchy, alt text, meta tags per page, structured data — ✅ both languages (one `<h1>` per page, no skipped levels, alt text on every image, unique titles/descriptions, per-language JSON-LD, hreflang round-trips)
+- Accessibility check (WCAG AA) — ✅ axe-core 0 violations on all ten pages; contrast, keyboard and reduced motion measured (see the Georgian section for the Home contrast decision)
+- Performance/load check — ✅ (about 200–500 KB per page, layout shift ≤ 0.02; local timings only)
+- Content proofing, broken-link check — ✅ English spell-check clean; external links could not be fetched from the build sandbox
 
 ---
 
@@ -295,7 +300,7 @@ Still outstanding for the whole site (the original Phase 6 checklist; ticks show
 - **Connect and deploy via Vercel — ✅ Done.** Site is live at `aid-group-astro.vercel.app`, auto-detected as an Astro static build (no adapter needed), redeploying automatically on every push to `main`.
 - **Root redirect fix — ✅ Done (not in the original plan).** Because `prefixDefaultLocale: true` leaves no page at `/`, `src/pages/index.astro` uses `Astro.redirect('/en/')`. On a static build this can only render as a client-side meta-refresh fallback page, which briefly flashed visible "Redirecting from `/` to `/en/`" text. Fixed with a `vercel.json` edge redirect (`/` → `/en/`), so the redirect now happens instantly at Vercel's edge before any HTML loads — this applies to every domain on the project, including the custom domain once connected.
 - **Connect custom domain — ✅ Done.** `gxp.ge` is live on Vercel (nameservers switched at domenebi.ge to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`), SSL auto-provisioned, and the `/` → `/en/` redirect confirmed working on the live domain.
-- Submit sitemap to Google Search Console, verify indexing — pending Phase 4.3 sitemap implementation
+- Submit sitemap to Google Search Console — ✅ done earlier (see "JSON-LD, Domain Fix and Search Console — As Built"). **Re-submit `https://gxp.ge/sitemap-index.xml` after the Georgian push** and request indexing for `/ka/`.
 - Confirm handoff plan for future content updates — Partners already proven out as a low-friction JSON edit; the same pattern will apply to Projects once built
 
 ---
@@ -307,11 +312,11 @@ All four inner pages use the same header block, so it has to look identical from
 - **Structure:** kicker + H1 + one intro paragraph on a white-to-`--bg` gradient, with the full logo lockup (`logo-watermark.png`) as a faint watermark on the right edge, aligned to the container's right edge. Watermark opacity 20% (14% on phones).
 - **Fixed sizes (unified):**
 
-  | | Desktop and tablet (768px and up) | Phones (767px and below) |
-  | --- | --- | --- |
-  | Header minimum height | 296px | 288px |
-  | Vertical padding | 72px | 48px |
-  | Watermark height | 260px | 180px (shifted 25% off the right edge) |
+  |                       | Desktop and tablet (768px and up) | Phones (767px and below)               |
+  | --------------------- | --------------------------------- | -------------------------------------- |
+  | Header minimum height | 296px                             | 288px                                  |
+  | Vertical padding      | 72px                              | 48px                                   |
+  | Watermark height      | 260px                             | 180px (shifted 25% off the right edge) |
 
 - **Why it was unified:** the watermark was originally sized as a percentage of the header's height (88% desktop, 70% mobile), so any difference in intro length changed the header height and, with it, the logo size. Projects has a one-line intro (the others have two), so its logo came out visibly smaller; on phones the logo also varied between pages (166px About, 184px Contact, 202px Services). Fixing the logo to an absolute size and giving every header the same minimum height removed the dependency on the text.
 - **Verified by measurement** at 1440, 1024, 768, 430, 390, 360 and 320px: all four headers are exactly 296px tall with a 260px logo at 768px and up, and exactly 288px with a 180px logo on phones down to 360px. **One known exception:** at 320px the Services header grows to 314px because its intro wraps to five lines; its logo stays 180px. Avoiding it would mean shortening the client's Services intro, so it was left.
@@ -336,7 +341,7 @@ HEADER (shared)
 FOOTER (shared)
 ```
 
-**Copy note — resolved:** the page intro reads *"Planning a facility, a GMP upgrade, or a qualification and validation project? Get in touch and we will get back to you."* It was written during build, before the Appendix A copy was supplied, but the client reviewed it and confirmed it is acceptable. The Appendix A line ("Let's discuss your project.") is historical only. The refinement pass did not touch the copy.
+**Copy note — resolved:** the page intro reads _"Planning a facility, a GMP upgrade, or a qualification and validation project? Get in touch and we will get back to you."_ It was written during build, before the Appendix A copy was supplied, but the client reviewed it and confirmed it is acceptable. The Appendix A line ("Let's discuss your project.") is historical only. The refinement pass did not touch the copy.
 
 **Design decisions:**
 
@@ -352,16 +357,16 @@ FOOTER (shared)
 - **Find Us band (light blue, `#e9f2f8` → `#d8e7f2`):** teal glow top-right, blue glow bottom-left, a faded blue dotted corner at the top-left; the heading has the standard hover underline; the map frame has an offset teal backing shape (35% opacity, offset 14px) like the site's photos, with a 14px right margin on phones so the shape stays inside the viewport; the "Open in Google Maps" button has 48px above it and the same soft white fill as the social buttons.
 - **The map itself was deliberately not changed** — client confirmed it works and needs no changes. Its size, teal bottom border, lazy-load script and `data-map-src` attribute are exactly as before.
 - **Not built, by choice:** an address card overlapping a corner of the map (with the Maps button inside it). It was in the proposed plan, then dropped when the client said the map should stay as it was. It can be added later if wanted.
-- **Shadow rule applied** (strong when the *next* section is dark or a photo, otherwise soft), stacking set by `--section-z`:
+- **Shadow rule applied** (strong when the _next_ section is dark or a photo, otherwise soft), stacking set by `--section-z`:
 
-  | Section | Stacking order | Next section | Shadow |
-  | --- | --- | --- | --- |
-  | Header | 6 | Contact cards (light) | soft |
-  | Contact cards | 5 | Find Us (light) | soft |
-  | Find Us | 4 | Footer (dark) | strong |
+  | Section       | Stacking order | Next section          | Shadow |
+  | ------------- | -------------- | --------------------- | ------ |
+  | Header        | 6              | Contact cards (light) | soft   |
+  | Contact cards | 5              | Find Us (light)       | soft   |
+  | Find Us       | 4              | Footer (dark)         | strong |
 
 - **Touch and motion:** hover effects run only under `@media (hover: hover)`; with `prefers-reduced-motion` the card movement and transitions are switched off.
-- **Files changed for this pass:** `src/pages/en/contact.astro` only (all markup and styles are in this file). No new assets (the logo watermark is reused) and no new dependencies.
+- **Files changed for this pass:** `src/pages/en/contact.astro` only (all markup and styles are in this file). No new assets (the logo watermark is reused) and no new dependencies. _(Historical: this page was later split into a shared template, its own CSS file and a paired English/Georgian text file — see "Georgian (`/ka/`) Translation — As Built".)_
 - **Tested:** built successfully after every step; screenshots checked at 1440 and 390px with no horizontal overflow; shadows and stacking order confirmed in the browser. The Google Maps embed cannot be previewed in the build sandbox (Google is blocked there), so the live map is confirmed by the client on the deployed site. **Final pass done** (320 / 390 / 768 / 1024 / 1440px, keyboard, reduced motion, axe, measured contrast) — see Phase 6.
 
 **Original build (superseded by the above):** Contact was first built as a plain page — flat white header, three plain white cards with a teal bottom border, a bare grey map rectangle, all on one flat grey background.
@@ -388,9 +393,10 @@ FOOTER (shared)
 ```
 
 **Design decisions (visual refinement pass):**
-- **Photo rule:** on About, background photos are kept fully clear. Readability comes from a fog on the *card only*, never a veil over the photo. Mobile uses the same cards.
+
+- **Photo rule:** on About, background photos are kept fully clear. Readability comes from a fog on the _card only_, never a veil over the photo. Mobile uses the same cards.
 - **Shared pieces:** every About section uses `.section-shadow` (global.css) and every heading uses `.h-underline` (underline draws in on hover; sizes in tokens `--underline-color/-height/-speed`). Both are reusable on other pages.
-- **Shadow rule applied:** the darker `.section-shadow--strong` is used when the *next* section is dark or a photo. On About: Overview (next = photo), Advantages (next = photo), Standards (next = dark footer) use strong; header and Why use the soft `--shadow-bar`. Section stacking is set with `--section-z` (header 6, Overview 5, Why 4, Advantages 3, Standards 2) so each shadow falls on the section below.
+- **Shadow rule applied:** the darker `.section-shadow--strong` is used when the _next_ section is dark or a photo. On About: Overview (next = photo), Advantages (next = photo), Standards (next = dark footer) use strong; header and Why use the soft `--shadow-bar`. Section stacking is set with `--section-z` (header 6, Overview 5, Why 4, Advantages 3, Standards 2) so each shadow falls on the section below.
 - **Touch and motion:** hover effects only run under `@media (hover: hover)`; with `prefers-reduced-motion` all movement and keyframe animation is switched off (global.css handles transitions/animations, the page adds explicit transform resets).
 - **Alt text:** the Standards photo has descriptive alt text on request; the Why photo and the header watermark are decorative (empty alt).
 - **Tested** at 320, 390, 768, 1024 and 1440 px: no horizontal overflow. **Formal final pass done** (axe, measured contrast, keyboard, reduced motion — see Phase 6). It led to two invisible-to-slightly-visible fixes: the Key Advantages numerals 01–08 are now drawn from CSS generated content so they count as decoration (no visual change), and the three bold highlighted phrases in "Why AID Group Was Created" use a darker teal (`#164a49`) to meet WCAG AA over the photo.
@@ -438,19 +444,20 @@ FOOTER (shared)
   - The heading is **right-aligned**, its right edge matching the card grid's right edge.
   - Six cards (2 columns desktop, 1 column at 899px and below), each with a faded Lucide line icon in the bottom-right corner that strengthens and tilts on hover: factory, rocket, globe, handshake, landmark, wrench. Teal edge bar and 2px lift on hover.
   - The photo is only 1400px wide, so it is enlarged about 1.4× on 1920px-wide screens and looks slightly soft there. If sharper results on large monitors are wanted, supply a ~2800px upscaled version under the same filename.
-- **Shadow rule applied** (strong when the *next* section is dark or a photo, otherwise soft), with stacking set by `--section-z`:
+- **Shadow rule applied** (strong when the _next_ section is dark or a photo, otherwise soft), with stacking set by `--section-z`:
 
-  | Section | Stacking order | Next section | Shadow |
-  | --- | --- | --- | --- |
-  | Header | 6 | Process (dark) | strong |
-  | Process | 5 | Services and Scope (light) | soft |
-  | Services and Scope + Clusters | 4 | Facility Types (light) | soft |
-  | Facility Types | 3 | Areas of Engagement (photo) | strong |
-  | Areas of Engagement | 2 | Footer (dark) | strong |
+  | Section                       | Stacking order | Next section                | Shadow |
+  | ----------------------------- | -------------- | --------------------------- | ------ |
+  | Header                        | 6              | Process (dark)              | strong |
+  | Process                       | 5              | Services and Scope (light)  | soft   |
+  | Services and Scope + Clusters | 4              | Facility Types (light)      | soft   |
+  | Facility Types                | 3              | Areas of Engagement (photo) | strong |
+  | Areas of Engagement           | 2              | Footer (dark)               | strong |
 
   This was audited twice: moving Process to the top, and later adding the photo to Areas, each changed which shadow was correct for a neighbouring section.
+
 - **Touch and motion:** hover effects run only under `@media (hover: hover)`; with `prefers-reduced-motion` the movement and transitions are switched off.
-- **Files changed for this pass:** `src/pages/en/services.astro` (all markup and styles are in this one file) and one new asset, `src/assets/images/areas-aerial-bg.jpg`. Lucide icons (`factory`, `rocket`, `globe`, `handshake`, `landmark`, `wrench`) come from the existing `lucide-static` package, no new dependencies.
+- **Files changed for this pass:** `src/pages/en/services.astro` (all markup and styles are in this one file) and one new asset, `src/assets/images/areas-aerial-bg.jpg`. Lucide icons (`factory`, `rocket`, `globe`, `handshake`, `landmark`, `wrench`) come from the existing `lucide-static` package, no new dependencies. _(Historical: this page was later split into a shared template, its own CSS file and a paired English/Georgian text file — see "Georgian (`/ka/`) Translation — As Built".)_
 - **Tested:** built successfully after every step; screenshots checked at 1440, 1100, 820 and 390px with no horizontal overflow. **Final pass done** (320 / 390 / 768 / 1024 / 1440px, keyboard, reduced motion, axe, measured contrast) — see Phase 6. It caught and fixed a reduced-motion bug on the Services and Scope cards and photo, and a too-narrow text column on the Areas cards below 360px. **Known and accepted:** at 320px the Services header grows to 314px because the client's intro wraps to five lines (the logo stays 180px).
 
 **Original build (superseded by the above):** Services was first built as a plain page — flat white/grey sections, a horizontally scrolling 10-step track with a scroll hint, and Services and Scope and the Service Clusters as two separate sections.
@@ -472,7 +479,7 @@ HEADER (shared)
 FOOTER (shared)
 ```
 
-**Data structure:** project content lives in `src/data/projects.json` (plain JSON — status, title, location, scope array, year, an image *key*, and alt text), matching the pattern already used for `partners.json`. The image itself lives in `src/assets/images/project/`, one level deeper than other page images, and is imported directly in `projects.astro` with a small lookup table mapping each JSON `image` key to the actual imported file. This split — plain JSON for data, real imports for images — exists so project data can be added by editing only the JSON file, while images still get Astro's automatic build-time optimization (resize + WebP conversion), which a plain string path into `public/` would not get. To add a new project: drop the photo in `src/assets/images/project/`, add one `import` line and one map entry in `projects.astro`, then reference that key from `projects.json`.
+**Data structure:** project content lives in `src/data/projects.json` (plain JSON — status, title, location, scope array, year, an image _key_, and alt text), matching the pattern already used for `partners.json`. The image itself lives in `src/assets/images/project/`, one level deeper than other page images, and is imported directly in `projects.astro` with a small lookup table mapping each JSON `image` key to the actual imported file. This split — plain JSON for data, real imports for images — exists so project data can be added by editing only the JSON file, while images still get Astro's automatic build-time optimization (resize + WebP conversion), which a plain string path into `public/` would not get. To add a new project: drop the photo in `src/assets/images/project/`, add one `import` line and one map entry in `projects.astro`, then reference that key from `projects.json`.
 
 **Real project live:** Pharmaceutical Secondary Packaging GMP Facility with Laboratory and Warehouse — Kutaisi, Georgia — Completed, 2026. Scope: zoning, floor movement plan, movement flows, interlock system, lighting and supply/exhaust, cleaning plan, room and ceiling configuration. Image is the facility's zoning/layout drawing; the title block's "Project Owner" field was blanked out by the client before upload, staff names (preparer/checker/approver) remain visible per client's confirmation.
 
@@ -490,7 +497,7 @@ FOOTER (shared)
 - **Filter transitions:** when a filter reveals a card or the empty message it fades in and rises 10px over 0.4s, once; cards already visible do not replay it. Switched off for visitors who prefer reduced motion.
 - **Tried and removed:** a "View full size" link under the drawing (opening the original in a new tab) was added so the drawing's small text could be read, then removed on the client's instruction — not required. The card shows the drawing only.
 - **Touch and motion:** hover effects run only under `@media (hover: hover)`.
-- **Files changed for this pass:** `src/pages/en/projects.astro` and `src/data/projects.json`. No new assets or dependencies (the three icons come from the existing `lucide-static` package).
+- **Files changed for this pass:** `src/pages/en/projects.astro` and `src/data/projects.json`. No new assets or dependencies (the three icons come from the existing `lucide-static` package). _(Historical: this page was later split into a shared template, its own CSS file and a paired English/Georgian text file — see "Georgian (`/ka/`) Translation — As Built".)_
 - **Tested:** built successfully after every step; screenshots at 1440 and 390px with no horizontal overflow; the full filter sequence All → Ongoing → Completed → All checked in a browser (card count, empty message, pressed state, fade class added and removed) with no JavaScript errors. **Final pass done** (320 / 390 / 768 / 1024 / 1440px, keyboard, reduced motion, axe, measured contrast) — see Phase 6.
 
 **Original build (superseded by the above):** Projects was first built as a plain page — flat white header, a plain pill toggle, plain white cards with a teal bottom border, all on one flat grey background, and the same project repeated three times.
@@ -500,18 +507,22 @@ FOOTER (shared)
 ## JSON-LD, Domain Fix and Search Console — As Built
 
 **`ProfessionalService` JSON-LD** — added to `BaseLayout.astro`, so it renders identically on all five pages (`<script type="application/ld+json">` in the `<head>`). Fields used:
+
 - `name`: AID Group
 - `legalName`: `LLC "Engineering and Consulting Company AID Group"` (client-supplied legal name, formatted as the standard English rendering of a Georgian LLC filing — flagged to client as an assumption, not corrected)
 - `taxID`: 405843084 (client-supplied legal ID)
-- `address`, `telephone`, `email`: same as the footer (166 Otar Chiladze Str., Tbilisi 0160, Georgia · +995 571 13 03 35 · aidgcec@gmail.com)
+- `address`, `telephone`, `email`: same as the footer (166 Otar Chiladze Str., Tbilisi 0160, Georgia · +995 544 55 69 55 · aidgcec@gmail.com)
 - `sameAs`: the Facebook page
 - `url`/`logo`/`image`: point to `gxp.ge/en/` and the existing `og-image.jpg`
+
+**Update (Georgian rollout):** the JSON-LD is now generated per language in `BaseLayout.astro`. Georgian pages use the Georgian legal name (შპს „საინჟინრო და საკონსულტაციო კომპანია აიდ ჯგუფი“, now supplied by the client — the English rendering above is still the English-page value), the Georgian street and city, and `url` `https://gxp.ge/ka/`. The English output is unchanged.
 
 Validated with Google's Rich Results Test — passes with "2 valid items" (Organization + Local business; `ProfessionalService` is a subtype of both, so this is expected, not a duplication issue). One non-critical note from Google on optional fields (e.g. hours, price range) not being set — left as-is, not required for validity.
 
 **Domain/www conflict found and fixed.** Discovered while testing the JSON-LD: `gxp.ge` was redirecting to `www.gxp.ge` (the reverse of what the sitemap, canonical tags and JSON-LD all assumed). Fixed in Vercel's domain settings — `gxp.ge` is now the Production domain, and `www.gxp.ge` 301-redirects to it. Confirmed via Rich Results Test re-run that `gxp.ge` now resolves directly with no `www` hop.
 
 **Search Console setup:**
+
 - Property type: **Domain** (covers `gxp.ge`, `www.gxp.ge`, and both http/https under one property — appropriate since Vercel manages DNS for the domain).
 - Verified via DNS TXT record (`google-site-verification=...`), added directly in Vercel's DNS Records panel for `gxp.ge`.
 - Ownership was initially added under the wrong Google account; corrected by adding the intended account as an Owner in Search Console's Users & Permissions, rather than re-verifying from scratch.
@@ -519,7 +530,129 @@ Validated with Google's Rich Results Test — passes with "2 valid items" (Organ
 
 ---
 
+## Georgian (`/ka/`) Translation — As Built
+
+**Status: ✅ complete.** All five pages exist in Georgian at `/ka/`, `/ka/about/`, `/ka/services/`, `/ka/projects/`, `/ka/contact/`, mirroring the English pages one to one. The Georgian text was drafted page by page and reviewed and accepted by the client at each step. Founders & Team remains postponed in both languages. Because the Georgian menu links to every page, the work is meant to be pushed to GitHub as **one release**, not page by page.
+
+### How the code is organised now (supersedes "all markup and styles are in this file" in the per-page notes above)
+
+| Layer       | Where                                                         | Notes                                                                                                                                                                                                                                                                                                         |
+| ----------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Routes      | `src/pages/en/<page>.astro`, `src/pages/ka/<page>.astro`      | Three-line wrappers: `<Page lang="en" />` / `<Page lang="ka" />`. Home is `index.astro` in each folder. The bare `/` still redirects to `/en/` (`vercel.json`).                                                                                                                                               |
+| Templates   | `src/templates/{Home,About,Services,Projects,Contact}.astro`  | Markup and the few small scripts. One template serves both languages.                                                                                                                                                                                                                                         |
+| CSS         | `src/styles/pages/{home,about,services,projects,contact}.css` | One file per page. Every selector sits under `.page-<name>`, a class that `BaseLayout.astro` puts on `<main>` (`pageClass` prop), so a page's CSS can never leak into another page or the header/footer. Keyframes were renamed per page (`home-guide-bob`, `about-tick`, `services-tick`, `projects-enter`). |
+| Page text   | `src/i18n/pages/{home,about,services,projects,contact}.ts`    | English and Georgian **side by side**: `title: { en: 'Contact Us', ka: 'დაგვიკავშირდით' }`.                                                                                                                                                                                                                   |
+| Shared text | `src/i18n/common.ts`                                          | Menu, footer, contact details, accessibility labels, legal name, city. Values that are identical in both languages (email, phone, URLs) are written once.                                                                                                                                                     |
+| Helpers     | `src/i18n/index.ts`                                           | `localize()` (picks the language at build time), `strings`, `langFromPath`, `kaPages`, `langLinks` (EN \| GE switch), `pageAlternates` (hreflang).                                                                                                                                                            |
+| Data        | `src/data/projects.json`                                      | Text fields are `{ en, ka }` pairs. `partners.json` needed no change (brand names and logos only).                                                                                                                                                                                                            |
+
+**Safety net:** if any text pair is missing a language, or its Georgian is left empty, the build **stops with an error naming the exact line**, so an untranslated string cannot reach the live site by accident. The old `src/i18n/en.ts` and `ka.ts` no longer exist.
+
+**Rendering rule:** texts that contain `<strong>` or `<mark>` (About "Why AID Group Was Created", Home "At a Glance" / "Our Positioning") are written with the tags inside each language's own sentence and rendered with `set:html`, so Georgian word order is free. Home's expertise card titles store their highlighted word per language (`parts` with `em: true`).
+
+**How to…**
+
+- _Change a text:_ edit the pair in the page's `.ts` file (or `common.ts`), keep both languages.
+- _Add a project:_ add one entry to `src/data/projects.json`, with `{ en, ka }` for title, location, scope items and image alt text.
+- _Add a page:_ create template + CSS + text file + the two route wrappers, then add its slug to `kaPages` in `src/i18n/index.ts` (this enables the GE link and the hreflang pair for it).
+
+### URL structure, language switch and fonts
+
+- **Separate addresses per language (`/en/…`, `/ka/…`) — decision, do not re-open.** A browser-memory (localStorage) language setting was considered and rejected: search engines would only ever see one language, links could not carry a language, and it needs JavaScript. A "remember the last language on `/`" redirect was also dropped by the client.
+- **EN | GE switch** links to the matching page in the other language (names are written in their own language for screen readers: "English", "ქართული"). It is only active for slugs listed in `kaPages` (currently all five pages). The change is a normal page load; images, CSS and fonts come from the browser cache.
+- **Font:** Noto Sans Georgian 400/500/600/700, self-hosted via `@fontsource/noto-sans-georgian` (needs `npm install` after pulling). The stack keeps the Latin fonts first (`html[lang='ka']` in `tokens.css`), so GMP, GDP and "AID Group" look identical to English and only Georgian letters use Noto. English pages download no Georgian font; Georgian pages carry about 60–90 KB more.
+
+### Georgian typography and layout decisions
+
+- **Menu:** English keeps uppercase with wide letter-spacing. For Georgian the menu is lowercase with letter-spacing .02em (client decision). At 768–899px Georgian uses 13px text, .01em spacing and 24px gaps; at 900–1023px the gap is 40px. Logo clearance in Georgian is at least 20px at 768px.
+- **English header at about 768px (open item closed):** the gap between menu items is 32px between 768 and 899px, so the logo no longer touches "HOME" (2px → 34px). Desktop and phone are unchanged.
+- **Georgian-only small-phone rules** (very long single words): Services "თანამშრომლობის მიმართულებები" heading 22px below 360px; Home hero heading 28px below 375px and 26px below 340px. English is untouched.
+- Small decorative labels (kickers) keep the English uppercase style; change in the page CSS file if it ever looks wrong.
+- The logo's accessible description is now language-aware (`a11y.logoAlt`).
+
+### Georgian glossary (client-approved)
+
+| English                                           | Georgian                                                         |
+| ------------------------------------------------- | ---------------------------------------------------------------- |
+| For a Healthier Tomorrow                          | ჯანსაღი მომავლისთვის                                             |
+| Pharmaceutical consulting and engineering company | ფარმაცევტული საკონსულტაციო და საინჟინრო კომპანია                 |
+| Consulting & Compliance                           | კონსულტაცია და შესაბამისობა                                      |
+| Facility & Engineering Design                     | საწარმო და საინჟინრო სისტემების დაპროექტება _(client's wording)_ |
+| Utilities & Critical Systems                      | დამხმარე და პირველადი საინჟინრო სისტემები _(client's wording)_   |
+| Equipment & Procurement                           | აღჭურვილობა და შესყიდვები                                        |
+| Implementation & Commissioning                    | განხორციელება და ექსპლუატაციაში გაშვება                          |
+| Qualification & Validation                        | კვალიფიკაცია და ვალიდაცია                                        |
+| Facility Modernization                            | ობიექტის მოდერნიზაცია                                            |
+| Cleanroom                                         | სუფთა ოთახი                                                      |
+| Our End-to-End Process                            | ჩვენი სრული ციკლის პროცესი                                       |
+| Project coordination                              | პროექტის კოორდინაცია                                             |
+
+Kept in Latin letters: AID Group, GMP, GDP, URS, FAT, SAT, DQ/IQ/OQ/PQ, HVAC, SOP, PIC/S, ISO, ICH, GEP. "EU" is written ევროკავშირი in running text.
+**Legal name (Georgian):** შპს „საინჟინრო და საკონსულტაციო კომპანია აიდ ჯგუფი“ · **Address:** ოთარ ჭილაძის ქ. №166, თბილისი 0160, საქართველო.
+_Known wording note:_ ობიექტი ("facility") appears in "Facility Modernization" while "Facility & Engineering Design" uses საწარმო (client's correction). Both kept as approved.
+
+### SEO for both languages (this closes the postponed hreflang item)
+
+- **hreflang** `en`, `ka` and `x-default` (English) on every page that exists in both languages; `og:locale` `ka_GE` / `en_US` with `og:locale:alternate`. Each page's canonical URL points to itself. Verified: all 10 pages round-trip correctly.
+- **JSON-LD** is now built per language: Georgian pages carry the Georgian legal name, Georgian street and city, and `url` `https://gxp.ge/ka/`. The English output is byte-for-byte unchanged.
+- **Sitemap:** 10 URLs, each with `xhtml:link` alternates (`i18n` option of `@astrojs/sitemap`). The bare `/` stays excluded.
+- **Share image:** the same logo image for both languages.
+- **Georgian keyword list (client-reviewed):**
+
+| Priority  | Georgian                                   | English meaning                  |
+| --------- | ------------------------------------------ | -------------------------------- |
+| Primary   | GMP კონსულტაცია                            | GMP consulting                   |
+| Primary   | ფარმაცევტული ინჟინერია                     | pharmaceutical engineering       |
+| Primary   | ფარმაცევტული საწარმოს დაპროექტება          | pharmaceutical facility design   |
+| Primary   | კვალიფიკაცია და ვალიდაცია                  | qualification and validation     |
+| Primary   | სუფთა ოთახები                              | cleanrooms                       |
+| Secondary | GDP / ფარმაცევტული საწყობი                 | GDP / pharma warehouse           |
+| Secondary | საწარმოს მოწყობა „გასაღები ხელში“          | turnkey facility setup           |
+| Secondary | GMP აუდიტი / GMP-სთვის მზადყოფნის შეფასება | GMP audit / readiness assessment |
+| Secondary | აღჭურვილობის შერჩევა                       | equipment selection              |
+| Secondary | ფარმაცევტული წყლის სისტემები               | pharmaceutical water systems     |
+| Secondary | საწარმოს მოდერნიზაცია                      | facility modernization           |
+
+- **Note:** some Georgian meta descriptions are long (About 199 characters, Services 174) and may be cut short in search results. They are client-approved copy; shortening them is optional.
+
+### How each page was verified during the conversion
+
+- **English must not change.** Before each page was touched, a baseline was captured (5–9 widths plus hover and filter states). After the refactor the English page was compared pixel by pixel: **identical on every page**, except the two small "GE" labels (header and footer), which turned from greyed-out into links once the Georgian page existed. After the text was moved into paired files, the whole built site (159 files, both languages) was compared byte for byte: **identical**.
+- Georgian pages: no horizontal overflow at the same widths, filters/menus working, links pointing to `/ka/…`, checked visually at desktop and phone widths.
+
+### Final QA pass on both languages (10 pages)
+
+- **Layout:** 320, 390, 768, 1024, 1440px on all ten pages (50 combinations): no overflow, nothing running into the side margins, no broken images, no console errors.
+- **Accessibility (axe-core 4.13):** **0 violations** in all 20 runs (10 pages × 390/1440px).
+- **Text contrast on real pixels:** About, Services, Projects and Contact pass in both languages at every tested width. **Home:** a few spots are slightly below 4.5:1 where text sits over the soft decorative glows (At a Glance cards, one Why heading, an English engagement card at 1440px) and the Partners intro line over the photo (already accepted). **Client decision: contrast stays exactly as set — it was set on purpose.** A test colour change was evaluated in the browser only and never applied.
+- **Keyboard:** every interactive element reachable and visibly focused (desktop: Home 26, About 20, Services 20, Projects 23, Contact 26 stops); phone menu opens with Enter, all six items focusable, Escape closes it and returns focus to the toggle — in both languages.
+- **Reduced motion:** no movement or keyframe animation runs (only subtle colour and opacity fades).
+- **Structure and parity:** one `<h1>` per page, no skipped heading levels, every image has an alt attribute, unique titles and descriptions per language, one `main`/`header`/`footer` per page, no duplicate ids. **English and Georgian match exactly** on heading outline, images, links and list items for all five pages.
+- **Links:** all 153 internal links resolve. The external links (radiance.ge, WhatsApp, Facebook, Google Maps) could not be fetched from the build sandbox.
+- **Performance (mobile, local, cold):** pages weigh about 200–500 KB, layout shift ≤ 0.02, no JavaScript framework. Timing figures were taken on the local server, so treat them as relative, not as real-network numbers.
+- **Proofreading:** English spell-check clean; the Georgian pages contain no stray English words except the approved acronyms and brand names; email, phone and address identical on all ten pages; glossary terms used consistently.
+- **Fixed during the pass:** the logo image's description was hard-coded English on Georgian pages.
+
+### Post-push checklist
+
+1. After pulling the new files run `npm install` (new font package), then `npm run build` once.
+2. After deploy open `/en/`, `/ka/` and each EN ↔ GE switch.
+3. Google Search Console: re-submit `https://gxp.ge/sitemap-index.xml` (use the full absolute URL — the relative path was rejected earlier) and use **URL Inspection** → "Request indexing" for `/ka/` and the main `/en/` and `/ka/` pages (Google limits how many requests per day). _Correction:_ Google retired the Search Console "International Targeting" report in 2022, so there is no hreflang report to wait for; hreflang is still supported. To confirm it works, inspect a Georgian URL in URL Inspection ("View crawled page" shows the `<head>`) or use a third-party hreflang checker, and look at the Pages report after a few weeks.
+4. Optionally re-run Google's Rich Results Test on `https://gxp.ge/ka/`.
+
+### Still open (all optional, none blocking)
+
+- Vector (SVG) logo file; `logo-full.png` tagline glitch.
+- A real screen-reader test and a real-device load test (not possible from the build sandbox).
+- Founders & Team (postponed indefinitely).
+- Optional polish: shorten the two long Georgian meta descriptions; "GMP-ის" can break after its hyphen across two lines.
+- The site has no custom 404 page (Vercel's default is shown).
+
+---
+
 ## Appendix A — Final English Website Copy
+
+> Georgian copy is not duplicated in this appendix. It lives in `src/i18n/pages/*.ts` and `src/i18n/common.ts`, side by side with the English.
 
 Single source of truth for all page content, restored in full below (previously trimmed to avoid duplication once About/Services/Projects/Contact were expected to be built soon; since those pages are still pending, the full copy is kept here again so nothing has to be re-requested from the client).
 
@@ -537,6 +670,7 @@ Quick Links (nav repeated) · Contact (Email / Phone / **two-line address**) · 
 Bottom line: `© AID Group [year]` · **"Built by Radiance"** (now a link to `radiance.ge`, shortened from "Website built by Radiance") · `EN | GE`
 
 Address, as now shown on two lines:
+
 > 166 Otar Chiladze Str.
 > Tbilisi 0160, Georgia.
 
@@ -700,14 +834,14 @@ Toggle: `[Completed] [Ongoing]` — cards rendered from a data array, displayed 
 
 > Let's discuss your project.
 
-**Details:** Email aidgcec@gmail.com · Phone +995 571 13 03 35 (also WhatsApp) · Address: Otar Chiladze St. #166, Tbilisi, Georgia, 0160
+**Details:** Email aidgcec@gmail.com · Phone +995 544 55 69 55 (also WhatsApp) · Address: Otar Chiladze St. #166, Tbilisi, Georgia, 0160
 **Map:** live Google Maps embed of the above address
 
 > **Build status vs. this copy:** implemented. The page intro differs from the line above, and the client confirmed the built version — see "Contact — As Built" above.
 
 ---
 
-**Georgian version:** unchanged status — not yet drafted, deferred until English is fully built.
+**Georgian version:** ✅ built — see "Georgian (`/ka/`) Translation — As Built" (text in `src/i18n/pages/contact.ts`).
 
 ---
 
@@ -718,14 +852,13 @@ Each numbered sub-step is completed and presented for approval before moving to 
 **Phase 5 (Build) is essentially complete: all five pages are live — Home, About (minus Founders & Team), Services, Projects and Contact. Phase 4.3 SEO infrastructure (sitemap, robots.txt, canonical/OG/Twitter tags) is done and now covers real content on every page. Phase 7 (Deploy) is live — gxp.ge connected on Vercel, `/` → `/en/` redirect confirmed working.**
 
 **Everything on the client's list is now closed out, except two items intentionally left for last:**
+
 1. ~~Founders and Team Experience~~ — **postponed indefinitely** on client instruction (not "to be scheduled later" — a deliberate, open-ended hold). Copy remains ready in Appendix A if this is ever revisited.
 2. ~~`ProfessionalService` JSON-LD~~ — ✅ done. See "JSON-LD, Domain Fix and Search Console — As Built" above.
 3. ~~Contact page intro discrepancy~~ — **resolved, no change needed.** Client reviewed and confirmed the as-built intro is acceptable; the Appendix A line ("Let's discuss your project.") is no longer the target. Appendix A's Contact copy is now historical/reference only for this one line.
 4. ~~Submit the sitemap to Google Search Console~~ — ✅ done. Along the way, also found and fixed a `www.gxp.ge` vs `gxp.ge` domain redirect conflict, verified domain ownership via DNS TXT record, and corrected the property to the right Google account. See "JSON-LD, Domain Fix and Search Console — As Built" above for the full detail, including a note on the exact sitemap URL format that worked.
 
-**Remaining, by client's explicit choice — saved for last:**
-5. **hreflang alternates** — blocked on `/ka/` pages not existing; will be done as part of the Georgian rollout, not before.
-6. **Georgian (`/ka/`) translation** — not started. This is now the only major remaining body of work. English is fully built and live, all SEO infrastructure is in place and submitted, so this is a clean point to begin translation whenever the client is ready.
+**Remaining, by client's explicit choice — saved for last:** 5. ~~hreflang alternates~~ — ✅ done with the Georgian rollout. 6. ~~Georgian (`/ka/`) translation~~ — ✅ **done** on all five pages (see "Georgian (`/ka/`) Translation — As Built"). **The project is feature-complete; what remains is the single push to GitHub and the post-push checklist in that section.**
 
 **Services page status (for reference):** Header ✅ · Our End-to-End Process (moved to the top) ✅ · Services and Scope + 7 Service Clusters (merged) ✅ · Facility Types We Support ✅ · Areas of Engagement (aerial photo background) ✅. **Visual refinement pass (CSS) on Services: ✅ all sections done, approved section by section.** **Formal final pass: ✅ done** (see Phase 6).
 
@@ -735,12 +868,14 @@ Each numbered sub-step is completed and presented for approval before moving to 
 
 **Header unification:** the four inner-page headers (About, Services, Contact, Projects) are now identical in height and logo size — see "Shared Inner-Page Header — As Built".
 
-**All five pages are now through both the visual refinement pass and the formal final pass** (see Phase 6). Remaining site-wide work: navigation/internal-link walkthrough, SEO technical check, performance/load check, and content proofing with a broken-link check.
+**All five pages are now through both the visual refinement pass and the formal final pass** (see Phase 6). The site-wide checks that were still open (navigation/link walkthrough, SEO technical check, performance, proofing and broken-link check) were completed in the two-language final pass.
 
 **Open items found by the final pass (decisions for the client, nothing broken):**
-- **Contact — map focus:** the Google Maps iframe takes keyboard focus but shows no focus indicator of its own (it is a third-party embed, and the client asked that the map not be changed). A one-line `:focus-visible` outline on `.map iframe` would fix it if wanted.
-- **Shared site header at about 768px:** the logo sits very close to the "HOME" nav link. This is the shared header component, outside the pages covered by the contrast/layout work.
+
+- **Contact — map focus:** the Google Maps iframe takes keyboard focus but shows no focus indicator of its own (third-party embed). **Client decision: leave as is.**
+- **Shared site header at about 768px:** ✅ **fixed** — menu-item gap reduced to 32px between 768 and 899px (logo-to-HOME clearance 2px → 34px). Georgian has its own tablet spacing (see the Georgian section).
 - **Services at 320px:** the header is 314px tall rather than 288px (intro copy wraps to five lines) — accepted; only shortening the client's intro would remove it.
+- **Home contrast (final decision):** the few spots slightly under 4.5:1 over decorative glows were reviewed; **the client keeps contrast exactly as set, on purpose.** Nothing to change.
 - **Home — Partners intro line (client-accepted):** the intro text sits directly on the photo with no backing. The client reviewed it on screen and prefers it that way, and it reads clearly. A worst-case pixel measurement at the right end of the line (over the teal equipment) is about 2.2:1, below the 4.5:1 guideline; it is accepted as is. If this is ever revisited without adding a visible plate, options are a very soft text halo or shortening the line so it ends before the photo's busy right side.
 
 **About page section status (for reference):** Page intro + Company Overview ✅ · Why AID Group Was Created ✅ · Key Advantages & Differentiation ✅ · Founders and Team Experience ⏸ postponed indefinitely · Standards & Regulatory Frameworks ✅. **Visual refinement pass (CSS) on About: ✅ complete** (all sections, final polish and mobile check done); Home was refined earlier.
